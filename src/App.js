@@ -1,24 +1,100 @@
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
+import { FormControl, MenuItem, Select, Card, CardContent } from '@mui/material';
+import InfoBox from './InfoBox';
+import Map from './Map';
 import './App.css';
 
 function App() {
+  const [countries, setCountries] = useState([]);
+  const [country, setCountry] = useState("worldwide");
+  const [countryInfo, setCountryInfo] = useState({});
+
+
+  //https://disease.sh/v3/covid-19/all
+  
+  //useeffect
+
+  useEffect(() => {
+    fetch('https://disease.sh/v3/covid-19/all')
+    .then(response => response.json())
+    .then(data => {
+      setCountryInfo(data);
+    })
+  })
+  useEffect(()=>{
+    const getCountriesData = async () => {
+      await fetch ("https://disease.sh/v3/covid-19/countries")
+      .then((response) => response.json())
+      .then((data) => {
+        const countries = data.map((country) => (
+          {
+            name: country.country,
+            value: country.countryInfo.iso2
+          }
+        ))
+
+        setCountries(countries);
+      })
+    }
+    getCountriesData();
+  }, [countries]);
+  const onCountryCHange = async (event) => {
+    const countryCode = event.target.value;
+    console.log('yooooooo>>>>>', countryCode);
+    const url = countryCode === "worldwide" ? 'https://disease.sh/v3/covid-19/all' : `https://disease.sh/v3/covid-19/countries/${countryCode}`
+    await fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      setCountry(countryCode);
+      setCountryInfo(data);
+    })
+
+    // https://disease.sh/v3/covid-19/all
+    // https://disease.sh/v3/covid-19/countries/[COUNTRY_CODE]
+
+    console.log('yooooooo>>>>>', countryInfo);
+
+
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <div className='app__left'>
+      <div className='app__header'>
+        
+      <h1> COVID-19 TRACKER</h1>
+      <FormControl className="app__dropdown">
+        <Select variant="outlined" value={country} onChange={onCountryCHange} >
+          <MenuItem value = "worldwide">Worldwide</MenuItem>
+          {
+            countries.map(country => (
+              <MenuItem value = {country.value}>{country.name}</MenuItem>
+            ))
+          }
+        </Select>
+      </FormControl>
+        
+        </div>          
+        <div className='app__stats'>
+          <InfoBox title="COVID Cases" cases= {countryInfo.todayCases} total = {countryInfo.cases}/>
+          <InfoBox title="Recovered" cases= {countryInfo.todayRecovered} total = {countryInfo.recovered}/>
+          <InfoBox title="Death" cases= {countryInfo.todayDeaths} total = {countryInfo.deaths}/>
+        </div>        
+
+        <Map></Map>
+      </div>
+
+      <Card className='app__right'>
+        <CardContent>
+          <h3>Live cases by country</h3>
+          <h3>World wide new cases</h3>
+
+        </CardContent>
+
+      </Card>
+
+
     </div>
+    
   );
 }
 
