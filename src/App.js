@@ -3,11 +3,15 @@ import { FormControl, MenuItem, Select, Card, CardContent } from '@mui/material'
 import InfoBox from './InfoBox';
 import Map from './Map';
 import './App.css';
+import Table from './Table';
+import { sortData } from './util';
+import LineGraph from './LineGraph';
 
 function App() {
   const [countries, setCountries] = useState([]);
   const [country, setCountry] = useState("worldwide");
   const [countryInfo, setCountryInfo] = useState({});
+  const [tableData, setTableData] = useState([]);
 
 
   //https://disease.sh/v3/covid-19/all
@@ -32,7 +36,8 @@ function App() {
             value: country.countryInfo.iso2
           }
         ))
-
+        const sortedData = sortData(data)
+        setTableData(sortedData);
         setCountries(countries);
       })
     }
@@ -80,14 +85,15 @@ function App() {
           <InfoBox title="Death" cases= {countryInfo.todayDeaths} total = {countryInfo.deaths}/>
         </div>        
 
-        <Map></Map>
+        <Map />
       </div>
 
       <Card className='app__right'>
         <CardContent>
-          <h3>Live cases by country</h3>
+          <h3>Live Cases By Country</h3>
+          <Table countries={tableData}/>
           <h3>World wide new cases</h3>
-
+          <LineGraph />
         </CardContent>
 
       </Card>
