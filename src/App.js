@@ -6,13 +6,13 @@ import './App.css';
 import Table from './Table';
 import { sortData } from './util';
 import LineGraph from './LineGraph';
+import "leaflet/dist/leaflet.css";
 
 function App() {
   const [countries, setCountries] = useState([]);
   const [country, setCountry] = useState("worldwide");
   const [countryInfo, setCountryInfo] = useState({});
   const [tableData, setTableData] = useState([]);
-
 
   //https://disease.sh/v3/covid-19/all
   
@@ -85,7 +85,7 @@ function App() {
           <InfoBox title="Death" cases= {countryInfo.todayDeaths} total = {countryInfo.deaths}/>
         </div>        
 
-        <Map />
+        <Map/>
       </div>
 
       <Card className='app__right'>
