@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from 'react';
-import {FormControl, MenuItem, Select, Card, CardContent} from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { FormControl, MenuItem, Select, Card, CardContent } from '@mui/material';
 import InfoBox from '../components/InfoBox';
 import Map from '../components/Map';
 import Table from '../components/Table';
-import {sortData} from '../util';
+import { sortData } from '../util';
 import LineGraph from '../components/LineGraph';
 import "leaflet/dist/leaflet.css";
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-import "leaflet/dist/leaflet.css";
 import { Link ,Outlet, useMatch, useResolvedPath} from 'react-router-dom';
 
 function App() {

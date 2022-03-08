@@ -20,7 +20,7 @@ ReactDOM.render(
         <Route path="community" element={<Community />} />
         <Route path="health" element={<Health />} />
         <Route path="news" element={<News />} />
-        </Route>
+      </Route>
     </Routes>
   </BrowserRouter>,document.getElementById('root'));
 
