@@ -17,12 +17,15 @@ function App() {
         <div className="App">
         <nav className='NavbarItems'>
         <h1 className='navbar-logo'>COVID-19 TRACKER</h1>
+        <div>
+            <div className='nav-login'>Sign In / Sign Up</div>
           <ul className='nav-menu'>
             <li><CustomLink to='/'>Data</CustomLink></li>
             <li><CustomLink to='/community'>Community</CustomLink></li>
             <li><CustomLink to='/health'>Health</CustomLink></li>
             <li><CustomLink to='/news'>News</CustomLink></li>
           </ul>
+        </div>
           </nav>
           <Outlet />
        

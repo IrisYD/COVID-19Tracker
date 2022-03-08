@@ -57,7 +57,7 @@ body{
   width: 70vw;
   justify-content: end;
   margin-right: 2rem;
-  margin-top: 100px;
+  margin-top: 70px;
   font-weight: 200;
 }
 
@@ -75,6 +75,17 @@ body{
 
 .nav-link__focus {
   font-weight: 600;
+}
+
+.nav-login {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 4em;
+  margin-top: 2em;
+  color:#fff;
+  font-size: small;
+
+
 }
 
 /* .fa-bars {
