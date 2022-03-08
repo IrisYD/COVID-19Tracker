@@ -32,13 +32,38 @@ body{
 }
 
 .NavbarItems{
-  background: linear-gradient(90deg, rgb(0, 143, 118) 0%, rgba(73, 63, 252, 1) 90%);
+  /* background: linear-gradient(60deg, rgba(73, 63, 252, 1) 0%,  rgb(0, 143, 118) 70%); */
+  background: rgb(0, 143, 118);
   height: 160px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 1.2rem;
   margin-bottom: 20px;
+}
+
+.NavbarItems {
+  position: relative;
+}
+
+.NavbarItems > div {
+  z-index: 2;
+}
+
+.NavbarItems::before {
+  content: '';
+  z-index: 1;
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 200px;
+  bottom: 0;
+  background-size: auto 150%;
+  background-image: url(nav-bar-pic.png);
+  background-position: 0 -10px;
+  background-repeat: no-repeat;
+  opacity: .2
 }
 
 .navbar-logo{
@@ -68,7 +93,8 @@ body{
 }
 
 .nav-link:hover {
-  background-color: #6d76f7;
+  /* background-color: #6d76f7; */
+  background-color: #1DAC93;
   border-radius: 4px;
   transition: all 0.2s ease-out;
 }
