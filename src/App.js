@@ -17,7 +17,7 @@ function App() {
         <nav className='NavbarItems'>
         <h1 className='navbar-logo'>COVID-19 TRACKER</h1>
         <div>
-            <div className='nav-login'>Sign In / Sign Up</div>
+          <div className='nav-login'><CustomLink to='/login'>Sign in / Sign up</CustomLink></div>
           <ul className='nav-menu'>
             <li><CustomLink to='/'>Data</CustomLink></li>
             <li><CustomLink to='/community'>Community</CustomLink></li>
@@ -25,12 +25,9 @@ function App() {
             <li><CustomLink to='/news'>News</CustomLink></li>
           </ul>
         </div>
-          </nav>
-          <Outlet />
-       
+        </nav>
+        <Outlet />
       </div>
-
-
     );
 }
 
