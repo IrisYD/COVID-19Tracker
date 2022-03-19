@@ -10,6 +10,7 @@ import Data from './pages/Data';
 import Community from './pages/Community';
 import Health from './pages/Health';
 import News from './pages/News';
+import Login from './pages/Login';
 
 
 ReactDOM.render(
@@ -20,6 +21,7 @@ ReactDOM.render(
         <Route path="community" element={<Community />} />
         <Route path="health" element={<Health />} />
         <Route path="news" element={<News />} />
+        <Route path="login" element={<Login />} />
       </Route>
     </Routes>
   </BrowserRouter>,document.getElementById('root'));
