@@ -1,0 +1,42 @@
+[
+  {
+    "symptom": {
+      "icon": "/images/fever.png",
+      "description": "Fever or chills"
+    },
+    "covid-19": "Common",
+    "cold": "Rare",
+    "flu": "Common",
+    "allergies": "No"
+  },
+  {
+    "symptom": {
+      "icon": "/images/cough.png",
+      "description": "Cough"
+    },
+    "covid-19": "Common",
+    "cold": "Common",
+    "flu": "Common",
+    "allergies": "Common (asthma)"
+  },
+  {
+    "symptom": {
+      "icon": "/images/sore-throat.png",
+      "description": "Sore Throat"
+    },
+    "covid-19": "Sometimes",
+    "cold": "Common",
+    "flu": "Sometimes",
+    "allergies": "Sometimes (Itchy throat and palate)"
+  },
+  {
+    "symptom": {
+      "icon": "/images/short-breath.png",
+      "description": "Shortness of Breath"
+    },
+    "covid-19": "Sometimes",
+    "cold": "No",
+    "flu": "No",
+    "allergies": "Common (asthma)"
+  }
+]
