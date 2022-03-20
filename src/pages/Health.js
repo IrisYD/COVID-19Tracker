@@ -1,16 +1,16 @@
 import React from "react";
 import {
   Box,
+  Card,
+  CardMedia,
   Container,
-  Divider,
   Grid,
   List,
   ListItem,
   ListItemText,
-  Paper,
-  Typography
+  Paper
 } from "@mui/material";
-import symptoms from "../data/symptoms.json"
+import symptoms from "../data/symptoms.json";
 
 export default function Health() {
 
@@ -35,11 +35,11 @@ export default function Health() {
                   >
                     <ListItemText
                         primary={
-                            <Typography variant={'h2'} gutterBottom>
-                              COVID-19: Identifying the Symptoms
-                            </Typography>
+                          'COVID-19: Identifying the Symptoms'
                         }
                         primaryTypographyProps={{
+                          variant: 'h2',
+                          gutterBottom: true,
                           fontWeight: 'bold',
                         }}
                     />
@@ -61,6 +61,7 @@ export default function Health() {
                         primary={'Symptoms'}
                         primaryTypographyProps={{
                           fontWeight: 'bold',
+                          variant: 'h6',
                         }}
                     />
                   </Grid>
@@ -75,6 +76,7 @@ export default function Health() {
                         primary={'COVID-19'}
                         primaryTypographyProps={{
                           fontWeight: 'bold',
+                          variant: 'h6',
                         }}
                     />
                   </Grid>
@@ -89,6 +91,7 @@ export default function Health() {
                         primary={'Cold'}
                         primaryTypographyProps={{
                           fontWeight: 'bold',
+                          variant: 'h6',
                         }}
                     />
                   </Grid>
@@ -103,12 +106,13 @@ export default function Health() {
                         primary={'Flu'}
                         primaryTypographyProps={{
                           fontWeight: 'bold',
+                          variant: 'h6',
                         }}
                     />
                   </Grid>
                   <Grid
                       item
-                      xs={2}
+                      xs={2.5}
                       alignItems={'center'}
                       justifyContent={'center'}
                       sx={{display: 'flex'}}
@@ -117,6 +121,7 @@ export default function Health() {
                         primary={'Allergies'}
                         primaryTypographyProps={{
                           fontWeight: 'bold',
+                          variant: 'h6',
                         }}
                     />
                   </Grid>
@@ -135,10 +140,24 @@ export default function Health() {
                             justifyContent={'center'}
                             sx={{display: 'flex'}}
                         >
+
+                          <Card
+                              variant={'outlined'}
+                              sx={{width: 185}}
+                          >
+                            <CardMedia
+                                component="img"
+                                image={symptom.symptom.icon}
+                                alt="Symptom Image"
+                            />
+                          </Card>
                           <ListItemText
-                              primary={'Symptoms'}
+                              primary={symptom.symptom.description}
                               primaryTypographyProps={{
-                                // fontWeight: 'bold',
+                                ml: 2,
+                                fontWeight: 'bold',
+                                // fontSize: 18,
+                                textAlign: 'left',
                               }}
                           />
                         </Grid>
@@ -152,7 +171,7 @@ export default function Health() {
                           <ListItemText
                               primary={symptom['covid-19']}
                               primaryTypographyProps={{
-                                fontWeight: 'bold',
+                                // fontWeight: 'bold',
                               }}
                           />
                         </Grid>
@@ -166,7 +185,7 @@ export default function Health() {
                           <ListItemText
                               primary={symptom['cold']}
                               primaryTypographyProps={{
-                                fontWeight: 'bold',
+                                // fontWeight: 'bold',
                               }}
                           />
                         </Grid>
@@ -180,13 +199,13 @@ export default function Health() {
                           <ListItemText
                               primary={symptom['cold']}
                               primaryTypographyProps={{
-                                fontWeight: 'bold',
+                                // fontWeight: 'bold',
                               }}
                           />
                         </Grid>
                         <Grid
                             item
-                            xs={2}
+                            xs={2.5}
                             alignItems={'center'}
                             justifyContent={'center'}
                             sx={{display: 'flex'}}
@@ -194,7 +213,7 @@ export default function Health() {
                           <ListItemText
                               primary={symptom['allergies']}
                               primaryTypographyProps={{
-                                fontWeight: 'bold',
+                                // fontWeight: 'bold',
                               }}
                           />
                         </Grid>
@@ -205,10 +224,6 @@ export default function Health() {
             }
           </List>
         </Paper>
-        {/*<Grid container>*/}
-        {/*  <Grid item xs={12}>*/}
-
-        {/*  </Grid>*/}
-        {/*</Grid>*/}
-      </Container>);
+      </Container>
+  );
 }

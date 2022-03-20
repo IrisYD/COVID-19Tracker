@@ -38,5 +38,60 @@
     "cold": "No",
     "flu": "No",
     "allergies": "Common (asthma)"
+  },
+  {
+    "symptom": {
+      "icon": "/images/fatigue.png",
+      "description": "Fatigue"
+    },
+    "covid-19": "Sometimes",
+    "cold": "Sometimes",
+    "flu": "Common",
+    "allergies": "Sometimes"
+  },{
+    "symptom": {
+      "icon": "/images/pain.png",
+      "description": "Aches & Pains"
+    },
+    "covid-19": "Sometimes",
+    "cold": "No",
+    "flu": "Common",
+    "allergies": "No"
+  },{
+    "symptom": {
+      "icon": "/images/headache.png",
+      "description": "Headaches"
+    },
+    "covid-19": "Sometimes",
+    "cold": "Common",
+    "flu": "Common",
+    "allergies": "Sometimes"
+  },{
+    "symptom": {
+      "icon": "/images/runny-nose.png",
+      "description": "Runny or Stuffy Nose"
+    },
+    "covid-19": "Sometimes",
+    "cold": "Common",
+    "flu": "Sometimes",
+    "allergies": "Common"
+  },{
+    "symptom": {
+      "icon": "/images/diarrhea.png",
+      "description": "Diarrhoea"
+    },
+    "covid-19": "Rare",
+    "cold": "No",
+    "flu": "Sometimes, especially for children",
+    "allergies": "No"
+  },{
+    "symptom": {
+      "icon": "/images/smell-loss.png",
+      "description": "New loss of taste or smell"
+    },
+    "covid-19": "Common",
+    "cold": "Sometimes",
+    "flu": "Sometimes",
+    "allergies": "Rare"
   }
 ]
