@@ -1,6 +1,6 @@
 .community-container {
     display: flex;
-    width: 800px;
+    width: 1200px;
     margin: 0 auto;
     padding-top: 30px;
 }
@@ -71,4 +71,8 @@ ul.cards li .info .row .comments {
 
 .symptoms {
     flex: 1;
+    padding: 30px;
+}
+.Button {
+    color: black;
 }

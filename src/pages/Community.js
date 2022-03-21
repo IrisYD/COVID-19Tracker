@@ -1,3 +1,4 @@
+import { Button } from '@mui/material';
 import './Community.css';
 
 function Community() {
@@ -7,7 +8,9 @@ function Community() {
             <Card />
         </ul>
         <div className='symptoms'>
-            Blalala
+        <Button variant="contained" color="success">
+        Share your symptoms
+        </Button>
         </div>
     </div>
 }
