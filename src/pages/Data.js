@@ -13,6 +13,10 @@ function Data() {
     const [country, setCountry] = useState("worldwide");
     const [countryInfo, setCountryInfo] = useState({});
     const [tableData, setTableData] = useState([]);
+    const [mapCenter, setMapCenter] = useState({lat: 34.80746, lng: -40.4796});
+    const [mapZoom, setMapZoom] = useState(3);
+    const [mapCountries, setMapCountries] = useState(3);
+    const [casesType, setCasesType] = useState("cases");
 
     //https://disease.sh/v3/covid-19/all
 
@@ -40,6 +44,7 @@ function Data() {
                     const sortedData = sortData(data)
                     setTableData(sortedData);
                     setCountries(countries);
+                    setMapCountries(data);
                 });
         };
         getCountriesData();
@@ -55,6 +60,8 @@ function Data() {
             .then(data => {
                 setCountry(countryCode);
                 setCountryInfo(data);
+                setMapCenter([data.countryInfo.lat, data.countryInfo.lng]);
+                setMapZoom(4);
             })
 
         // https://disease.sh/v3/covid-19/all
@@ -86,8 +93,12 @@ function Data() {
                         </Select>
                 </FormControl>
                 </div>
-                <Map/>
-
+                <Map
+                    countries={mapCountries}
+                    casesType={casesType}
+                    center={mapCenter}
+                    zoom={mapZoom}
+                />
 
             </div>
             <div className='app-data__right'>
