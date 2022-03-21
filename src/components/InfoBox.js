@@ -3,12 +3,12 @@ import React from 'react'
 
 function InfoBox({ title, cases, total }) {
   return (
-    <Card className='infoBox' sx={{ minWidth:200, maxWidth: 600}}>
+    <Card className='inforBox'>
         <CardContent>
             <Typography className='infoBox__title' color='textSecondary'>
                 {title}
             </Typography>
-            <h2 className='infoBox__cases'>{cases}</h2>
+            <h2 className='inforBox__cases'>{cases}</h2>
             <Typography  className='infoBox__total' color='textSecondary'>
                 {total} total
             </Typography>
