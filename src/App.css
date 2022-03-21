@@ -32,8 +32,8 @@ body{
 }
 
 .NavbarItems{
-  /* background: linear-gradient(60deg, rgba(73, 63, 252, 1) 0%,  rgb(0, 143, 118) 70%); */
-  background: rgb(0, 143, 118);
+  background: linear-gradient(60deg, rgb(0, 143, 118) 0%,  rgba(73, 63, 252, 1) 70%);
+  /* background: rgb(0, 143, 118); */
   height: 160px;
   display: flex;
   justify-content: space-between;
@@ -93,8 +93,8 @@ body{
 }
 
 .nav-link:hover {
-  /* background-color: #6d76f7; */
-  background-color: #1DAC93;
+  background-color: #6d76f7;
+  /* background-color: #1DAC93; */
   border-radius: 4px;
   transition: all 0.2s ease-out;
 }
