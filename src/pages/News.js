@@ -7,8 +7,8 @@ const News = () => {
 
     useEffect(() => {
         const getArticles = async () => {
+            // set query to covid 19
             const response = await axios.get('https://newsapi.org/v2/everything?q=covid%2019&apiKey=df16a3ddd0b142dfbe54d63f22b3879c');
-            console.log(response);
             setArticles(response.data.articles);
         }
         getArticles();

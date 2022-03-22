@@ -13,6 +13,7 @@ const NewsItem = ({title, description, url, urlToImage, author, publishedAt, sou
                 {author}
             </span>
             <br/>
+            {/*the time article is published*/}
             <span className="news-published">
                 {publishedAt}
             </span>
