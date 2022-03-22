@@ -1,6 +1,3 @@
-// function News() {
-//     return <h2>News</h2>
-// }
 import React, {useState, useEffect} from "react";
 import axios from "axios";
 import NewsItem from "../components/NewsItem";
