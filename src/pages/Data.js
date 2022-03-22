@@ -20,8 +20,6 @@ function Data() {
 
     //https://disease.sh/v3/covid-19/all
 
-    //useeffect
-
     useEffect(() => {
         fetch('https://disease.sh/v3/covid-19/all')
             .then(response => response.json())
@@ -91,7 +89,7 @@ function Data() {
                                 ))
                             }
                         </Select>
-                </FormControl>
+                    </FormControl>
                 </div>
                 <Map
                     countries={mapCountries}
@@ -99,8 +97,8 @@ function Data() {
                     center={mapCenter}
                     zoom={mapZoom}
                 />
-
             </div>
+
             <div className='app-data__right'>
             <Card >
                 <CardContent>
