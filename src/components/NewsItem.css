@@ -1,12 +1,12 @@
 *{
-    margin: 0;
+    /* margin: 0; */
     padding: 0;
     box-sizing:border-box;
 }
 
 body{
     font-family: "Arial";
-    width: 80%;
+    /* width: 80%; */
     margin: 0 auto;
     background: rgb(251, 255, 255);
 }
@@ -32,7 +32,7 @@ body{
     border-radius: 5px;
 }
 
-a {
+/* a {
     text-decoration: none;
 }
 
@@ -58,7 +58,7 @@ a:active {
     color: yellow;
     background-color: transparent;
     text-decoration: underline;
-}
+} */
 
 .news-title {
     padding-bottom: 10px;
