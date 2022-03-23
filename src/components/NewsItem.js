@@ -5,7 +5,7 @@ const NewsItem = ({title, description, url, urlToImage, author, publishedAt, sou
     return (
         <div className="news">
             <h1 className="news-title">
-                <a href={url}>{title}</a>
+                <a href={url} className="url">{title}</a>
             </h1>
             <img className="news-img" src={urlToImage} alt={urlToImage}/>
             <p className="news-description">{description}</p>

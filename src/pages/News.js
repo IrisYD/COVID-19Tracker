@@ -8,14 +8,13 @@ const News = () => {
     useEffect(() => {
         const getArticles = async () => {
             // set query to covid 19
-            const response = await axios.get('https://newsapi.org/v2/everything?q=covid%2019&apiKey=df16a3ddd0b142dfbe54d63f22b3879c');
+            const response = await axios.get('https://newsapi.org/v2/everything?q=covid-19&apiKey=df16a3ddd0b142dfbe54d63f22b3879c');
             setArticles(response.data.articles);
         }
         getArticles();
     }, [])
     return (
         <div>
-            <h1 className="head-text">COVID-19 NEWS</h1>
             <div className='all-news'>
                 {articles.map(article => {
                     return (
