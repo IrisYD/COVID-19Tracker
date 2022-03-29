@@ -2,8 +2,14 @@ const express = require("express");
 const mongoose = require("mongoose");
 const Router = require("./routes");
 const session = require("express-session");
+const cors = require('cors');
 
 const app = express();
+const corsOptions ={
+  origin:'http://localhost:3000', 
+  credentials:true,            //access-control-allow-credentials:true
+  optionSuccessStatus:200
+}
 
 app.use(express.json());
 app.use(session({
@@ -11,6 +17,7 @@ app.use(session({
   resave: true,
   saveUninitialized: true
 }));
+app.use(cors(corsOptions))
 
 const username = "dengyi";
 const password = "Dengyi1234";

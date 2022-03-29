@@ -3,9 +3,21 @@ import axios from 'axios'
 
 const url = "http://localhost:3001"
 
-function Login() {
+function Signup() {
     const [errorMessages, setErrorMessages] = useState({});
     const [isSubmitted, setIsSubmitted] = useState(false);
+
+    // User Login info
+    const database = [
+        {
+            username: "user1",
+            password: "pass1"
+        },
+        {
+            username: "user2",
+            password: "pass2"
+        }
+    ];
     
     const errors = {
         uname: "invalid username",
@@ -26,6 +38,23 @@ function Login() {
             "username": uname.value,
             "password": pass.value
         }
+    
+        // // Find user login info
+        // const userData = database.find((user) => user.username === uname.value);
+    
+        // // Compare user info
+        // if (userData) {
+        //     if (userData.password !== pass.value) {
+        //         // Invalid password
+        //         setErrorMessages({ name: "pass", message: errors.pass });
+        //     } else {
+        //         setIsSubmitted(true);
+        //     }
+        // } else {
+        //     // Username not found
+        //     setErrorMessages({ name: "uname", message: errors.uname });
+        // }
+
         const config = {
             headers: {
               'Content-Type': 'application/json',
@@ -65,11 +94,11 @@ function Login() {
     return (
         <div className="app">
             <div className="login-form">
-                <div className="title">Sign In</div>
+                <div className="title">Sign Up</div>
                 {isSubmitted ? <div>User is successfully logged in</div> : renderForm}
             </div>
         </div>
     );
 }
 
-export default Login
+export default Signup
