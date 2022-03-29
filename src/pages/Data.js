@@ -18,8 +18,6 @@ function Data() {
     const [mapCountries, setMapCountries] = useState(3);
     const [casesType, setCasesType] = useState("cases");
 
-    //https://disease.sh/v3/covid-19/all
-
     useEffect(() => {
         fetch('https://disease.sh/v3/covid-19/all')
             .then(response => response.json())
@@ -31,6 +29,7 @@ function Data() {
     useEffect(() => {
         const getCountriesData = async () => {
             await fetch("https://disease.sh/v3/covid-19/countries")
+            // fetch("https://disease.sh/v3/covid-19/countries")
                 .then((response) => response.json())
                 .then((data) => {
                     const countries = data.map((country) => (
@@ -58,7 +57,7 @@ function Data() {
             .then(data => {
                 setCountry(countryCode);
                 setCountryInfo(data);
-                setMapCenter([data.countryInfo.lat, data.countryInfo.lng]);
+                setMapCenter([data.countryInfo.lat, data.countryInfo.long]);
                 setMapZoom(4);
             })
 
@@ -74,12 +73,26 @@ function Data() {
 
             <div className='app-data__left'>
                 <div className='app-data__stats'>
-                    <InfoBox title="COVID Cases" cases={countryInfo.todayCases}
-                             total={countryInfo.cases}/>
-                    <InfoBox title="Recovered" cases={countryInfo.todayRecovered}
-                             total={countryInfo.recovered}/>
-                    <InfoBox title="Death" cases={countryInfo.todayDeaths}
-                             total={countryInfo.deaths}/>
+                    <InfoBox
+                        // onClick={(e) => setCasesType("cases")}
+                        title="COVID Cases"
+                        isRed
+                        active={casesType === "cases"}
+                        cases={countryInfo.todayCases}
+                        total={countryInfo.cases}/>
+                    <InfoBox
+                        // onClick={(e) => setCasesType("recovered")}
+                        title="Recovered"
+                        active={casesType === "recovered"}
+                        cases={countryInfo.todayRecovered}
+                        total={countryInfo.recovered}/>
+                    <InfoBox
+                        // onClick={(e) => setCasesType("deaths")}
+                        title="Death"
+                        isRed
+                        active={casesType === "deaths"}
+                        cases={countryInfo.todayDeaths}
+                        total={countryInfo.deaths}/>
                     <FormControl className="app-data__dropdown">
                         <Select variant="outlined" value={country} onChange={onCountryChange}>
                             <MenuItem value="worldwide">Worldwide</MenuItem>
