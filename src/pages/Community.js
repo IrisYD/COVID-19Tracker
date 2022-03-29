@@ -16,6 +16,7 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import users from '../data/users.json'
 
+
 function getUsers() {
   return [...users, ...getUsersFromLocalStorage()];
 }
@@ -32,6 +33,7 @@ function setUsersToLocalStorage(users) {
 function Community() {
   const [open, setOpen] = React.useState(false);
   const [users, setUsers] = React.useState(getUsers());
+
   
   const handleClickOpen = () => {
     setOpen(true);
@@ -88,6 +90,7 @@ const symptoms = [
 
 function SymptomDialog(props) {
   const { onClose, onSubmit } = props;
+  const [scroll, setScroll] = React.useState('paper');
 
   const [symptom, setSymptom] = React.useState("");
   const [vaccine, setVaccine] = React.useState(null);
@@ -106,7 +109,7 @@ function SymptomDialog(props) {
   }
 
   return <Dialog open onClose={onClose}>
-    <DialogTitle>Share Your Symptoms</DialogTitle>
+        <DialogTitle id="scroll-dialog-title">Share your symptoms</DialogTitle>
     <Box
       component="form"
       sx={{
@@ -115,7 +118,7 @@ function SymptomDialog(props) {
       noValidate
       autoComplete="off"
     >
-      <DialogContent>
+      <DialogContent dividers={scroll === 'paper'}>
         <DialogContentText>
           Share your symptoms in our community, connect with each other.
         </DialogContentText>
@@ -136,6 +139,7 @@ function SymptomDialog(props) {
             </MenuItem>
           ))}
         </TextField>
+        <span></span>
         <FormControl>
           <FormLabel id="demo-row-radio-buttons-group-label">Vaccine</FormLabel>
           <RadioGroup

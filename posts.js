@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const PostsSchema = new mongoose.Schema({
 
   symptoms: {
-    type: Array,
+    type: String,
     required: true,
   },
   userId: {
@@ -23,6 +23,6 @@ const PostsSchema = new mongoose.Schema({
   }
 });
 
-const Post = mongoose.model("Post", PostsSchema);
+const Posts = mongoose.model("Posts", PostsSchema);
 
-module.exports = Post;
+module.exports = Posts;

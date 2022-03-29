@@ -42,6 +42,17 @@ try {
 }
 });
 
+app.post("/add_post", async (request, response) => {
+    const post = new postsModel(request.body);
+  
+    try {
+      await post.save();
+      response.send(post);
+    } catch (error) {
+      response.status(500).send(error);
+    }
+  });
+
 // Authentication and Authorization Middleware
 const auth = function(req, res, next) {
   if (req.session && req.session.user)
