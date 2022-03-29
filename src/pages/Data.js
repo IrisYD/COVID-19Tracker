@@ -3,7 +3,7 @@ import { FormControl, MenuItem, Select, Card, CardContent } from '@mui/material'
 import InfoBox from '../components/InfoBox';
 import Map from '../components/Map';
 import Table from '../components/Table';
-import { sortData } from '../util';
+import {StatPrintFormat, sortData} from '../util';
 import LineGraph from '../components/LineGraph';
 import "leaflet/dist/leaflet.css";
 
@@ -13,6 +13,7 @@ function Data() {
     const [country, setCountry] = useState("worldwide");
     const [countryInfo, setCountryInfo] = useState({});
     const [tableData, setTableData] = useState([]);
+    // {lat: 34.80746, lng: -40.4796} [34.80746, -40.4796]
     const [mapCenter, setMapCenter] = useState({lat: 34.80746, lng: -40.4796});
     const [mapZoom, setMapZoom] = useState(3.5);
     const [mapCountries, setMapCountries] = useState([]);
@@ -50,20 +51,22 @@ function Data() {
         const countryCode = event.target.value;
         console.log('Country Code:', countryCode);
         const url = countryCode === "worldwide" ? 'https://disease.sh/v3/covid-19/all'
-                                                : `https://disease.sh/v3/covid-19/countries/${countryCode}`
+                                                : `https://disease.sh/v3/covid-19/countries/${countryCode}`;
         await fetch(url)
             .then(response => response.json())
             .then(data => {
+                console.log(data);
                 setCountry(countryCode);
                 setCountryInfo(data);
-                setMapCenter([data.countryInfo.lat, data.countryInfo.long]);
+                console.log({lat: data['countryInfo'].lat, lng: data['countryInfo'].long});
+                setMapCenter({lat: data['countryInfo'].lat, lng: data['countryInfo'].long});
                 setMapZoom(4);
             })
 
         // https://disease.sh/v3/covid-19/all
         // https://disease.sh/v3/covid-19/countries/[COUNTRY_CODE]
 
-        console.log('Country Info:', countryInfo);
+        // console.log('Country Info:', countryInfo);
     }
 
     return (
@@ -73,17 +76,25 @@ function Data() {
                 <div className='app-data__left'>
                     <div className='app-data__stats'>
                         <InfoBox
+                            onClick={e => setCasesType('cases')}
                             title="COVID Cases"
-                            cases={countryInfo.todayCases}
-                            total={countryInfo.cases}/>
+                            isRed
+                            active={casesType === "cases"}
+                            cases={StatPrintFormat(countryInfo.todayCases)}
+                            total={StatPrintFormat(countryInfo.cases)}/>
                         <InfoBox
+                            onClick={e => setCasesType('recovered')}
                             title="Recovered"
-                            cases={countryInfo.todayRecovered}
-                            total={countryInfo.recovered}/>
+                            active={casesType === "recovered"}
+                            cases={StatPrintFormat(countryInfo.todayRecovered)}
+                            total={StatPrintFormat(countryInfo.recovered)}/>
                         <InfoBox
-                            title="Death"
-                            cases={countryInfo.todayDeaths}
-                            total={countryInfo.deaths}/>
+                            onClick={e => setCasesType('deaths')}
+                            title="Deaths"
+                            isRed
+                            active={casesType === "deaths"}
+                            cases={StatPrintFormat(countryInfo.todayDeaths)}
+                            total={StatPrintFormat(countryInfo.deaths)}/>
                         <FormControl className="app-data__dropdown">
                             <Select variant="outlined" value={country} onChange={onCountryChange}>
                                 <MenuItem value="worldwide">Worldwide</MenuItem>
