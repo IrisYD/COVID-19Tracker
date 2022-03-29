@@ -28,58 +28,100 @@ import FormLabel from '@mui/material/FormLabel';
 import FormHelperText from '@mui/material/FormHelperText';
 import InputAdornment from '@mui/material/InputAdornment';
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import users from '../data/users.json'
 
+function getUsers() {
+  return [...users, ...getUsersFromLocalStorage()];
+}
+
+function getUsersFromLocalStorage() {
+  const localUsers = JSON.parse(localStorage.getItem('users'));
+  return localUsers?localUsers:[];
+}
+
+function setUsersToLocalStorage(users) {
+  localStorage.setItem('users', JSON.stringify(users))
+}
 
 function Community() {
-    const [open, setOpen] = React.useState(false);
-
-    const handleClickOpen = () => {
-      setOpen(true);
-    };
+  const [open, setOpen] = React.useState(false);
+  const [users, setUsers] = React.useState(getUsers());
   
-    const handleClose = () => {
-      setOpen(false);
-    };
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
-    const [symptom, setSymptoms] = React.useState('Cough');
+  const handleClose = () => {
+    setOpen(false);
+  };
 
-    const handleChange = (event) => {
-        setSymptoms(event.target.value);
-    };
+  const addPost = (newUser) => {
+    const user = {...{
+      name: `Wonder Women ${new Date().getTime().toString().substr(9)}`,
+      age: 28,
+    },...newUser}
+    const userList = [...users, ...[user]];
+    setUsers(userList);
+    setUsersToLocalStorage(userList.slice(1));
+    setOpen(false);
+  };
 
-    const symptoms = [
-        {
-          value: 'Cough',
-        },
-        {
-          value: 'Fever',
-        },
-        {
-          value: 'Shortness of Breath',
-        },
-        {
-          value: 'Headache',
-        },
-      ];
+  const [value, setValue] = React.useState(null);
+  const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
-      const [value, setValue] = React.useState(null);
-      const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+  return <div className='community-container'>
+    <ul className='cards'>
+      {
+        users.map(it => <Card user={it} key={it.name} />)
+      }
+    </ul>
+    <div className='symptoms'>
+      <Button variant="outlined" onClick={handleClickOpen}>
+        Share Your Symptoms
+      </Button>
 
-  
+      {open && <SymptomDialog onClose={handleClose} onSubmit={addPost} />}
+    </div>
+  </div>
+}
 
+const symptoms = [
+  {
+    value: 'Cough',
+  },
+  {
+    value: 'Fever',
+  },
+  {
+    value: 'Shortness of Breath',
+  },
+  {
+    value: 'Headache',
+  },
+];
 
-    return <div className='community-container'>
-        <ul className='cards'>
-            <Card />
-            <Card />
-        </ul>
-        <div className='symptoms'>
-        <Button variant="outlined" onClick={handleClickOpen}>
-            Share Your Symptoms
-        </Button>
-        <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Share Your Symptoms</DialogTitle>
-        <Box
+function SymptomDialog(props) {
+  const { onClose, onSubmit } = props;
+
+  const [symptom, setSymptom] = React.useState("");
+  const [vaccine, setVaccine] = React.useState(null);
+  const [testResult, setTestResult] = React.useState(null);
+  const [startTime, setStartTime] = React.useState("");
+  const [comments, setComments] = React.useState("");
+
+  const onPost = () => {
+    onSubmit({
+      symptom,
+      vaccine,
+      testResult,
+      startTime,
+      comments
+    })
+  }
+
+  return <Dialog open onClose={onClose}>
+    <DialogTitle>Share Your Symptoms</DialogTitle>
+    <Box
       component="form"
       sx={{
         '& .MuiTextField-root': { m: 1, width: '30ch' },
@@ -87,123 +129,133 @@ function Community() {
       noValidate
       autoComplete="off"
     >
-        <DialogContent>
-            <DialogContentText>
-            Share your symptoms in our community, connect with each other.
-            </DialogContentText>
-        
-            <TextField
-            id="outlined-select-currency"
-            select
-            // label="Select"
-            value={symptoms}
-            onChange={handleChange}
-            helperText="Please select your symptom"
-            variant="standard"
-            >
+      <DialogContent>
+        <DialogContentText>
+          Share your symptoms in our community, connect with each other.
+        </DialogContentText>
+
+        <TextField
+          id="outlined-select-currency"
+          select
+          // label="Select"
+          value={symptom}
+          onChange={(event, v) => {
+            setSymptom(event.target.value)
+          }}
+          helperText="Please select your symptom"
+          variant="standard"
+        >
           {symptoms.map((option) => (
             <MenuItem key={option.value} value={option.value}>
               {option.value}
             </MenuItem>
           ))}
         </TextField>
-      <FormControl>
-        <FormLabel id="demo-row-radio-buttons-group-label">Vaccine</FormLabel>
-        <RadioGroup
-          row
-          aria-labelledby="demo-row-radio-buttons-group-label"
-          name="row-radio-buttons-group"
-        >
-          <FormControlLabel value="pfizer" control={<Radio />} label="Pfizer" />
-          <FormControlLabel value="moderna" control={<Radio />} label="Moderna" />
-          <FormControlLabel value="jj" control={<Radio />} label="JohnsonJohnson" />
-          <FormControlLabel value="other" control={<Radio />} label="other" />
+        <FormControl>
+          <FormLabel id="demo-row-radio-buttons-group-label">Vaccine</FormLabel>
+          <RadioGroup
+            row
+            aria-labelledby="demo-row-radio-buttons-group-label"
+            name="row-radio-buttons-group"
+            onChange={(_, value) => {
+              setVaccine(value)
+            }}
+          >
+            <FormControlLabel value="pfizer" control={<Radio />} label="Pfizer" />
+            <FormControlLabel value="moderna" control={<Radio />} label="Moderna" />
+            <FormControlLabel value="jj" control={<Radio />} label="JohnsonJohnson" />
+            <FormControlLabel value="other" control={<Radio />} label="other" />
+          </RadioGroup>
+          <FormLabel component="legend">Vaccine status</FormLabel>
+          <RadioGroup
+            column="true"
+            aria-labelledby="demo-row-radio-buttons-group-label"
+            name="row-radio-buttons-group"
+          >
+            <FormControlLabel value="fullyVaccined" control={<Radio />} label="Fully Vaccined" />
+            {/* <FormHelperText>2 does for Pfizer and moderna, 1 for JohnsonJohnson</FormHelperText> */}
+            <FormControlLabel value="1 does" control={<Radio />} label="Only 1 does" />
+            {/* <FormHelperText>Don't choose it if you took JohnsonJohnson</FormHelperText> */}
+            <FormControlLabel value="None" control={<Radio />} label="None" />
+          </RadioGroup>
 
-        </RadioGroup>
-        <FormLabel component="legend">Vaccine status</FormLabel>
-        <RadioGroup
-          column
-          aria-labelledby="demo-row-radio-buttons-group-label"
-          name="row-radio-buttons-group"
-        >
-          <FormControlLabel value="fullyVaccined" control={<Radio />} label="Fully Vaccined" />
-          {/* <FormHelperText>2 does for Pfizer and moderna, 1 for JohnsonJohnson</FormHelperText> */}
-          <FormControlLabel value="1 does" control={<Radio />} label="Only 1 does" />
-          {/* <FormHelperText>Don't choose it if you took JohnsonJohnson</FormHelperText> */}
-          <FormControlLabel value="None" control={<Radio />} label="None" />
-        </RadioGroup>
-
-      <FormLabel component="legend">Share Your Recent Test Results</FormLabel>
-        <RadioGroup
-          column
-          aria-labelledby="demo-row-radio-buttons-group-label"
-          name="row-radio-buttons-group"
-        >
-          <FormControlLabel value="positive" control={<Radio />} label="Positive" />
-          {/* <FormHelperText>2 does for Pfizer and moderna, 1 for JohnsonJohnson</FormHelperText> */}
-          <FormControlLabel value="negative" control={<Radio />} label="Negative" />
-          {/* <FormHelperText>Don't choose it if you took JohnsonJohnson</FormHelperText> */}
-          <FormControlLabel value="none" control={<Radio />} label="Not Applicable" />
-        </RadioGroup>
-        <TextField
-          id="standard-textarea"
-          label="Date to show symptoms"
-          placeholder="MM/DD/YYYY"
-          multiline
-          variant="standard"
-        />
-        <TextField
-          id="standard-textarea"
-          label="Comments"
-          placeholder="Leave your comments"
-          multiline
-          variant="standard"
-        />
-      </FormControl>
-        </DialogContent>
-        </Box>
-        <DialogActions>
-            <Button onClick={handleClose}>Cancel</Button>
-            <Button onClick={handleClose}>Post</Button>
-        </DialogActions>
-        </Dialog>
-
-        </div>
-    </div>
+          <FormLabel component="legend">Share Your Recent Test Results</FormLabel>
+          <RadioGroup
+            column="true"
+            aria-labelledby="demo-row-radio-buttons-group-label"
+            name="row-radio-buttons-group"
+            onChange={(_, value) => {
+              setTestResult(value)
+            }}
+          >
+            <FormControlLabel value="positive" control={<Radio />} label="Positive" />
+            {/* <FormHelperText>2 does for Pfizer and moderna, 1 for JohnsonJohnson</FormHelperText> */}
+            <FormControlLabel value="negative" control={<Radio />} label="Negative" />
+            {/* <FormHelperText>Don't choose it if you took JohnsonJohnson</FormHelperText> */}
+            <FormControlLabel value="none" control={<Radio />} label="Not Applicable" />
+          </RadioGroup>
+          <TextField
+            id="standard-textarea"
+            label="Date to show symptoms"
+            placeholder="MM/DD/YYYY"
+            multiline
+            variant="standard"
+            value={startTime}
+            onChange={(e) => {
+              setStartTime(e.target.value)
+            }}
+          />
+          <TextField
+            id="standard-textarea"
+            label="Comments"
+            placeholder="Leave your comments"
+            multiline
+            variant="standard"
+            value={comments}
+            onChange={(e) => {
+              setComments(e.target.value)
+            }}
+          />
+        </FormControl>
+      </DialogContent>
+    </Box>
+    <DialogActions>
+      <Button onClick={onClose}>Cancel</Button>
+      <Button onClick={onPost}>Post</Button>
+    </DialogActions>
+  </Dialog>
 }
 
-function Card() {
-    return <li>
+function Card(props) {
+  const { user } = props;
+
+  return <li>
     <div className='user'>
-        <div className='avatar' style={{backgroundImage: 'url(../images/spiderman.png)'}} />
-        <div className='user_name'>Wonder Women</div>
-        <div>Age: 28</div>
-        <div>No underlying disease</div>
+      <div className='avatar' style={{ backgroundImage: `url(${user.avatar?user.avatar:'../images/spiderman.png'})` }} />
+      <div className='user_name'><b>{user.name}</b></div>
+      <div>Age: {user.age}</div>
+      <div>No underlying disease</div>
     </div>
     <div className='info'>
-        <div className='row'>
-            <span>Fever</span>
-            <span>Headache</span>
+      <div className='row'>
+      <b>{user.symptom}</b>
+      </div>
+      <div className='row'>
+        <span>Test Result:   <b>{user.testResult}</b></span>
+      </div>
+      <div className='row'>
+        <span>Start To Show Symptoms:   <b>{user.startTime}</b></span>
+      </div>
+      <div className='row comments-row'>
+        <p>
+          {user.comments}
+        </p>
+        <div className='comments'>
+          {user.age}
         </div>
-        <div className='row'>
-            <span>Test Positive</span>
-            <span>Omicron</span>
-        </div>
-        <div className='row'>
-            <span>Start time: 02/19/2022</span>
-            <span>Last time: 36 hours</span>
-        </div>
-        <div className='row comments-row'>
-            <p>
-                I start to have lalalalalalalalalalalala .... <br/>
-                lalalalal 
-            </p>
-            <div className='comments'>
-                28
-            </div>
-        </div>
+      </div>
     </div>
-</li>
+  </li>
 }
 
 export default Community

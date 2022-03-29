@@ -1,0 +1,12 @@
+[
+    {
+        "avatar": "../images/spiderman.png",
+        "name": "Wonder Women",
+        "age": 28,
+        "vaccine": "Pfizer",
+        "symptom": ["Fever", "cough"],
+        "testResult": "Positive",
+        "startTime": "02/19/2022",
+        "comments": "I start to have lalalalalalalalalalalala"
+    }
+]
