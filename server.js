@@ -1,10 +1,16 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const Router = require("./routes")
+const Router = require("./routes");
+const session = require("express-session");
 
 const app = express();
 
 app.use(express.json());
+app.use(session({
+  secret: 'abc123',
+  resave: true,
+  saveUninitialized: true
+}));
 
 const username = "dengyi";
 const password = "Dengyi1234";
