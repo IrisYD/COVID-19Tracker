@@ -123,7 +123,6 @@ function SymptomDialog(props) {
         <TextField
           id="outlined-select-currency"
           select
-          // label="Select"
           value={symptom}
           onChange={(event, v) => {
             setSymptom(event.target.value)
