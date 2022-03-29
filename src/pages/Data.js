@@ -74,19 +74,14 @@ function Data() {
                     <div className='app-data__stats'>
                         <InfoBox
                             title="COVID Cases"
-                            isRed
-                            active={casesType === "cases"}
                             cases={countryInfo.todayCases}
                             total={countryInfo.cases}/>
                         <InfoBox
                             title="Recovered"
-                            active={casesType === "recovered"}
                             cases={countryInfo.todayRecovered}
                             total={countryInfo.recovered}/>
                         <InfoBox
                             title="Death"
-                            isRed
-                            active={casesType === "deaths"}
                             cases={countryInfo.todayDeaths}
                             total={countryInfo.deaths}/>
                         <FormControl className="app-data__dropdown">
