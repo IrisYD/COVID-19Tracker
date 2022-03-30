@@ -14,27 +14,40 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
-import users from '../data/users.json'
-
 
 function getUsers() {
-  return [...users, ...getUsersFromLocalStorage()];
+  return fetch("/users").then(resp => resp.json())
 }
 
-function getUsersFromLocalStorage() {
-  const localUsers = JSON.parse(localStorage.getItem('users'));
-  return localUsers?localUsers:[];
+function getPosts() {
+  return fetch("/posts").then(resp => resp.json())
 }
 
-function setUsersToLocalStorage(users) {
-  localStorage.setItem('users', JSON.stringify(users))
+function insertPost(post) {
+  return fetch("/add_post", {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(post)
+  })
 }
 
 function Community() {
   const [open, setOpen] = React.useState(false);
-  const [users, setUsers] = React.useState(getUsers());
+  const [posts, setPosts] = React.useState([]);
 
-  
+  const loadPosts = () => {
+    getPosts().then((posts) => {
+      setPosts(posts);
+    });
+  }
+
+  React.useEffect(() => {
+    loadPosts();
+  }, [])
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -43,14 +56,16 @@ function Community() {
     setOpen(false);
   };
 
-  const addPost = (newUser) => {
-    const user = {...{
-      name: `Wonder Women ${new Date().getTime().toString().substr(9)}`,
-      age: 28,
-    },...newUser}
-    const userList = [...users, ...[user]];
-    setUsers(userList);
-    setUsersToLocalStorage(userList.slice(1));
+  const addPost = (newPost) => {
+    console.log("# newPost", newPost);
+    insertPost(newPost).then(resp => {
+      if (resp.status === 200) {
+        loadPosts();
+      } else {
+        alert("Add Post Error");
+      }
+    });
+
     setOpen(false);
   };
 
@@ -60,7 +75,9 @@ function Community() {
   return <div className='community-container'>
     <ul className='cards'>
       {
-        users.map(it => <Card user={it} key={it.name} />)
+        posts.map(post => {
+          return <Card post={post} key={post._id} />;
+        })
       }
     </ul>
     <div className='symptoms'>
@@ -100,7 +117,7 @@ function SymptomDialog(props) {
 
   const onPost = () => {
     onSubmit({
-      symptom,
+      symptoms: symptom,
       vaccine,
       testResult,
       startTime,
@@ -109,7 +126,7 @@ function SymptomDialog(props) {
   }
 
   return <Dialog open onClose={onClose}>
-        <DialogTitle id="scroll-dialog-title">Share your symptoms</DialogTitle>
+    <DialogTitle id="scroll-dialog-title">Share your symptoms</DialogTitle>
     <Box
       component="form"
       sx={{
@@ -216,31 +233,31 @@ function SymptomDialog(props) {
 }
 
 function Card(props) {
-  const { user } = props;
+  const { user, post } = props;
 
   return <li>
     <div className='user'>
-      <div className='avatar' style={{ backgroundImage: `url(${user.avatar?user.avatar:'../images/spiderman.png'})` }} />
-      <div className='user_name'><b>{user.name}</b></div>
-      <div>Age: {user.age}</div>
+      <div className='avatar' style={{ backgroundImage: `url(${user?.avatar ? user.avatar : '../images/spiderman.png'})` }} />
+      <div className='user_name'><b>{user?.name}</b></div>
+      <div>Age: {user?.age}</div>
       <div>No underlying disease</div>
     </div>
     <div className='info'>
       <div className='row'>
-      { users.map(it => <b><span>{it.symptom}</span></b>) }
+        <b><span>{post.symptoms}</span></b>
       </div>
       <div className='row'>
-        <span>Test Result:   <b>{user.testResult}</b></span>
+        <span>Test Result:   <b>{post.testResult}</b></span>
       </div>
       <div className='row'>
-        <span>Start To Show Symptoms:   <b>{user.startTime}</b></span>
+        <span>Start To Show Symptoms:   <b>{post.startTime}</b></span>
       </div>
       <div className='row comments-row'>
         <p>
-          {user.comments}
+          {post?.comments}
         </p>
         <div className='comments'>
-          {user.age}
+          {user?.age}
         </div>
       </div>
     </div>
