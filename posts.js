@@ -9,7 +9,7 @@ const PostsSchema = new mongoose.Schema({
   userId: {
     type: String,
   },
-  content: {
+  comments: {
     type: String,
   },
   startTime: {
