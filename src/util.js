@@ -8,11 +8,11 @@ const casesTypeColors = {
         multiplier: 150,
     },
     recovered: {
-        hex: "#7dd71d",
+        hex: "#74ad1c",
         multiplier: 150,
     },
     deaths: {
-        hex: "#fb4443",
+        hex: "#fb8a43",
         multiplier: 1000,
     },
 };
@@ -32,9 +32,11 @@ export const showDataOnMap = (countries, casesType="cases") => (
             <Circle
                 center={[country.countryInfo.lat, country.countryInfo.long]}
                 fillOpacity={0.25}
-                color={casesTypeColors[casesType].hex}
-                fillColor={casesTypeColors[casesType].hex}
-                radius={Math.sqrt(country[casesType]) * casesTypeColors[casesType].multiplier}>
+                radius={
+                    Math.sqrt(country[casesType]) * casesTypeColors[casesType].multiplier
+                }
+                pathOptions={{color: casesTypeColors[casesType].hex, fillColor: casesTypeColors[casesType].hex}}
+            >
                 <Popup>
                     <div className="info-container">
                         <div
