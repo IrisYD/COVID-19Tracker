@@ -5,15 +5,15 @@ import numeral from "numeral";
 const casesTypeColors = {
     cases: {
         hex: "#CC1034",
-        multiplier: 200,
+        multiplier: 150,
     },
     recovered: {
         hex: "#7dd71d",
-        multiplier: 200,
+        multiplier: 150,
     },
     deaths: {
         hex: "#fb4443",
-        multiplier: 1200,
+        multiplier: 1000,
     },
 };
 
@@ -25,17 +25,16 @@ export const sortData = (data) => {
 export const StatPrintFormat = (stat) =>
     stat ? `+${numeral(stat).format("0.0a")}` : "+0";
 
-export const showDataOnMap = (data, casesType="cases") => (
-    data.map(country => {
+export const showDataOnMap = (countries, casesType="cases") => (
+    countries.map(country => {
         // console.log(country);
         return (
             <Circle
                 center={[country.countryInfo.lat, country.countryInfo.long]}
-                fillopacity={0.4}
+                fillOpacity={0.25}
                 color={casesTypeColors[casesType].hex}
                 fillColor={casesTypeColors[casesType].hex}
-                radius={Math.sqrt(country[casesType]) * casesTypeColors[casesType].multiplier}
-            >
+                radius={Math.sqrt(country[casesType]) * casesTypeColors[casesType].multiplier}>
                 <Popup>
                     <div className="info-container">
                         <div
