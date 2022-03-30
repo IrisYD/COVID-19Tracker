@@ -23,14 +23,14 @@ app.post("/add_user", async (request, response) => {
 });
 
 app.get("/users", async (request, response) => {
-    const users = await userModel.find({});
-  
-    try {
-      response.send(users);
-    } catch (error) {
-      response.status(500).send(error);
-    }
-  });
+  const users = await userModel.find({});
+
+  try {
+    response.send(users);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
 
 app.get("/posts", async (request, response) => {
 const posts = await postsModel.find({});
@@ -63,7 +63,7 @@ const auth = function(req, res, next) {
 };
 
 // Login endpoint
-app.get('/login', function (req, res) {
+app.post('/login', function (req, res) {
   if (!req.body.username || !req.body.password) {
     res.send('login failed');    
   } else {
@@ -78,7 +78,7 @@ app.get('/logout', function (req, res) {
   res.send("logout success!");
 });
 
-//Get content endpoint
+// Get content endpoint
 app.get('/contents', auth, function (req, res) {
   res.send("You can only see this after you've logged in.");
 });
