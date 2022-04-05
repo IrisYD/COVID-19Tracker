@@ -1,3 +1,4 @@
+import './Login.css';
 import React, { useState } from 'react';
 import axios from 'axios'
 
@@ -38,22 +39,6 @@ function Signup() {
             "username": uname.value,
             "password": pass.value
         }
-    
-        // // Find user login info
-        // const userData = database.find((user) => user.username === uname.value);
-    
-        // // Compare user info
-        // if (userData) {
-        //     if (userData.password !== pass.value) {
-        //         // Invalid password
-        //         setErrorMessages({ name: "pass", message: errors.pass });
-        //     } else {
-        //         setIsSubmitted(true);
-        //     }
-        // } else {
-        //     // Username not found
-        //     setErrorMessages({ name: "uname", message: errors.uname });
-        // }
 
         const config = {
             headers: {
@@ -74,18 +59,18 @@ function Signup() {
     const renderForm = (
         <div className="form">
             <form onSubmit={handleSubmit}>
+                <div className="title">Sign Up</div>
+                <div className="title">Sign In</div>
                 <div className="input-container">
-                    <label>Username </label>
-                    <input type="text" name="uname" required />
+                    <input type="text" name="uname" placeholder="Username" required />
                     {renderErrorMessage("uname")}
                 </div>
                 <div className="input-container">
-                    <label>Password </label>
-                    <input type="password" name="pass" required />
+                    <input type="password" name="pass" placeholder="Password" required />
                     {renderErrorMessage("pass")}
                 </div>
-                    <div className="button-container">
-                    <input type="submit" />
+                <div>
+                    <input type="submit" className="button" value="Login"/>
                 </div>
             </form>
         </div>
@@ -94,7 +79,6 @@ function Signup() {
     return (
         <div className="app">
             <div className="login-form">
-                <div className="title">Sign Up</div>
                 {isSubmitted ? <div>User is successfully logged in</div> : renderForm}
             </div>
         </div>
