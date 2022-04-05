@@ -14,6 +14,10 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
+import Checkbox from '@mui/material/Checkbox';
+import FormGroup from '@mui/material/FormGroup';
+
+
 
 function getUsers() {
   return fetch("/users").then(resp => resp.json())
@@ -112,11 +116,13 @@ function SymptomDialog(props) {
   const { onClose, onSubmit } = props;
   const [scroll, setScroll] = React.useState('paper');
 
-  const [symptom, setSymptom] = React.useState("");
+  const [symptom, setSymptom] = React.useState([]);
   const [vaccine, setVaccine] = React.useState(null);
   const [testResult, setTestResult] = React.useState(null);
   const [startTime, setStartTime] = React.useState("");
   const [comments, setComments] = React.useState("");
+
+  const [checked, setChecked] = React.useState(true);
 
   const onPost = () => {
     onSubmit({
@@ -127,6 +133,18 @@ function SymptomDialog(props) {
       comments
     })
   }
+
+  const handleChange = (event) => {
+    setChecked(event.target.checked);
+    if (event.target.checked === true) {
+      setSymptom([...symptom, event.target.value]);
+    } else {
+      const arr = symptom.filter((item) => item !== event.target.value);
+      setSymptom(arr);
+
+    }
+
+  };
 
   return <Dialog open onClose={onClose}>
     <DialogTitle id="scroll-dialog-title">Share your symptoms</DialogTitle>
@@ -139,29 +157,47 @@ function SymptomDialog(props) {
       autoComplete="off"
     >
       <DialogContent dividers={scroll === 'paper'}>
-        <DialogContentText>
-          Share your symptoms in our community, connect with each other.
-        </DialogContentText>
+      
+      <FormLabel component="legend">Choose Your Symptoms</FormLabel>
+      <FormGroup aria-label="position" row>
 
-        <TextField
-          id="outlined-select-currency"
-          select
-          value={symptom}
-          onChange={(event, v) => {
-            setSymptom(event.target.value)
-          }}
-          helperText="Please select your symptom"
-          variant="standard"
-        >
-          {symptoms.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.value}
-            </MenuItem>
-          ))}
-        </TextField>
+        <FormControlLabel
+          value="Fever"
+          control={<Checkbox 
+            onChange={handleChange}/>}
+          label="Fever"
+          labelPlacement="end"
+        />
+        <FormControlLabel
+          value="Cough"
+          control={<Checkbox onChange={handleChange}/>}
+          label="Cough"
+          labelPlacement="end"
+        />
+        <FormControlLabel
+          value="Shortness of Breath"
+          control={<Checkbox onChange={handleChange}/>}
+          label="Shortness of Breath"
+          labelPlacement="end"
+        />
+        <FormControlLabel
+          value="Headaches"
+          control={<Checkbox onChange={handleChange}/>}
+          label="Headaches"
+          labelPlacement="end"
+        />
+        <FormControlLabel
+          value="Aches and Pains"
+          control={<Checkbox onChange={handleChange}/>}
+          label="Aches and Pains"
+          labelPlacement="end"
+        />
+
+      </FormGroup>
+    
         <span></span>
         <FormControl>
-          <FormLabel id="demo-row-radio-buttons-group-label">Vaccine</FormLabel>
+        <FormLabel component="legend">Choose your Vaccine</FormLabel>
           <RadioGroup
             row
             aria-labelledby="demo-row-radio-buttons-group-label"
@@ -175,7 +211,9 @@ function SymptomDialog(props) {
             <FormControlLabel value="jj" control={<Radio />} label="JohnsonJohnson" />
             <FormControlLabel value="other" control={<Radio />} label="other" />
           </RadioGroup>
-          <FormLabel component="legend">Vaccine status</FormLabel>
+          <span></span>
+
+          <FormLabel component="legend">Your Vaccine Status</FormLabel>
           <RadioGroup
             column="true"
             aria-labelledby="demo-row-radio-buttons-group-label"
@@ -188,7 +226,9 @@ function SymptomDialog(props) {
             <FormControlLabel value="None" control={<Radio />} label="None" />
           </RadioGroup>
 
-          <FormLabel component="legend">Share Your Recent Test Results</FormLabel>
+          <span></span>
+
+          <FormLabel component="legend">Tell us the recent Test Results you have</FormLabel>
           <RadioGroup
             column="true"
             aria-labelledby="demo-row-radio-buttons-group-label"
@@ -203,6 +243,10 @@ function SymptomDialog(props) {
             {/* <FormHelperText>Don't choose it if you took JohnsonJohnson</FormHelperText> */}
             <FormControlLabel value="none" control={<Radio />} label="Not Applicable" />
           </RadioGroup>
+          <span></span>
+          <FormLabel component="legend">Choose a Date you started to show symptoms</FormLabel>
+
+
           <TextField
             id="standard-textarea"
             label="Date to show symptoms"
@@ -214,6 +258,11 @@ function SymptomDialog(props) {
               setStartTime(e.target.value)
             }}
           />
+
+<span></span>
+<FormLabel component="legend">Leave Your Words for other users</FormLabel>
+
+
           <TextField
             id="standard-textarea"
             label="Comments"
@@ -247,7 +296,9 @@ function Card(props) {
     </div>
     <div className='info'>
       <div className='row'>
-        <b><span>{post.symptoms}</span></b>
+      <b><span>{post.symptoms.map((symptom) => (
+        <span>{symptom}</span>
+      ))}</span></b>
       </div>
       <div className='row'>
         <span>Test Result:   <b>{post.testResult}</b></span>

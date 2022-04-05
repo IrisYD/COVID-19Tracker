@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const PostsSchema = new mongoose.Schema({
 
   symptoms: {
-    type: String,
+    type: Array,
     required: true,
   },
   userId: {
