@@ -40,6 +40,9 @@ function Community() {
 
   const loadPosts = () => {
     getPosts().then((posts) => {
+      posts.sort((a, b) => {
+        return b._id > a._id ? 1 : -1
+      })
       setPosts(posts);
     });
   }
