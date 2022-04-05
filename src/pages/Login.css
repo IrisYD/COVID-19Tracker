@@ -56,3 +56,11 @@
     border-radius: 30px;
     transition: all 0.2s ease-out;
   }
+
+.div1 {
+    float:right
+}
+
+.div1 {
+    float:left
+}
