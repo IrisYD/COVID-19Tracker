@@ -1,12 +1,14 @@
 import './Login.css';
 import React, { useState } from 'react';
 import axios from 'axios'
+import { Link ,Outlet, useMatch, useResolvedPath} from 'react-router-dom';
 
 const url = "http://localhost:3001"
 
 function Login() {
     const [errorMessages, setErrorMessages] = useState({});
     const [isSubmitted, setIsSubmitted] = useState(false);
+
     
     const errors = {
         uname: "invalid username",
@@ -56,7 +58,14 @@ function Login() {
                     {renderErrorMessage("pass")}
                 </div>
                 <div>
-                    <input type="submit" className="button" value="Login"/>
+                    <div className="div1">
+                        <input type="submit" className="button" value="Login"/>
+                    </div>
+                    <div className="div2">
+                    <Link to="/signup">
+                        <input type="submit" className="button" value="Sign up"/>
+                    </Link>
+                    </div>
                 </div>
             </form>
         </div>
