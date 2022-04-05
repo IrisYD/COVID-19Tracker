@@ -73,3 +73,12 @@ ul.cards li .info .row .comments {
     flex: 1;
     padding: 30px;
 }
+
+.symtoms_button {
+    margin-bottom: 50px;
+}
+
+.polls {
+    margin-bottom: 50px;
+    height: 200px;
+}

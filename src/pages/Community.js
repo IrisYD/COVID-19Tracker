@@ -16,6 +16,10 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import Checkbox from '@mui/material/Checkbox';
 import FormGroup from '@mui/material/FormGroup';
+import {Bar} from 'react-chartjs-2';
+import { Chart as ChartJS } from 'chart.js/auto'
+import { Chart }            from 'react-chartjs-2'
+
 
 
 
@@ -88,30 +92,21 @@ function Community() {
       }
     </ul>
     <div className='symptoms'>
+      <div className='symtoms_button'>
       <Button variant="outlined" onClick={handleClickOpen}>
         Share Your Symptoms
       </Button>
 
       {open && <SymptomDialog onClose={handleClose} onSubmit={addPost} />}
+      </div>
+      <div>
+        <Polls/>
+      </div>
+
     </div>
+
   </div>
 }
-
-const symptoms = [
-  {
-    value: 'Cough',
-  },
-  {
-    value: 'Fever',
-  },
-  {
-    value: 'Shortness of Breath',
-  },
-  {
-    value: 'Headache',
-  },
-];
-
 function SymptomDialog(props) {
   const { onClose, onSubmit } = props;
   const [scroll, setScroll] = React.useState('paper');
@@ -317,5 +312,77 @@ function Card(props) {
     </div>
   </li>
 }
+
+function Polls() {
+  const state1 = {
+    labels: ['Cough', 'Fever', 'Shortness of Breath',
+             'Headaches', 'Aches and Pains'],
+    datasets: [
+      {
+        label: 'Most Possible Symtoms after Vaccine',
+        backgroundColor: 'rgba(73, 63, 252, 1)',
+        borderColor: 'rgba(0,0,0,1)',
+        borderWidth: 0,
+        data: [65, 59, 80, 81, 56]
+      }
+    ]
+  };
+
+  const state2 = {
+    labels: ['Cough', 'Fever', 'Shortness of Breath',
+             'Headaches', 'Aches and Pains'],
+    datasets: [
+      {
+        label: 'Most Possible Symtoms For Positive Cases',
+        backgroundColor: 'rgba(73, 63, 252, 1)',
+        borderColor: 'rgba(0,0,0,1)',
+        borderWidth: 0,
+        data: [65, 59, 80, 81, 56]
+      }
+    ]
+  };
+
+  
+  
+  return (
+        <div>
+          <div className='polls'>
+          <Bar
+          
+            data={state1}
+            options={{
+              title:{
+                display:true,
+                text:'Most Possible Symtoms after Vaccine',
+                fontSize:20
+              },
+              legend:{
+                display:true,
+                position:'right'
+              }
+            }}
+          />
+          </div>
+          <div>
+          <Bar
+            data={state2}
+            options={{
+              title:{
+                display:true,
+                text:'Most Possible Symtoms for Positive test',
+                fontSize:20
+              },
+              legend:{
+                display:true,
+                position:'right'
+              }
+            }}
+          />
+          </div>
+        </div>
+      );
+    }
+  
+
 
 export default Community
