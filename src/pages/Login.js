@@ -1,3 +1,4 @@
+import './Login.css';
 import React, { useState } from 'react';
 import axios from 'axios'
 
@@ -45,18 +46,17 @@ function Login() {
     const renderForm = (
         <div className="form">
             <form onSubmit={handleSubmit}>
+                <div className="title">Sign In</div>
                 <div className="input-container">
-                    <label>Username </label>
-                    <input type="text" name="uname" required />
+                    <input type="text" name="uname" placeholder="Username" required />
                     {renderErrorMessage("uname")}
                 </div>
                 <div className="input-container">
-                    <label>Password </label>
-                    <input type="password" name="pass" required />
+                    <input type="password" name="pass" placeholder="Password" required />
                     {renderErrorMessage("pass")}
                 </div>
-                    <div className="button-container">
-                    <input type="submit" />
+                <div>
+                    <input type="submit" className="button" value="Login"/>
                 </div>
             </form>
         </div>
@@ -65,7 +65,6 @@ function Login() {
     return (
         <div className="app">
             <div className="login-form">
-                <div className="title">Sign In</div>
                 {isSubmitted ? <div>User is successfully logged in</div> : renderForm}
             </div>
         </div>
