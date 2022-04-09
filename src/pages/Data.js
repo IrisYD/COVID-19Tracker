@@ -1,12 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { FormControl, MenuItem, Select, Card, CardContent } from '@mui/material';
+import React, {useEffect, useState} from 'react';
+import {FormControl, MenuItem, Select, Card, CardContent} from '@mui/material';
 import InfoBox from '../components/InfoBox';
 import Map from '../components/Map';
 import Table from '../components/Table';
 import {StatPrintFormat, sortData} from '../util';
 import LineGraph from '../components/LineGraph';
 import "leaflet/dist/leaflet.css";
-
+import Chart from '../components/charts/chart';
+import useDropDown from "../components/dropdownbox/dropdownMaker";
+import {CHART_TYPES as chartsList} from '../components/charts/constants';
+import './Data.css';
+import {fetchCovidData, fetchCountriesData} from "../api";
+import CovidCards from "../components/cards/allCards/Cards";
 
 function Data() {
     const [countries, setCountries] = useState([]);
@@ -18,6 +23,11 @@ function Data() {
     const [mapZoom, setMapZoom] = useState(3);
     const [mapCountries, setMapCountries] = useState([]);
     const [casesType, setCasesType] = useState("cases");
+    // CovidCards for Charts data
+    const [data, setData] = useState({});
+    const [countryList, setCountryList] = useState([])
+    const [location, LocationDropDown] = useDropDown("Select a Country: ", "US", countryList)
+    const [chartType, ChartTypeDropDown] = useDropDown("Select a Chart: ", "Bar", chartsList);
 
     useEffect(() => {
         fetch('https://disease.sh/v3/covid-19/all')
@@ -51,7 +61,7 @@ function Data() {
         const countryCode = event.target.value;
         console.log('Country Code:', countryCode);
         const url = countryCode === "worldwide" ? 'https://disease.sh/v3/covid-19/all'
-                                                : `https://disease.sh/v3/covid-19/countries/${countryCode}`;
+            : `https://disease.sh/v3/covid-19/countries/${countryCode}`;
         await fetch(url)
             .then(response => response.json())
             .then(data => {
@@ -69,8 +79,25 @@ function Data() {
         // console.log('Country Info:', countryInfo);
     }
 
-    return (
+    useEffect(() => {
+        const fetchCountriesFromAPI = async () => {
+            const countries = await fetchCountriesData();
+            countries.unshift('Global');
+            setCountryList(countries);
+        };
+        fetchCountriesFromAPI();
+    }, [])
 
+    useEffect(() => {
+        const getFromAPI = async (location) => {
+            setData(await fetchCovidData(location))
+        }
+
+        location === 'Global' ? getFromAPI('') : getFromAPI(location);
+    }, [location])
+
+    return (
+        <>
             <div className='app-data'>
 
                 <div className='app-data__left'>
@@ -115,18 +142,29 @@ function Data() {
                 </div>
 
                 <div className='app-data__right'>
-                    <Card >
+                    <Card>
                         <CardContent>
                             <h3>Live Cases By Country</h3>
                             <Table countries={tableData}/>
-                            <h3>World wide new cases</h3>
-                            <LineGraph/>
+                            <h3 className="app-data__graphTitle">World wide new {casesType}</h3>
+                            <LineGraph className="app-data__graph" casesType={casesType}/>
                         </CardContent>
-
                     </Card>
                 </div>
             </div>
-
+            <div>
+                <div>
+                    {/*<CovidCards data={data}/>*/}
+                    <div>
+                        <LocationDropDown/>
+                    </div>
+                    <div>
+                        <ChartTypeDropDown/>
+                    </div>
+                </div>
+                <Chart data={data} country={country} chartType={chartType}/>
+            </div>
+        </>
     );
 }
 

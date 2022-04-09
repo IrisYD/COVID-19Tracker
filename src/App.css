@@ -1,115 +1,131 @@
-*{
-  /* margin:0; */
-  font-family: 'Montserrat', sans-serif;
-  text-align: center;
-  box-sizing: border-box;
+* {
+    /* margin:0; */
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+    box-sizing: border-box;
 }
 
-.app-data__stats{
-  display: flex;
-  justify-content: space-between;
+.app-data__stats {
+    display: flex;
+    justify-content: space-between;
 }
 
-body{
-  background-color: #f5f6fa;
+body {
+    background-color: #f5f6fa;
 }
 
-.app{
-  justify-content: space-evenly;
+.app {
+    justify-content: space-evenly;
 }
 
 .app-data__left {
-  flex: 1.0;
-  padding: 20px;
+    flex: 1.0;
+    padding: 20px;
 }
 
 .app-data__right {
-  padding: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
-.app-data{
-  display: flex;
+.app-data {
+    display: flex;
 }
 
-.NavbarItems{
-  background: linear-gradient(60deg, rgb(0, 143, 118) 0%,  rgba(73, 63, 252, 1) 70%);
-  /* background: rgb(0, 143, 118); */
-  height: 160px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 1.2rem;
-  margin-bottom: 20px;
+.app-data__dropdown {
+    background-color: white;
+    height: 100%;
+}
+
+.app-data__graph {
+    flex-grow: 1;
+}
+
+.app-data__graphTitle {
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .NavbarItems {
-  position: relative;
+    background: linear-gradient(60deg, rgb(0, 143, 118) 0%, rgba(73, 63, 252, 1) 70%);
+    /* background: rgb(0, 143, 118); */
+    height: 160px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.NavbarItems {
+    position: relative;
 }
 
 .NavbarItems > div {
-  z-index: 2;
+    z-index: 2;
 }
 
 .NavbarItems::before {
-  content: '';
-  z-index: 1;
-  display: block;
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 200px;
-  bottom: 0;
-  background-size: auto 150%;
-  background-image: url(nav-bar-pic.png);
-  background-position: 0 -10px;
-  background-repeat: no-repeat;
-  opacity: .2
+    content: '';
+    z-index: 1;
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 200px;
+    bottom: 0;
+    background-size: auto 150%;
+    background-image: url(nav-bar-pic.png);
+    background-position: 0 -10px;
+    background-repeat: no-repeat;
+    opacity: .2
 }
 
-.navbar-logo{
-  color:#fff;
-  justify-self: start;
-  margin-left: 20px;
-  cursor: pointer;
+.navbar-logo {
+    color: #fff;
+    justify-self: start;
+    margin-left: 20px;
+    cursor: pointer;
 }
 
 .nav-menu {
-  display: grid;
-  grid-template-columns: repeat(5, auto);
-  grid-gap: 10px;
-  list-style: none;
-  text-align: center;
-  width: 70vw;
-  justify-content: end;
-  margin-right: 2rem;
-  margin-top: 70px;
-  font-weight: 200;
+    display: grid;
+    grid-template-columns: repeat(5, auto);
+    grid-gap: 10px;
+    list-style: none;
+    text-align: center;
+    width: 70vw;
+    justify-content: end;
+    margin-right: 2rem;
+    margin-top: 70px;
+    font-weight: 200;
 }
 
 .nav-link {
-  color: white;
-  text-decoration: none;
-  padding: 0.5rem 1rem;
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
 }
 
 .nav-link:hover {
-  background-color: #6d76f7;
-  /* background-color: #1DAC93; */
-  border-radius: 4px;
-  transition: all 0.2s ease-out;
+    background-color: #6d76f7;
+    /* background-color: #1DAC93; */
+    border-radius: 4px;
+    transition: all 0.2s ease-out;
 }
 
 .nav-link__focus {
-  font-weight: 600;
+    font-weight: 600;
 }
 
 .nav-login {
-  display: flex;
-  justify-content: flex-end;
-  margin-right: 4em;
-  margin-top: 2em;
-  color:#fff;
-  font-size: small;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 4em;
+    margin-top: 2em;
+    color: #fff;
+    font-size: small;
 
 
 }
@@ -122,27 +138,27 @@ body{
   display: none;
 } */
 
-.menu-icon{
-  display: none;
+.menu-icon {
+    display: none;
 }
 
 .sign-up-button {
-  padding-right:20px;
+    padding-right: 20px;
 }
 
 .app__dropdown {
-  margin: 20px;
+    margin: 20px;
 }
 
 .nav_tab-focus {
-  background-color: #6d76f7;
-  border-radius: 4px;
-  font-weight: bold;
+    background-color: #6d76f7;
+    border-radius: 4px;
+    font-weight: bold;
 }
 
 
 @media (max-width: 800px) {
-  .app {
-    flex-direction: column;
-  }
+    .app {
+        flex-direction: column;
+    }
 }
