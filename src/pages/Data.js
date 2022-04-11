@@ -4,7 +4,7 @@ import InfoBox from '../components/InfoBox';
 import Map from '../components/Map';
 import Table from '../components/Table';
 import {StatPrintFormat, sortData} from '../util';
-import LineGraph from '../components/LineGraph';
+import LineGraph from '../components/graphs/LineGraph';
 import "leaflet/dist/leaflet.css";
 import Chart from '../components/charts/chart';
 import useDropDown from "../components/dropdownbox/dropdownMaker";
@@ -163,6 +163,7 @@ function Data() {
                     </div>
                 </div>
                 <Chart data={data} country={country} chartType={chartType}/>
+                <LineGraphOfPerMillion />
             </div>
         </>
     );
