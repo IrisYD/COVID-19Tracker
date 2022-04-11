@@ -36,7 +36,7 @@ function Signup() {
     
         const { uname, pass } = document.forms[0];
         const requestBody = {
-            "username": uname.value,
+            "name": uname.value,
             "password": pass.value
         }
 
@@ -49,8 +49,8 @@ function Signup() {
 
         function Render(res) {
             // Successfully logged in.
-            console.log("jump");
             window.location.replace("http://localhost:3000");
+            alert("Logged in as " + uname);
         }
 
         const { data } = axios.post(
@@ -60,7 +60,6 @@ function Signup() {
         ).then(Render)
         .catch((error) => {
             alert(error.response.data);
-            console.log(error);
             document.forms[0].reset();
         })
     };
