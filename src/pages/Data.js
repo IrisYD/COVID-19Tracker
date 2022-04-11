@@ -11,7 +11,8 @@ import useDropDown from "../components/dropdownbox/dropdownMaker";
 import {CHART_TYPES as chartsList} from '../components/charts/constants';
 import './Data.css';
 import {fetchCovidData, fetchCountriesData} from "../api";
-import CovidCards from "../components/cards/allCards/Cards";
+// import CovidCards from "../components/cards/allCards/Cards";
+import LineGraphOfPerMillion from "../components/graphs/LineGraphOfPerMillion";
 
 function Data() {
     const [countries, setCountries] = useState([]);
