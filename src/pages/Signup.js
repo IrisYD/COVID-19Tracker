@@ -44,14 +44,24 @@ function Signup() {
             headers: {
               'Content-Type': 'application/json',
             },
+            withCredentials: true
+        }
+
+        function Render(res) {
+            // Successfully logged in.
+            console.log("jump");
+            window.location.replace("http://localhost:3000");
         }
 
         const { data } = axios.post(
-            url + '/login',
+            url + '/add_user',
             requestBody,
             config
-        ).then((res) => {
-            console.log(res.data)
+        ).then(Render)
+        .catch((error) => {
+            alert(error.response.data);
+            console.log(error);
+            document.forms[0].reset();
         })
     };
 

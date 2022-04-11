@@ -5,7 +5,7 @@ import { Link ,Outlet, useMatch, useResolvedPath} from 'react-router-dom';
 
 const url = "http://localhost:3001"
 
-function Login() {
+const Login = props => {
     const [errorMessages, setErrorMessages] = useState({});
     const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -33,14 +33,31 @@ function Login() {
             headers: {
               'Content-Type': 'application/json',
             },
+            withCredentials: true
+        }
+
+       function Render(res) {
+        
+            if (!res.data) {
+                alert("Cannot find user!")
+                // Reset the form to empty.
+                document.forms[0].reset();
+            } else {
+                // Successfully Signed in.
+                console.log("jump");
+                window.location.replace("http://localhost:3000");
+            }
+            console.log(res.data);
         }
 
         const { data } = axios.post(
             url + '/login',
             requestBody,
             config
-        ).then((res) => {
-            console.log(res.data)
+        ).then(Render)
+        .catch((error) => {
+            alert(error.response.data);
+            console.log(error);
         })
     };
 
