@@ -122,12 +122,32 @@ body {
 .nav-login {
     display: flex;
     justify-content: flex-end;
-    margin-right: 4em;
+    margin-right: 3em;
     margin-top: 2em;
+    margin-bottom: 2em;
     color: #fff;
     font-size: small;
+    float: right;
+}
 
+.nav-logout {
+    /* display: flex;
+    /* justify-content: flex-end; */
+    /* margin-right: 0.5em; */
+    /* margin-top: 2em; */
+    color: #fff;
+    font-size: small;
+    float: right;
+    border-style:none;
+    background-color: transparent;
+    padding: 8px 15px;
+}
 
+.nav-logout:hover {
+    background-color: #6d76f7;
+    /* background-color: #1DAC93; */
+    border-radius: 4px;
+    transition: all 0.2s ease-out;
 }
 
 /* .fa-bars {
