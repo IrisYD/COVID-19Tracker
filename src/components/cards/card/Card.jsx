@@ -1,6 +1,6 @@
 import React from "react";
 import {Card, CardContent, Typography, Grid} from "@mui/material";
-import CountUp from "react-countup";
+// import CountUp from "react-countup";
 import cx from "classnames";
 import styles from "./Card.css";
 
@@ -11,7 +11,7 @@ const CovidCard = ({className, cardTitle, value, lastUpdate, cardSubtitle}) => (
                 {cardTitle}
             </Typography>
             <Typography variant="h5" component="h2">
-                <CountUp start={0} end={value} duration={2.75} separator="." />
+                {/*<CountUp start={0} end={value} duration={2.75} separator="." />*/}
             </Typography>
             <Typography color="textSecondary">
                 {
