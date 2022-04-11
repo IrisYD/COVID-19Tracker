@@ -26,7 +26,7 @@ const Login = props => {
     
         const { uname, pass } = document.forms[0];
         const requestBody = {
-            "username": uname.value,
+            "name": uname.value,
             "password": pass.value
         }
         const config = {
@@ -37,17 +37,9 @@ const Login = props => {
         }
 
        function Render(res) {
-        
-            if (!res.data) {
-                alert("Cannot find user!")
-                // Reset the form to empty.
-                document.forms[0].reset();
-            } else {
-                // Successfully Signed in.
-                console.log("jump");
-                window.location.replace("http://localhost:3000");
-            }
-            console.log(res.data);
+            // Successfully Signed in.
+            window.location.replace("http://localhost:3000");
+            alert("Logged in as " + uname);
         }
 
         const { data } = axios.post(
@@ -57,7 +49,7 @@ const Login = props => {
         ).then(Render)
         .catch((error) => {
             alert(error.response.data);
-            console.log(error);
+            document.forms[0].reset();
         })
     };
 

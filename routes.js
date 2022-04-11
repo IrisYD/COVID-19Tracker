@@ -63,63 +63,85 @@ const auth = function(req, res, next) {
 
 // Login endpoint
 app.post('/login', async (req, res) => {
-  console.log("123");
-  console.log(req.sessionID);
-  if (!req.body.username || !req.body.password) {
+  console.log("SessionID: " + req.sessionID);
+
+  if (!req.body.name || !req.body.password) {
+
     res.status(500).send('login failed');    
+
   } else if (req.session.user) {
-    console.log("456");
+    
+    console.log("Session exists");
     res.status(500).send("Already logged in as " + req.session.user);
+
   } else {
     
-    // const user = await userModel.find({"username": req.body.username});
-    
+    const user = await userModel.find({"name": req.body.name});
+    console.log(user);
 
-    // if (!user) {
-    //   res.status(500).send(error);
-    // } else {
+    if (user.length == 0) {
+
+      res.status(500).send("Cannot find user " + req.body.name);
+
+    } else if (!user[0].password || user[0].password != req.body.password){
+
+      res.status(500).send("Password incorrect!");
+
+    } else {
+
       // Set session.
-      req.session.user = req.body.username;
+      req.session.user = req.body.name;
       console.log(req.session.user);
-      console.log("789");
-      res.send("login success! " + req.body.username);
-    // }
+      console.log("Saved to session.");
+      res.send("login success! " + req.body.name);
+
+    }
   }
 });
 
 app.post("/add_user", async (req, res) => {
-  console.log(req.sessionID);
+  console.log("SessionID: " + req.sessionID);
 
   // Check if the request body is complete.
-  if (!req.body.username || !req.body.password) {
+  if (!req.body.name || !req.body.password) {
+
     res.status(500).send('Sign up failed');
+    
+  // Check already logged in.
   } else if (req.session.user) {
-    console.log("456");
+
+    console.log("Session exists");
     res.status(500).send("Already logged in as " + req.session.user);
+
   }
 
   // Check if the user is already registered.
-  // const foundUser = await userModel.find({"username": req.body.username});
-  // if (!foundUser) {
-  //   res.status(500).send("Already registered");
-  // }
+  const foundUser = await userModel.find({"name": req.body.name});
+
+  if (!foundUser) {
+    res.status(500).send("Already registered");
+  }
+
   const user = new userModel(req.body);
 
-  res.status(500).send("Already registered");
-
   try {
-    // await user.save();
+
+    await user.save();
     // Set session to login
-    req.session.user = req.body.username;
-    response.send("Sign up successfully " + req.body.username);
+    req.session.user = req.body.name;
+    res.send("Sign up successfully " + req.body.name);
+
   } catch (error) {
-    response.status(500).send("Saving to db failed");
+
+    res.status(500).send("Saving to db failed");
+
   }
 });
 
 // Logout endpoint
 app.get('/logout', function (req, res) {
-  console.log(req.sessionID);
+  console.log("SessionID: " + req.sessionID);
+
   if (!req.session.user) {
     res.status(500).send("Not logged in!")
   } else {
