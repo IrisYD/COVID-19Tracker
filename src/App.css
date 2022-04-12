@@ -1,8 +1,12 @@
-* {
-    /* margin:0; */
-    font-family: 'Montserrat', sans-serif;
-    text-align: center;
-    box-sizing: border-box;
+.profile__textfield {
+  text-align: left !important;
+}
+
+*{
+  /* margin:0; */
+  font-family: 'Montserrat', sans-serif;
+  /*text-align: center;*/
+  box-sizing: border-box;
 }
 
 .app-data__stats {
@@ -27,10 +31,18 @@ body {
     padding: 20px;
     display: flex;
     flex-direction: column;
+    text-align: center;
+}
+
+.app-data__bar {
+    text-align: center;
+    display: flex;
+    justify-content: center;
 }
 
 .app-data {
     display: flex;
+    align-items: stretch;
 }
 
 .app-data__dropdown {
@@ -45,6 +57,7 @@ body {
 .app-data__graphTitle {
     margin-top: 20px;
     margin-bottom: 20px;
+    /*text-align: center;*/
 }
 
 .NavbarItems {

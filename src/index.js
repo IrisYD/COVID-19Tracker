@@ -12,6 +12,7 @@ import Health from './pages/Health';
 import News from './pages/News';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import Profile from './pages/Profile';
 
 
 ReactDOM.render(
@@ -24,6 +25,7 @@ ReactDOM.render(
         <Route path="news" element={<News />} />
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
+        <Route path="profile" element={<Profile />} />
       </Route>
     </Routes>
   </BrowserRouter>,document.getElementById('root'));

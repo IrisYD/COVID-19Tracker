@@ -75,6 +75,8 @@ ul.cards li .info .row .comments {
 }
 
 .symtoms_button {
+    display: flex;
+    justify-content: center;
     margin-bottom: 50px;
 }
 
