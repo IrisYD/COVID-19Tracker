@@ -118,7 +118,7 @@ app.post("/add_user", async (req, res) => {
   // Check if the user is already registered.
   const foundUser = await userModel.find({"name": req.body.name});
 
-  if (!foundUser) {
+  if (foundUser.length != 0) {
     res.status(500).send("Already registered");
   }
 
