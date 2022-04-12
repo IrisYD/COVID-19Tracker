@@ -34,7 +34,7 @@ function Signup() {
         //Prevent page reload
         event.preventDefault();
     
-        const { fname, lname, uname, pass, rpass } = document.forms[0];
+        const { fname, lname, email, uname, pass, rpass } = document.forms[0];
 
         if (pass != rpass) {
             alert("Passwords don't match!");
@@ -79,6 +79,9 @@ function Signup() {
                 </div>
                 <div className="input-container">
                     <input type="text" name="lname" placeholder="Lastname"  />
+                </div>
+                <div className="input-container">
+                    <input type="text" name="email" placeholder="Email"  />
                 </div>
                 <div className="input-container">
                     <input type="text" name="uname" placeholder="Username" required />
