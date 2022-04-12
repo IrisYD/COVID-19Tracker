@@ -1,12 +1,14 @@
 import './Login.css';
 import React, { useState } from 'react';
 import axios from 'axios'
+import { Link ,Outlet, useMatch, useResolvedPath} from 'react-router-dom';
 
 const url = "http://localhost:3001"
 
-function Login() {
+const Login = props => {
     const [errorMessages, setErrorMessages] = useState({});
     const [isSubmitted, setIsSubmitted] = useState(false);
+
     
     const errors = {
         uname: "invalid username",
@@ -24,21 +26,30 @@ function Login() {
     
         const { uname, pass } = document.forms[0];
         const requestBody = {
-            "username": uname.value,
+            "name": uname.value,
             "password": pass.value
         }
         const config = {
             headers: {
               'Content-Type': 'application/json',
             },
+            withCredentials: true
+        }
+
+       function Render(res) {
+            // Successfully Signed in.
+            window.location.replace("http://localhost:3000");
+            alert("Logged in as " + uname);
         }
 
         const { data } = axios.post(
             url + '/login',
             requestBody,
             config
-        ).then((res) => {
-            console.log(res.data)
+        ).then(Render)
+        .catch((error) => {
+            alert(error.response.data);
+            document.forms[0].reset();
         })
     };
 
@@ -56,7 +67,14 @@ function Login() {
                     {renderErrorMessage("pass")}
                 </div>
                 <div>
-                    <input type="submit" className="button" value="Login"/>
+                    <div className="div1">
+                        <input type="submit" className="button" value="Login"/>
+                    </div>
+                    <div className="div2">
+                    <Link to="/signup">
+                        <input type="submit" className="button" value="Sign up"/>
+                    </Link>
+                    </div>
                 </div>
             </form>
         </div>

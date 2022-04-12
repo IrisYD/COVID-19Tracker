@@ -36,7 +36,7 @@ function Signup() {
     
         const { uname, pass } = document.forms[0];
         const requestBody = {
-            "username": uname.value,
+            "name": uname.value,
             "password": pass.value
         }
 
@@ -44,14 +44,23 @@ function Signup() {
             headers: {
               'Content-Type': 'application/json',
             },
+            withCredentials: true
+        }
+
+        function Render(res) {
+            // Successfully logged in.
+            window.location.replace("http://localhost:3000");
+            alert("Logged in as " + uname);
         }
 
         const { data } = axios.post(
-            url + '/login',
+            url + '/add_user',
             requestBody,
             config
-        ).then((res) => {
-            console.log(res.data)
+        ).then(Render)
+        .catch((error) => {
+            alert(error.response.data);
+            document.forms[0].reset();
         })
     };
 
@@ -59,8 +68,7 @@ function Signup() {
     const renderForm = (
         <div className="form">
             <form onSubmit={handleSubmit}>
-                <div className="title">Sign Up</div>
-                <div className="title">Sign In</div>
+                <div className="title">Create Your Account</div>
                 <div className="input-container">
                     <input type="text" name="uname" placeholder="Username" required />
                     {renderErrorMessage("uname")}
@@ -70,7 +78,7 @@ function Signup() {
                     {renderErrorMessage("pass")}
                 </div>
                 <div>
-                    <input type="submit" className="button" value="Login"/>
+                    <input type="submit" className="button" value="Sign up"/>
                 </div>
             </form>
         </div>
