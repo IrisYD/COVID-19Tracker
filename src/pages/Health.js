@@ -130,7 +130,7 @@ export default function Health() {
             </ListItem>
             {
               symptoms.map((symptom) => (
-                  <ListItem sx={{px: 0, py: 0}} divider={true}>
+                  <ListItem key={symptom.symptom.description} sx={{px: 0, py: 0}} divider={true}>
                     <Box sx={{py: 1, px: 2, width: '100%'}}>
                       <Grid container spacing={2} alignItems={'center'}>
                         <Grid
