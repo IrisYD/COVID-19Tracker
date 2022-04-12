@@ -2,14 +2,14 @@ import './Login.css';
 import React, { useState } from 'react';
 import axios from 'axios'
 import { Link ,Outlet, useMatch, useResolvedPath} from 'react-router-dom';
+import { AppContext } from '../context';
 
 const url = "http://localhost:3001"
 
-const Login = props => {
+const LoginForm = props => {
     const [errorMessages, setErrorMessages] = useState({});
     const [isSubmitted, setIsSubmitted] = useState(false);
 
-    
     const errors = {
         uname: "invalid username",
         pass: "invalid password"
@@ -39,7 +39,8 @@ const Login = props => {
        function Render(res) {
             // Successfully Signed in.
             window.location.replace("http://localhost:3000");
-            alert("Logged in as " + uname);
+            // alert("Logged in as " + uname);
+            props.setUsername(res.data);
         }
 
         const { data } = axios.post(
@@ -87,6 +88,14 @@ const Login = props => {
             </div>
         </div>
     );
+}
+
+const Login = () => {
+    return <AppContext.Consumer>
+        {({setUsername}) => {
+            return <LoginForm setUsername={setUsername}/>
+        }}
+    </AppContext.Consumer>
 }
 
 export default Login

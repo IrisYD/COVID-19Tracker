@@ -19,6 +19,7 @@ import FormGroup from '@mui/material/FormGroup';
 import {Bar} from 'react-chartjs-2';
 import { Chart as ChartJS } from 'chart.js/auto'
 import { Chart }            from 'react-chartjs-2'
+import { AppContext } from '../context';
 
 
 
@@ -28,7 +29,14 @@ function getUsers() {
 }
 
 function getPosts() {
-  return fetch("/posts").then(resp => resp.json())
+  return fetch("/posts").then(resp => {
+    if(resp.status === 401){
+      window.location.href = "/login"
+    }
+    return resp.json()
+  }).catch(err => {
+    console.log('@@@@err', err)
+  })
 }
 
 function insertPost(post) {
@@ -45,6 +53,7 @@ function insertPost(post) {
 function Community() {
   const [open, setOpen] = React.useState(false);
   const [posts, setPosts] = React.useState([]);
+  const { username } = React.useContext(AppContext);
 
   const loadPosts = () => {
     getPosts().then((posts) => {
@@ -60,7 +69,11 @@ function Community() {
   }, [])
 
   const handleClickOpen = () => {
-    setOpen(true);
+    if (username) {
+      setOpen(true);
+    } else {
+    window.location.href = "/login";
+    }
   };
 
   const handleClose = () => {

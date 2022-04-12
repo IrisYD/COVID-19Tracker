@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import axios from 'axios';
 import {Link, Outlet, useMatch, useResolvedPath} from 'react-router-dom';
+import { AppContext } from './context';
 
 const url = "http://localhost:3001";
 
@@ -25,7 +26,7 @@ function App() {
             withCredentials: true
         }
 
-        axios.get(
+        return axios.get(
             url + '/logout',
             config
         )
@@ -39,16 +40,22 @@ function App() {
         })
     }
 
-
     return (
-
         <div className="App">
             <nav className='NavbarItems'>
                 <h1 className='navbar-logo'>COVID-19 TRACKER</h1>
                 <div>
                     <div className='nav-login'>
-                        <input type="button" className="nav-logout" value="Logout" onClick={handleClick}/>
-                        <CustomLink to='/login'>Sign in / Sign up</CustomLink>
+                        <AppContext.Consumer>
+                            {({ username, setUsername }) => {
+                                if (username) {
+                                    return <input type="button" className="nav-logout" value="Logout" onClick={(evt) => {
+                                        handleClick(evt).then(() => { setUsername(null) })
+                                    }} />;
+                                }
+                                return <CustomLink to='/login'>Sign in / Sign up</CustomLink>;
+                            }}
+                        </AppContext.Consumer>
                     </div>
                     <div>
                         <ul className='nav-menu'>
@@ -57,11 +64,12 @@ function App() {
                             <li><CustomLink to='/health'>Health</CustomLink></li>
                             <li><CustomLink to='/news'>News</CustomLink></li>
                             <li><CustomLink to='/profile'>Profile</CustomLink></li>
+
                         </ul>
                     </div>
                 </div>
             </nav>
-            <Outlet/>
+            <Outlet />
         </div>
     );
 }
