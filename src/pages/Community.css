@@ -82,3 +82,18 @@ ul.cards li .info .row .comments {
     margin-bottom: 50px;
     height: 200px;
 }
+
+.formTitle{
+    text-align: left;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    color: #333;
+    margin-top: 20px;
+
+}
+
+.formContent{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 200;
+}
+

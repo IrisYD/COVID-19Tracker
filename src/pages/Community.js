@@ -100,7 +100,13 @@ function Community() {
       {open && <SymptomDialog onClose={handleClose} onSubmit={addPost} />}
       </div>
       <div>
+
         <Polls/>
+        <div className='polls'>
+            <h3>Have no idea about your symptom? Screening by yourself!</h3>
+            <iframe src="https://my.castlighthealth.com/corona-virus-testing-sites/self-assessment/assessment.html?from=ABC" witdh="100%" frameborder="0" height="800px" ></iframe>
+        </div>
+
       </div>
 
     </div>
@@ -151,12 +157,16 @@ function SymptomDialog(props) {
       noValidate
       autoComplete="off"
     >
-      <DialogContent dividers={scroll === 'paper'}>
       
-      <FormLabel component="legend">Choose Your Symptoms</FormLabel>
-      <FormGroup aria-label="position" row>
+      <DialogContent dividers={scroll === 'paper'}>
+      <FormControl>
+
+      
+      <FormLabel component="legend" className='formTitle'>Choose Your Symptoms</FormLabel>
+      <FormGroup aria-label="position" className='formContent' row>
 
         <FormControlLabel
+        
           value="Fever"
           control={<Checkbox 
             onChange={handleChange}/>}
@@ -191,12 +201,12 @@ function SymptomDialog(props) {
       </FormGroup>
     
         <span></span>
-        <FormControl>
-        <FormLabel component="legend">Choose your Vaccine</FormLabel>
+        <FormLabel component="legend" className='formTitle'>Choose your Vaccine</FormLabel>
           <RadioGroup
             row
             aria-labelledby="demo-row-radio-buttons-group-label"
             name="row-radio-buttons-group"
+            className='formContent'
             onChange={(_, value) => {
               setVaccine(value)
             }}
@@ -208,7 +218,7 @@ function SymptomDialog(props) {
           </RadioGroup>
           <span></span>
 
-          <FormLabel component="legend">Your Vaccine Status</FormLabel>
+          <FormLabel component="legend" className='formTitle'>Your Vaccine Status</FormLabel>
           <RadioGroup
             column="true"
             aria-labelledby="demo-row-radio-buttons-group-label"
@@ -223,7 +233,7 @@ function SymptomDialog(props) {
 
           <span></span>
 
-          <FormLabel component="legend">Tell us the recent Test Results you have</FormLabel>
+          <FormLabel component="legend" className='formTitle'>Tell us the recent Test Results you have</FormLabel>
           <RadioGroup
             column="true"
             aria-labelledby="demo-row-radio-buttons-group-label"
@@ -233,13 +243,11 @@ function SymptomDialog(props) {
             }}
           >
             <FormControlLabel value="positive" control={<Radio />} label="Positive" />
-            {/* <FormHelperText>2 does for Pfizer and moderna, 1 for JohnsonJohnson</FormHelperText> */}
             <FormControlLabel value="negative" control={<Radio />} label="Negative" />
-            {/* <FormHelperText>Don't choose it if you took JohnsonJohnson</FormHelperText> */}
             <FormControlLabel value="none" control={<Radio />} label="Not Applicable" />
           </RadioGroup>
           <span></span>
-          <FormLabel component="legend">Choose a Date you started to show symptoms</FormLabel>
+          <FormLabel component="legend" className='formTitle'>Choose a Date you started to show symptoms</FormLabel>
 
 
           <TextField
@@ -255,7 +263,7 @@ function SymptomDialog(props) {
           />
 
 <span></span>
-<FormLabel component="legend">Leave Your Words for other users</FormLabel>
+<FormLabel component="legend" className='formTitle'>Leave Your Words for other users</FormLabel>
 
 
           <TextField
@@ -315,15 +323,15 @@ function Card(props) {
 
 function Polls() {
   const state1 = {
-    labels: ['Cough', 'Fever', 'Shortness of Breath',
-             'Headaches', 'Aches and Pains'],
+    labels: ['Fever', 'Quicker Heart Beat',
+             'Headaches', 'Aches and Pains', 'Others'],
     datasets: [
       {
-        label: 'Most Possible Symtoms after Vaccine',
+        label: 'Most Possible Side Effects after Vaccine',
         backgroundColor: 'rgba(73, 63, 252, 1)',
         borderColor: 'rgba(0,0,0,1)',
         borderWidth: 0,
-        data: [65, 59, 80, 81, 56]
+        data: [80, 20, 59, 66, 90]
       }
     ]
   };
@@ -334,10 +342,25 @@ function Polls() {
     datasets: [
       {
         label: 'Most Possible Symtoms For Positive Cases',
-        backgroundColor: 'rgba(73, 63, 252, 1)',
+        backgroundColor: 'rgb(0, 153, 204)',
         borderColor: 'rgba(0,0,0,1)',
         borderWidth: 0,
         data: [65, 59, 80, 81, 56]
+      }
+    ]
+  };
+
+
+  const state3 = {
+    labels: ['Cough', 'Fever', 'Shortness of Breath',
+             'Headaches', 'Aches and Pains'],
+    datasets: [
+      {
+        label: 'Mean Age for Most possible Symptoms',
+        backgroundColor: 'rgb(0, 143, 118)',
+        borderColor: 'rgba(0,0,0,1)',
+        borderWidth: 0,
+        data: [45, 30, 24 , 65, 70]
       }
     ]
   };
@@ -363,7 +386,7 @@ function Polls() {
             }}
           />
           </div>
-          <div>
+          <div className='polls'>
           <Bar
             data={state2}
             options={{
@@ -379,6 +402,23 @@ function Polls() {
             }}
           />
           </div>
+          <div className='polls'>
+          <Bar
+            data={state3}
+            options={{
+              title:{
+                display:true,
+                text:'Most Possible Symtoms for Positive test',
+                fontSize:20
+              },
+              legend:{
+                display:true,
+                position:'right'
+              }
+            }}
+          />
+          </div>
+          
         </div>
       );
     }
