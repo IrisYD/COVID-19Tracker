@@ -93,7 +93,7 @@ app.post('/login', async (req, res) => {
       req.session.user = req.body.name;
       console.log(req.session.user);
       console.log("Saved to session.");
-      res.send("login success! " + req.body.name);
+      res.send(req.body.name);
 
     }
   }
@@ -153,6 +153,15 @@ app.get('/logout', function (req, res) {
 // Get content endpoint
 app.get('/contents', auth, function (req, res) {
   res.send("You can only see this after you've logged in.");
+});
+
+app.get('/user', function(req, res) {
+  res.setHeader('Content-Type', 'application/json')
+  if (req.session && req.session.user) {
+    res.end(JSON.stringify({user: req.session.user}))
+  } else {
+    res.end(JSON.stringify({user: null}))
+  }
 });
 
 module.exports = app;

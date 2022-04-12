@@ -13,9 +13,11 @@ import News from './pages/News';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Profile from './pages/Profile';
+import { ContextRoot } from './context';
 
 
 ReactDOM.render(
+  <ContextRoot>
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<App />}>
@@ -28,5 +30,6 @@ ReactDOM.render(
         <Route path="profile" element={<Profile />} />
       </Route>
     </Routes>
-  </BrowserRouter>,document.getElementById('root'));
+  </BrowserRouter>
+  </ContextRoot>,document.getElementById('root'));
 
