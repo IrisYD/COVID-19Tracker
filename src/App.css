@@ -98,7 +98,9 @@ body {
     width: 70vw;
     justify-content: end;
     margin-right: 2rem;
-    margin-top: 70px;
+    margin-top: 112px;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
     font-weight: 200;
 }
 
