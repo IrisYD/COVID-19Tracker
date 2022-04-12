@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
-import {Line, Bar, Pie, PolarArea, Doughnut, Radar} from 'react-chartjs-2';
-import {fetchDailyCovidData} from "../../api/index";
+import {Bar, Pie, Doughnut} from 'react-chartjs-2';
+import {fetchDailyCovidData} from "../../api/ChartIndex";
 import "./charts.css";
 import numeral from "numeral";
 
@@ -16,7 +16,7 @@ const Chart = ({
     let dataForAllExceptLineChart;
     if (confirmed) {
         dataForAllExceptLineChart = {
-            labels: ["Infected", "Deaths"],
+            labels: ["Cases", "Deaths"],
             datasets: [
                 {
                     label: "People",
@@ -25,7 +25,8 @@ const Chart = ({
                         // "rgba(0, 255, 0, 0.5)",
                         "rgba(255, 0, 0, 0.5)"
                     ],
-                    data: [confirmed.value, deaths.value]
+                    data: [confirmed.value, deaths.value],
+                    radius: 150
                 },
             ],
         };
@@ -43,13 +44,15 @@ const Chart = ({
     const barChart = confirmed
         ? (
             <Bar
-                data={dataForAllExceptLineChart}
-                options={{
+                    data={dataForAllExceptLineChart}
+                    options={{
+                    responsive: true,
+                    // maintainAspectRatio: false,
+                    aspectRatio: 2,
                     plugins: {
                         legend: false,
                         title: {
-                            display: true,
-                            text: `Current State in ${country}`
+                            display: true
                         },
                     },
                     scales: {
@@ -79,8 +82,7 @@ const Chart = ({
                     plugins: {
                         legend: true,
                         title: {
-                            display: true,
-                            text: `Current State in ${country}`
+                            display: true
                         }
                     }
 
@@ -96,34 +98,35 @@ const Chart = ({
                 data={dataForAllExceptLineChart}
                 options={{
                     plugins: {
-                        legend: true,
-                        title: {
+                        legend:  {
                             display: true,
-                            text: `Current State in ${country}`
-                        }
+                        },
+                        title: {
+                            display: true
+                        },
                     }
                 }}
             />
         )
         : null;
 
-    // Polar Chart
-    const polarChart = confirmed
-        ? (
-            <PolarArea
-                data={dataForAllExceptLineChart}
-                options={{
-                    plugins: {
-                        legend: true,
-                        title: {
-                            display: true,
-                            text: `Current State in ${country}`
-                        }
-                    }
-                }}
-            />
-        )
-        : null;
+    // // Polar Chart
+    // const polarChart = confirmed
+    //     ? (
+    //         <PolarArea
+    //             data={dataForAllExceptLineChart}
+    //             options={{
+    //                 plugins: {
+    //                     legend: true,
+    //                     title: {
+    //                         display: true,
+    //                         text: `Current State in ${country}`
+    //                     }
+    //                 }
+    //             }}
+    //         />
+    //     )
+    //     : null;
 
     // // Radar Chart
     // const radarChart = confirmed
@@ -188,8 +191,8 @@ const Chart = ({
                 return doughnutChart;
             case "Pie":
                 return pieChart;
-            case "Polar":
-                return polarChart;
+            // case "Polar":
+            //     return polarChart;
             // case "Radar":
             //     return radarChart;
             default:

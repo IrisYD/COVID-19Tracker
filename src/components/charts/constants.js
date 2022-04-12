@@ -1,1 +1,1 @@
-export const CHART_TYPES = ["Bar",  "Doughnut", "Pie", "Polar"];
+export const CHART_TYPES = ["Bar", "Doughnut", "Pie"];

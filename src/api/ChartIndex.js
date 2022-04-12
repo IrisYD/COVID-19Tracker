@@ -1,6 +1,5 @@
 import axios from "axios";
 
-// https://github.com/mathdroid/covid-19-api
 const baseUrl = 'https://covid19.mathdro.id/api';
 
 export const fetchCovidData = async (country) => {
@@ -45,6 +44,21 @@ export const fetchDailyCovidData = async (country) => {
                 date
             }
         ));
+    } catch (error) {
+        return error;
+    }
+}
+
+export const fetchCovidDataForMillion= async () => {
+    try {
+        const {data : {
+            casesPerOneMillion,
+            deathsPerOneMillion
+        }} = await axios.get(`https://disease.sh/v3/covid-19/all`);
+        return ({
+                casesPerOneMillion,
+                deathsPerOneMillion
+            });
     } catch (error) {
         return error;
     }
