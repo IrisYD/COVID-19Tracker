@@ -9,3 +9,10 @@
         width: 100%;
     }
 }
+
+.bar-chart-container {
+    position: relative;
+    margin: auto;
+    height: 40vh;
+    width: 80vw;
+}

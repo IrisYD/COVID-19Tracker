@@ -76,7 +76,6 @@ function LineGraph({casesType = "cases", ...props}) {
                     setData(chartData);
                 });
         };
-
         fetchData();
     }, [casesType]);
 

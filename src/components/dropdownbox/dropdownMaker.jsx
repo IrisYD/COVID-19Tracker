@@ -1,6 +1,6 @@
-import './dropdown.css';
 import React, {useState} from "react";
 import {NativeSelect, FormControl} from "@mui/material";
+import './dropdown.css';
 
 const useDropDown = (label, defaultState, options) => {
     const [state, setState] = useState(defaultState);
@@ -17,7 +17,7 @@ const useDropDown = (label, defaultState, options) => {
                 >
                     {
                         options.map(item =>
-                            <option key={item} value={item}>
+                            <option key={item} value={item} className="dropOptions">
                                 {item}
                             </option>
                         )
