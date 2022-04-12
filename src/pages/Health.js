@@ -10,7 +10,13 @@ import {
   ListItemText,
   Paper
 } from "@mui/material";
+import { styled } from '@mui/material/styles';
 import symptoms from "../data/symptoms.json";
+
+const ListItemTextCenter = styled(ListItem)(({theme}) => ({
+  textAlign: 'center',
+  padding: '0 0',
+}));
 
 export default function Health() {
 
@@ -21,9 +27,11 @@ export default function Health() {
           }}
           maxWidth={'xl'}
       >
-        <Paper elevation={2} sx={{mb: 4, px: 4, py: 4}}>
+        <Paper elevation={2} sx={{mb: 4, px: 4, py: 4, textAlign: 'center'}}>
           <List>
-            <ListItem sx={{px: 0, py: 0}} divider={true}>
+            <ListItemTextCenter
+                divider={true}
+            >
               <Box sx={{py: 1, px: 2, width: '100%'}}>
                 <Grid container spacing={2} alignItems={'center'}>
                   <Grid
@@ -46,8 +54,10 @@ export default function Health() {
                   </Grid>
                 </Grid>
               </Box>
-            </ListItem>
-            <ListItem sx={{px: 0, py: 0}} divider={true}>
+            </ListItemTextCenter>
+            <ListItemTextCenter
+                divider={true}
+            >
               <Box sx={{py: 1, px: 2, width: '100%'}}>
                 <Grid container spacing={2} alignItems={'center'}>
                   <Grid
@@ -127,10 +137,10 @@ export default function Health() {
                   </Grid>
                 </Grid>
               </Box>
-            </ListItem>
+            </ListItemTextCenter>
             {
               symptoms.map((symptom) => (
-                  <ListItem key={symptom.symptom.description} sx={{px: 0, py: 0}} divider={true}>
+                  <ListItemTextCenter key={symptom.symptom.description} sx={{px: 0, py: 0}} divider={true}>
                     <Box sx={{py: 1, px: 2, width: '100%'}}>
                       <Grid container spacing={2} alignItems={'center'}>
                         <Grid
@@ -170,9 +180,7 @@ export default function Health() {
                         >
                           <ListItemText
                               primary={symptom['covid-19']}
-                              primaryTypographyProps={{
-                                // fontWeight: 'bold',
-                              }}
+                              primaryTypographyProps={{}}
                           />
                         </Grid>
                         <Grid
@@ -184,9 +192,7 @@ export default function Health() {
                         >
                           <ListItemText
                               primary={symptom['cold']}
-                              primaryTypographyProps={{
-                                // fontWeight: 'bold',
-                              }}
+                              primaryTypographyProps={{}}
                           />
                         </Grid>
                         <Grid
@@ -198,9 +204,7 @@ export default function Health() {
                         >
                           <ListItemText
                               primary={symptom['cold']}
-                              primaryTypographyProps={{
-                                // fontWeight: 'bold',
-                              }}
+                              primaryTypographyProps={{}}
                           />
                         </Grid>
                         <Grid
@@ -212,14 +216,12 @@ export default function Health() {
                         >
                           <ListItemText
                               primary={symptom['allergies']}
-                              primaryTypographyProps={{
-                                // fontWeight: 'bold',
-                              }}
+                              primaryTypographyProps={{}}
                           />
                         </Grid>
                       </Grid>
                     </Box>
-                  </ListItem>
+                  </ListItemTextCenter>
               ))
             }
           </List>
