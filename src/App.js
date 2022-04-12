@@ -56,6 +56,7 @@ function App() {
                             <li><CustomLink to='/community'>Community</CustomLink></li>
                             <li><CustomLink to='/health'>Health</CustomLink></li>
                             <li><CustomLink to='/news'>News</CustomLink></li>
+                            <li><CustomLink to='/profile'>Profile</CustomLink></li>
                         </ul>
                     </div>
                 </div>
