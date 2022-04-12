@@ -34,7 +34,12 @@ function Signup() {
         //Prevent page reload
         event.preventDefault();
     
-        const { uname, pass } = document.forms[0];
+        const { fname, lname, uname, pass, rpass } = document.forms[0];
+
+        if (pass != rpass) {
+            alert("Passwords don't match!");
+            document.forms[0].reset();
+        }
         const requestBody = {
             "name": uname.value,
             "password": pass.value
@@ -70,11 +75,21 @@ function Signup() {
             <form onSubmit={handleSubmit}>
                 <div className="title">Create Your Account</div>
                 <div className="input-container">
+                    <input type="text" name="fname" placeholder="Firstname" />\
+                </div>
+                <div className="input-container">
+                    <input type="text" name="lname" placeholder="Lastname"  />
+                </div>
+                <div className="input-container">
                     <input type="text" name="uname" placeholder="Username" required />
                     {renderErrorMessage("uname")}
                 </div>
                 <div className="input-container">
                     <input type="password" name="pass" placeholder="Password" required />
+                    {renderErrorMessage("pass")}
+                </div>
+                <div className="input-container">
+                    <input type="password" name="rpass" placeholder="Retype Password" required />
                     {renderErrorMessage("pass")}
                 </div>
                 <div>
