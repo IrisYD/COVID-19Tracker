@@ -138,6 +138,8 @@ function SymptomDialog(props) {
   const [testResult, setTestResult] = React.useState(null);
   const [startTime, setStartTime] = React.useState("");
   const [comments, setComments] = React.useState("");
+  const [vaccineStatus, setVaccineStatus] = React.useState("");
+
 
   const [checked, setChecked] = React.useState(true);
 
@@ -147,7 +149,8 @@ function SymptomDialog(props) {
       vaccine,
       testResult,
       startTime,
-      comments
+      comments,
+      vaccineStatus
     })
   }
 
@@ -227,10 +230,10 @@ function SymptomDialog(props) {
               setVaccine(value)
             }}
           >
-            <FormControlLabel value="pfizer" control={<Radio />} label="Pfizer" />
-            <FormControlLabel value="moderna" control={<Radio />} label="Moderna" />
-            <FormControlLabel value="jj" control={<Radio />} label="JohnsonJohnson" />
-            <FormControlLabel value="other" control={<Radio />} label="other" />
+            <FormControlLabel value="Pfizer" control={<Radio />} label="Pfizer" />
+            <FormControlLabel value="Moderna" control={<Radio />} label="Moderna" />
+            <FormControlLabel value="Johnson Johnsonj" control={<Radio />} label="JohnsonJohnson" />
+            <FormControlLabel value="Other" control={<Radio />} label="other" />
           </RadioGroup>
           <span></span>
 
@@ -239,10 +242,13 @@ function SymptomDialog(props) {
             column="true"
             aria-labelledby="demo-row-radio-buttons-group-label"
             name="row-radio-buttons-group"
+            onChange={(_, value) => {
+              setVaccineStatus(value)
+            }}
           >
-            <FormControlLabel value="fullyVaccined" control={<Radio />} label="Fully Vaccined" />
+            <FormControlLabel value="Fully Vaccined" control={<Radio />} label="Fully Vaccined" />
             {/* <FormHelperText>2 does for Pfizer and moderna, 1 for JohnsonJohnson</FormHelperText> */}
-            <FormControlLabel value="1 does" control={<Radio />} label="Only 1 does" />
+            <FormControlLabel value="Only 1 Does" control={<Radio />} label="Only 1 does" />
             {/* <FormHelperText>Don't choose it if you took JohnsonJohnson</FormHelperText> */}
             <FormControlLabel value="None" control={<Radio />} label="None" />
           </RadioGroup>
@@ -258,9 +264,9 @@ function SymptomDialog(props) {
               setTestResult(value)
             }}
           >
-            <FormControlLabel value="positive" control={<Radio />} label="Positive" />
-            <FormControlLabel value="negative" control={<Radio />} label="Negative" />
-            <FormControlLabel value="none" control={<Radio />} label="Not Applicable" />
+            <FormControlLabel value="Positive" control={<Radio />} label="Positive" />
+            <FormControlLabel value="Negative" control={<Radio />} label="Negative" />
+            <FormControlLabel value="None" control={<Radio />} label="Not Applicable" />
           </RadioGroup>
           <span></span>
           <FormLabel component="legend" className='formTitle'>Choose a Date you started to show symptoms</FormLabel>
@@ -316,9 +322,15 @@ function Card(props) {
     </div>
     <div className='info'>
       <div className='row'>
-      <b><span>{post.symptoms.map((symptom) => (
+      <b><h4>{post.symptoms.map((symptom) => (
         <span>{symptom}</span>
-      ))}</span></b>
+      ))}</h4></b>
+      </div>
+      <div className='row'>
+        <span>Vaccine Taken:   <b>{post.vaccine ? post.vaccine: 'User did not add the vaccination information'}</b></span>
+      </div>
+      <div className='row'>
+        <span>Vaccine Status:   <b>{post.vaccineStatus ? post.vaccineStatus : 'N/A' }</b></span>
       </div>
       <div className='row'>
         <span>Test Result:   <b>{post.testResult? post.testResult: 'No Test Result'}</b></span>
