@@ -25,7 +25,10 @@ import { AppContext } from '../context';
 
 
 function getUsers() {
-  return fetch("/users").then(resp => resp.json())
+  return fetch("/users").then(resp => 
+    {
+    console.log("user")
+    return resp.json()})
 }
 
 function getPosts() {
@@ -175,7 +178,7 @@ function SymptomDialog(props) {
       <FormControl>
 
       
-      <FormLabel component="legend" className='formTitle'>Choose Your Symptoms</FormLabel>
+      <FormLabel component="legend" className='formTitle'>Choose Your Symptoms (Required)</FormLabel>
       <FormGroup aria-label="position" className='formContent' row>
 
         <FormControlLabel
@@ -214,7 +217,7 @@ function SymptomDialog(props) {
       </FormGroup>
     
         <span></span>
-        <FormLabel component="legend" className='formTitle'>Choose your Vaccine</FormLabel>
+        <FormLabel component="legend" className='formTitle'>Choose your Vaccine (optional)</FormLabel>
           <RadioGroup
             row
             aria-labelledby="demo-row-radio-buttons-group-label"
@@ -231,7 +234,7 @@ function SymptomDialog(props) {
           </RadioGroup>
           <span></span>
 
-          <FormLabel component="legend" className='formTitle'>Your Vaccine Status</FormLabel>
+          <FormLabel component="legend" className='formTitle'>Your Vaccine Status (optional)</FormLabel>
           <RadioGroup
             column="true"
             aria-labelledby="demo-row-radio-buttons-group-label"
@@ -246,7 +249,7 @@ function SymptomDialog(props) {
 
           <span></span>
 
-          <FormLabel component="legend" className='formTitle'>Tell us the recent Test Results you have</FormLabel>
+          <FormLabel component="legend" className='formTitle'>Tell us the recent Test Results you have (optional)</FormLabel>
           <RadioGroup
             column="true"
             aria-labelledby="demo-row-radio-buttons-group-label"
@@ -302,13 +305,14 @@ function SymptomDialog(props) {
 
 function Card(props) {
   const { user, post } = props;
+  const { username } = React.useContext(AppContext);
 
   return <li>
     <div className='user'>
       <div className='avatar' style={{ backgroundImage: `url(${user?.avatar ? user.avatar : '../images/spiderman.png'})` }} />
-      <div className='user_name'><b>{user?.name}</b></div>
-      <div>Age: {user?.age}</div>
-      <div>No underlying disease</div>
+      <div className='user_name'><b>{username}</b></div>
+      <div>Age: 38</div>
+      {/* <div>No underlying disease</div> */}
     </div>
     <div className='info'>
       <div className='row'>
@@ -317,10 +321,10 @@ function Card(props) {
       ))}</span></b>
       </div>
       <div className='row'>
-        <span>Test Result:   <b>{post.testResult}</b></span>
+        <span>Test Result:   <b>{post.testResult? post.testResult: 'No Test Result'}</b></span>
       </div>
       <div className='row'>
-        <span>Start To Show Symptoms:   <b>{post.startTime}</b></span>
+        <span>Start To Show Symptoms:   <b>{post.startTime ? post.startTime: 'User did not choose the Start Time'}</b></span>
       </div>
       <div className='row comments-row'>
         <p>
