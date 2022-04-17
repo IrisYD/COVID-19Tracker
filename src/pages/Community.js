@@ -118,10 +118,20 @@ function Community() {
       <div>
 
         <Polls/>
-        <div className='polls'>
-            <h3>Have no idea about your symptom? Screening by yourself!</h3>
-            <iframe src="https://my.castlighthealth.com/corona-virus-testing-sites/self-assessment/assessment.html?from=ABC" witdh="100%" frameborder="0" height="800px" ></iframe>
+        <div className='widgets'>
+            <h3>Check the COVID Test Points nearby!</h3>
+
+            <div className="clip-me">
+            <iframe  className="test-widgets" src="https://my.castlighthealth.com/corona-virus-testing-sites/?embed=true" witdh="100%"  frameborder="0" height="1740px"></iframe>
+            </div>
+            <div>
+            <h3>Have no Idea about your symptoms? Self evaluate here!</h3>
+
+            <iframe src="https://my.castlighthealth.com/corona-virus-testing-sites/self-assessment/assessment.html?" witdh="100%" frameborder="0" height="800px" ></iframe>
+            </div>
+
         </div>
+
 
       </div>
 
