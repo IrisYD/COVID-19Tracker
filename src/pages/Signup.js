@@ -8,23 +8,6 @@ function Signup() {
     const [errorMessages, setErrorMessages] = useState({});
     const [isSubmitted, setIsSubmitted] = useState(false);
 
-    // User Login info
-    const database = [
-        {
-            username: "user1",
-            password: "pass1"
-        },
-        {
-            username: "user2",
-            password: "pass2"
-        }
-    ];
-    
-    const errors = {
-        uname: "invalid username",
-        pass: "invalid password"
-    };
-
     const renderErrorMessage = (name) =>
         name === errorMessages.name && (
             <div className="error">{errorMessages.message}</div>
@@ -42,7 +25,10 @@ function Signup() {
         }
         const requestBody = {
             "name": uname.value,
-            "password": pass.value
+            "password": pass.value,
+            "fname": fname.value,
+            "email": email.value,
+            "lname": lname.value,
         }
 
         const config = {
