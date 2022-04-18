@@ -10,11 +10,6 @@ const LoginForm = props => {
     const [errorMessages, setErrorMessages] = useState({});
     const [isSubmitted, setIsSubmitted] = useState(false);
 
-    const errors = {
-        uname: "invalid username",
-        pass: "invalid password"
-    };
-
     const renderErrorMessage = (name) =>
         name === errorMessages.name && (
             <div className="error">{errorMessages.message}</div>
