@@ -199,7 +199,7 @@ function Data() {
                         height: {xs: '600px', s: '650px', md: '670px', lg: '670px', xl: '600px'}
                     }}>
                         <CardContent>
-                            <h3>Worldwide COVID Cases/Recovered/Deaths Per Million</h3>
+                            <h3>Worldwide COVID Cases/Recovered/Deaths Per One Million</h3>
                             <Box display={'flex'} justifyContent={'center'} alignItems={'stretch'}>
                                 <ChartForPerOneMillion data={dataForPerOneMillion}/>
                             </Box>
