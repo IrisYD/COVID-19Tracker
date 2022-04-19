@@ -36,7 +36,7 @@ const LoginForm = props => {
             console.log('Username from login response', res.data);
             localStorage.setItem('username', res.data);
             window.location.replace("http://localhost:3000");
-            // alert("Logged in as " + uname);
+            alert("Logged in as " + uname.value);
             props.setUsername(res.data);
         }
 
