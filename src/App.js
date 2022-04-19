@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
-import axios from 'axios';
-import {Link, Outlet, useMatch, useResolvedPath} from 'react-router-dom';
+import { Link, Outlet, useMatch, useResolvedPath } from 'react-router-dom';
 import { AppContext } from './context';
 
 const url = "http://localhost:3001";
