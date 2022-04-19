@@ -50,16 +50,21 @@ export const fetchDailyCovidData = async (country) => {
 }
 
 export const fetchCovidDataForMillion= async () => {
+    let urlForMillion = 'https://disease.sh/v3/covid-19/all';
+
     try {
-        const {data : {
+        const { data: {
             casesPerOneMillion,
+            recoveredPerOneMillion,
             deathsPerOneMillion
-        }} = await axios.get(`https://disease.sh/v3/covid-19/all`);
-        return ({
-                casesPerOneMillion,
-                deathsPerOneMillion
-            });
+        }} = await axios.get(urlForMillion);
+
+        return {
+            casesPerOneMillion: casesPerOneMillion,
+            recoveredPerOneMillion,
+            deathsPerOneMillion
+        };
     } catch (error) {
         return error;
     }
-}
+};

@@ -10,9 +10,8 @@ import Chart from '../components/charts/chart';
 import useDropDown from "../components/dropdownbox/dropdownMaker";
 import {CHART_TYPES as chartsList} from '../components/charts/constants';
 import './Data.css';
-import {fetchCovidData, fetchCountriesData} from "../api/ChartIndex";
-// import ChartForOneMillion from "../components/charts/ChartForOneMillion";
-
+import {fetchCovidData, fetchCountriesData, fetchCovidDataForMillion} from "../api/ChartIndex";
+import ChartForPerOneMillion from "../components/charts/ChartForPerOneMillion";
 // import CovidCards from "../components/cards/allCards/Cards";
 
 function Data() {
@@ -27,9 +26,11 @@ function Data() {
     const [casesType, setCasesType] = useState("cases");
     // CovidCards for Charts data
     const [data, setData] = useState({});
+    const [dataForPerOneMillion, setDataForPerOneMillion] = useState({});
     const [countryList, setCountryList] = useState([]);
     const [location, LocationDropDown] = useDropDown("Select a Country: ", "US", countryList);
     const [chartType, ChartTypeDropDown] = useDropDown("Select a Chart: ", "Bar", chartsList);
+
 
     useEffect(() => {
         fetch('https://disease.sh/v3/covid-19/all')
@@ -81,6 +82,7 @@ function Data() {
         // console.log('Country Info:', countryInfo);
     };
 
+    // for charts' dropdown
     useEffect(() => {
         const fetchCountriesFromAPI = async () => {
             const countries = await fetchCountriesData();
@@ -98,11 +100,21 @@ function Data() {
         location === 'Global' ? getFromAPI('') : getFromAPI(location);
     }, [location]);
 
+    useEffect(() => {
+        const getPerOneMillionFromAPI = async () => {
+            const data = await fetchCovidDataForMillion();
+            console.log('fetchCovidDataForMillion', data);
+            setDataForPerOneMillion(data);
+        };
+
+        getPerOneMillionFromAPI();
+    }, []);
+
     return (
         <>
             <div className="app-data">
 
-                <div className="app-data__left" >
+                <div className="app-data__left">
                     <div className="app-data__stats">
                         <InfoBox
                             onClick={e => setCasesType('cases')}
@@ -126,7 +138,7 @@ function Data() {
                             total={StatPrintFormat(countryInfo.deaths)}/>
                         <FormControl className="app-data__dropdown">
                             <Select variant="outlined" value={country} onChange={onCountryChange}>
-                                <MenuItem value="worldwide">Worldwide</MenuItem>
+                                <MenuItem value="worldwide" key={country}>Worldwide</MenuItem>
                                 {
                                     countries.map(country => (
                                         <MenuItem value={country.value}>{country.name}</MenuItem>
@@ -141,9 +153,16 @@ function Data() {
                         center={mapCenter}
                         zoom={mapZoom}
                     />
-                    <Card sx={{marginTop: '36px', marginBottom: '20px', borderRadius: '12px', flex: 1, width: '100%', height: {xs: '730px', s: '650px', md: '670px', lg: '670px', xl: '860px'}}}>
+                    <Card sx={{
+                        marginTop: '36px',
+                        marginBottom: '20px',
+                        borderRadius: '12px',
+                        flex: 1,
+                        width: '100%',
+                        height: {xs: '730px', s: '650px', md: '670px', lg: '670px', xl: '860px'}
+                    }}>
                         <CardContent>
-                            <h3 >COVID Cases/Deaths In Countries</h3>
+                            <h3>COVID Cases/Deaths In Countries</h3>
                             {/*<CovidCards data={data}/>*/}
                             <Typography textAlign={'center'}>
                                 <LocationDropDown/>
@@ -156,7 +175,8 @@ function Data() {
                             </Box>
                         </CardContent>
                     </Card>
-                    <iframe src="https://public.domo.com/cards/dLj4g" width="60%" height="400" marginHeight="0" marginWidth="0" className="analyzed-graph-flu"
+                    <iframe src="https://public.domo.com/cards/dLj4g" width="60%" height="400" marginHeight="0"
+                            marginWidth="0" className="analyzed-graph-flu"
                             frameBorder="0"></iframe>
                 </div>
 
@@ -169,11 +189,51 @@ function Data() {
                             <LineGraph className="app-data__graph" casesType={casesType}/>
                         </CardContent>
                     </Card>
-                    {/*<ChartForOneMillion />*/}
-                    <iframe src="https://public.domo.com/cards/2kO6J" height="600" marginHeight="0"
-                            marginWidth="0" frameBorder="0" className="analyzed-graph-vaccine"></iframe>
+                    <Card sx={{
+                        display: 'block',
+                        marginTop: '36px',
+                        marginBottom: '20px',
+                        borderRadius: '12px',
+                        flex: 1,
+                        width: '100%',
+                        height: {xs: '600px', s: '650px', md: '670px', lg: '670px', xl: '600px'}
+                    }}>
+                        <CardContent>
+                            <h3>Worldwide COVID Cases/Recovered/Deaths Per Million</h3>
+                            <Box display={'flex'} justifyContent={'center'} alignItems={'stretch'}>
+                                <ChartForPerOneMillion data={dataForPerOneMillion}/>
+                            </Box>
+                        </CardContent>
+                    </Card>
+                    <iframe
+                        src="https://public.domo.com/cards/2kO6J"
+                        height="600"
+                        marginHeight="0"
+                        marginWidth="0"
+                        frameBorder="0"
+                        className="analyzed-graph-vaccine"/>
                 </div>
             </div>
+            <Card sx={{
+                marginTop: '36px',
+                marginLeft: '20px',
+                marginBottom: '40px',
+                padding: '20px',
+                borderRadius: '12px',
+                flex: 1,
+                width: '98%',
+                height: '600px'
+            }}>
+                <CardContent>
+                    {/*https://www.domo.com/covid19/data/*/}
+                    <iframe src="https://public.domo.com/cards/dNl4L"
+                            width="100%"
+                            height="600"
+                            marginHeight="0"
+                            marginWidth="0"
+                            frameBorder="0"/>
+                </CardContent>
+            </Card>
         </>
     );
 }
