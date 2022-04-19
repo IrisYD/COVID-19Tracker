@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios'
 
 import {
   Box,
@@ -19,6 +20,8 @@ import { Navigate, useNavigate } from 'react-router-dom';
 
 import '../App.css';
 import profileServices from '../services/profileServices';
+
+const url = "http://localhost:3001";
 
 function ProfileRender({ usernameLoggedIn, setCurrentUser }) {
   const [username, setUsername] = useState('');
@@ -81,6 +84,31 @@ function ProfileRender({ usernameLoggedIn, setCurrentUser }) {
       }
     });
   };
+
+  const handleClick = (event) => {
+    event.preventDefault();
+
+    const config = {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        withCredentials: true
+    }
+
+    return axios.get(
+        url + '/logout',
+        config
+    )
+    .then((res) => {
+        alert(res.data);
+        console.log(res.data);
+        window.location.replace("http://localhost:3000");
+    })
+    .catch((error) => {
+        alert("Did not logged in");
+        console.log(error);
+    })
+  }
 
   return (
       <Container
@@ -182,6 +210,15 @@ function ProfileRender({ usernameLoggedIn, setCurrentUser }) {
                 onClick={handleSubmit}
             >
               Submit
+            </Button>
+            <Button
+                sx={{ mt: 3, ml: 1 }}
+                onClick={(evt) => {
+                  handleClick(evt)
+                  .then(() => { setUsername(null) })
+                }}
+            >
+              Logout
             </Button>
           </Box>
         </Paper>
