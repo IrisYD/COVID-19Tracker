@@ -185,7 +185,7 @@ function Data() {
                         <CardContent>
                             <h3>Live Cases By Country</h3>
                             <Table countries={tableData}/>
-                            <h3 className="app-data__graphTitle">World Wide New {casesType}</h3>
+                            <h3 className="app-data__graphTitle">Worldwide New {casesType}</h3>
                             <LineGraph className="app-data__graph" casesType={casesType}/>
                         </CardContent>
                     </Card>
