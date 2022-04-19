@@ -25,7 +25,10 @@ import { AppContext } from '../context';
 
 
 function getUsers() {
-  return fetch("/users").then(resp => resp.json())
+  return fetch("/users").then(resp => 
+    {
+    console.log("user")
+    return resp.json()})
 }
 
 function getPosts() {
@@ -115,10 +118,20 @@ function Community() {
       <div>
 
         <Polls/>
-        <div className='polls'>
-            <h3>Have no idea about your symptom? Screening by yourself!</h3>
-            <iframe src="https://my.castlighthealth.com/corona-virus-testing-sites/self-assessment/assessment.html?from=ABC" witdh="100%" frameborder="0" height="800px" ></iframe>
+        <div className='widgets'>
+            <h3>Check the COVID Test Points nearby!</h3>
+
+            <div className="clip-me">
+            <iframe  className="test-widgets" src="https://my.castlighthealth.com/corona-virus-testing-sites/?embed=true" witdh="100%"  frameborder="0" height="1740px"></iframe>
+            </div>
+            <div>
+            <h3>Have no Idea about your symptoms? Self evaluate here!</h3>
+
+            <iframe src="https://my.castlighthealth.com/corona-virus-testing-sites/self-assessment/assessment.html?" witdh="100%" frameborder="0" height="800px" ></iframe>
+            </div>
+
         </div>
+
 
       </div>
 
@@ -135,6 +148,8 @@ function SymptomDialog(props) {
   const [testResult, setTestResult] = React.useState(null);
   const [startTime, setStartTime] = React.useState("");
   const [comments, setComments] = React.useState("");
+  const [vaccineStatus, setVaccineStatus] = React.useState("");
+
 
   const [checked, setChecked] = React.useState(true);
 
@@ -144,7 +159,8 @@ function SymptomDialog(props) {
       vaccine,
       testResult,
       startTime,
-      comments
+      comments,
+      vaccineStatus
     })
   }
 
@@ -175,7 +191,7 @@ function SymptomDialog(props) {
       <FormControl>
 
       
-      <FormLabel component="legend" className='formTitle'>Choose Your Symptoms</FormLabel>
+      <FormLabel component="legend" className='formTitle'>Choose Your Symptoms (Required)</FormLabel>
       <FormGroup aria-label="position" className='formContent' row>
 
         <FormControlLabel
@@ -214,7 +230,7 @@ function SymptomDialog(props) {
       </FormGroup>
     
         <span></span>
-        <FormLabel component="legend" className='formTitle'>Choose your Vaccine</FormLabel>
+        <FormLabel component="legend" className='formTitle'>Choose your Vaccine (optional)</FormLabel>
           <RadioGroup
             row
             aria-labelledby="demo-row-radio-buttons-group-label"
@@ -224,29 +240,32 @@ function SymptomDialog(props) {
               setVaccine(value)
             }}
           >
-            <FormControlLabel value="pfizer" control={<Radio />} label="Pfizer" />
-            <FormControlLabel value="moderna" control={<Radio />} label="Moderna" />
-            <FormControlLabel value="jj" control={<Radio />} label="JohnsonJohnson" />
-            <FormControlLabel value="other" control={<Radio />} label="other" />
+            <FormControlLabel value="Pfizer" control={<Radio />} label="Pfizer" />
+            <FormControlLabel value="Moderna" control={<Radio />} label="Moderna" />
+            <FormControlLabel value="Johnson Johnsonj" control={<Radio />} label="JohnsonJohnson" />
+            <FormControlLabel value="Other" control={<Radio />} label="other" />
           </RadioGroup>
           <span></span>
 
-          <FormLabel component="legend" className='formTitle'>Your Vaccine Status</FormLabel>
+          <FormLabel component="legend" className='formTitle'>Your Vaccine Status (optional)</FormLabel>
           <RadioGroup
             column="true"
             aria-labelledby="demo-row-radio-buttons-group-label"
             name="row-radio-buttons-group"
+            onChange={(_, value) => {
+              setVaccineStatus(value)
+            }}
           >
-            <FormControlLabel value="fullyVaccined" control={<Radio />} label="Fully Vaccined" />
+            <FormControlLabel value="Fully Vaccined" control={<Radio />} label="Fully Vaccined" />
             {/* <FormHelperText>2 does for Pfizer and moderna, 1 for JohnsonJohnson</FormHelperText> */}
-            <FormControlLabel value="1 does" control={<Radio />} label="Only 1 does" />
+            <FormControlLabel value="Only 1 Does" control={<Radio />} label="Only 1 does" />
             {/* <FormHelperText>Don't choose it if you took JohnsonJohnson</FormHelperText> */}
             <FormControlLabel value="None" control={<Radio />} label="None" />
           </RadioGroup>
 
           <span></span>
 
-          <FormLabel component="legend" className='formTitle'>Tell us the recent Test Results you have</FormLabel>
+          <FormLabel component="legend" className='formTitle'>Tell us the recent Test Results you have (optional)</FormLabel>
           <RadioGroup
             column="true"
             aria-labelledby="demo-row-radio-buttons-group-label"
@@ -255,9 +274,9 @@ function SymptomDialog(props) {
               setTestResult(value)
             }}
           >
-            <FormControlLabel value="positive" control={<Radio />} label="Positive" />
-            <FormControlLabel value="negative" control={<Radio />} label="Negative" />
-            <FormControlLabel value="none" control={<Radio />} label="Not Applicable" />
+            <FormControlLabel value="Positive" control={<Radio />} label="Positive" />
+            <FormControlLabel value="Negative" control={<Radio />} label="Negative" />
+            <FormControlLabel value="None" control={<Radio />} label="Not Applicable" />
           </RadioGroup>
           <span></span>
           <FormLabel component="legend" className='formTitle'>Choose a Date you started to show symptoms</FormLabel>
@@ -302,25 +321,32 @@ function SymptomDialog(props) {
 
 function Card(props) {
   const { user, post } = props;
+  const { username } = React.useContext(AppContext);
 
   return <li>
     <div className='user'>
       <div className='avatar' style={{ backgroundImage: `url(${user?.avatar ? user.avatar : '../images/spiderman.png'})` }} />
-      <div className='user_name'><b>{user?.name}</b></div>
-      <div>Age: {user?.age}</div>
-      <div>No underlying disease</div>
+      <div className='user_name'><b>{username}</b></div>
+      <div>Age: 38</div>
+      {/* <div>No underlying disease</div> */}
     </div>
     <div className='info'>
       <div className='row'>
-      <b><span>{post.symptoms.map((symptom) => (
+      <b><h4>{post.symptoms.map((symptom) => (
         <span>{symptom}</span>
-      ))}</span></b>
+      ))}</h4></b>
       </div>
       <div className='row'>
-        <span>Test Result:   <b>{post.testResult}</b></span>
+        <span>Vaccine Taken:   <b>{post.vaccine ? post.vaccine: 'User did not add the vaccination information'}</b></span>
       </div>
       <div className='row'>
-        <span>Start To Show Symptoms:   <b>{post.startTime}</b></span>
+        <span>Vaccine Status:   <b>{post.vaccineStatus ? post.vaccineStatus : 'N/A' }</b></span>
+      </div>
+      <div className='row'>
+        <span>Test Result:   <b>{post.testResult? post.testResult: 'No Test Result'}</b></span>
+      </div>
+      <div className='row'>
+        <span>Start To Show Symptoms:   <b>{post.startTime ? post.startTime: 'User did not choose the Start Time'}</b></span>
       </div>
       <div className='row comments-row'>
         <p>

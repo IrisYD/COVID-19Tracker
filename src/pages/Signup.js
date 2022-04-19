@@ -8,23 +8,6 @@ function Signup() {
     const [errorMessages, setErrorMessages] = useState({});
     const [isSubmitted, setIsSubmitted] = useState(false);
 
-    // User Login info
-    const database = [
-        {
-            username: "user1",
-            password: "pass1"
-        },
-        {
-            username: "user2",
-            password: "pass2"
-        }
-    ];
-    
-    const errors = {
-        uname: "invalid username",
-        pass: "invalid password"
-    };
-
     const renderErrorMessage = (name) =>
         name === errorMessages.name && (
             <div className="error">{errorMessages.message}</div>
@@ -34,10 +17,18 @@ function Signup() {
         //Prevent page reload
         event.preventDefault();
     
-        const { uname, pass } = document.forms[0];
+        const { fname, lname, email, uname, pass, rpass } = document.forms[0];
+
+        if (pass != rpass) {
+            alert("Passwords don't match!");
+            document.forms[0].reset();
+        }
         const requestBody = {
             "name": uname.value,
-            "password": pass.value
+            "password": pass.value,
+            "fname": fname.value,
+            "email": email.value,
+            "lname": lname.value,
         }
 
         const config = {
@@ -70,11 +61,24 @@ function Signup() {
             <form onSubmit={handleSubmit}>
                 <div className="title">Create Your Account</div>
                 <div className="input-container">
+                    <input type="text" name="fname" placeholder="Firstname" />\
+                </div>
+                <div className="input-container">
+                    <input type="text" name="lname" placeholder="Lastname"  />
+                </div>
+                <div className="input-container">
+                    <input type="text" name="email" placeholder="Email"  />
+                </div>
+                <div className="input-container">
                     <input type="text" name="uname" placeholder="Username" required />
                     {renderErrorMessage("uname")}
                 </div>
                 <div className="input-container">
                     <input type="password" name="pass" placeholder="Password" required />
+                    {renderErrorMessage("pass")}
+                </div>
+                <div className="input-container">
+                    <input type="password" name="rpass" placeholder="Retype Password" required />
                     {renderErrorMessage("pass")}
                 </div>
                 <div>

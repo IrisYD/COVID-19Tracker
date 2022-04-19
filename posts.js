@@ -20,6 +20,9 @@ const PostsSchema = new mongoose.Schema({
   },
   vaccine: {
     type: String,
+  },
+  vaccineStatus: {
+    type: String,
   }
 });
 

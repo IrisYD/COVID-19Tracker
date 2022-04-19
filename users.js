@@ -11,10 +11,13 @@ const UserSchema = new mongoose.Schema({
   },
   location: {
     type: String,
+    default: 'United States'
   },
-  // vaccineStatus: {
-  //   type: 
-  // },
+  vaccineStatus: {
+    type: String,
+    enum: ['NOT_VACCINATED', 'FIRST_DOSE', 'FULLY_VACCINATED', 'BOOSTER_TAKEN'],
+    default: 'NOT_VACCINATED',
+  },
   age: {
     type: Number,
     default: 0,

@@ -10,11 +10,6 @@ const LoginForm = props => {
     const [errorMessages, setErrorMessages] = useState({});
     const [isSubmitted, setIsSubmitted] = useState(false);
 
-    const errors = {
-        uname: "invalid username",
-        pass: "invalid password"
-    };
-
     const renderErrorMessage = (name) =>
         name === errorMessages.name && (
             <div className="error">{errorMessages.message}</div>
@@ -23,7 +18,7 @@ const LoginForm = props => {
     const handleSubmit = (event) => {
         //Prevent page reload
         event.preventDefault();
-    
+
         const { uname, pass } = document.forms[0];
         const requestBody = {
             "name": uname.value,
@@ -38,6 +33,8 @@ const LoginForm = props => {
 
        function Render(res) {
             // Successfully Signed in.
+            console.log('Username from login response', res.data);
+            localStorage.setItem('username', res.data);
             window.location.replace("http://localhost:3000");
             // alert("Logged in as " + uname);
             props.setUsername(res.data);

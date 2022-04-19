@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
-import axios from 'axios';
-import {Link, Outlet, useMatch, useResolvedPath} from 'react-router-dom';
+import { Link, Outlet, useMatch, useResolvedPath } from 'react-router-dom';
 import { AppContext } from './context';
 
 const url = "http://localhost:3001";
@@ -19,25 +18,27 @@ function App() {
     const handleClick = (event) => {
         event.preventDefault();
 
-        const config = {
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            withCredentials: true
-        }
+        window.location.replace("http://localhost:3000/profile");
 
-        return axios.get(
-            url + '/logout',
-            config
-        )
-        .then((res) => {
-            alert(res.data);
-            console.log(res.data);
-        })
-        .catch((error) => {
-            alert("Did not logged in");
-            console.log(error);
-        })
+        // const config = {
+        //     headers: {
+        //       'Content-Type': 'application/json',
+        //     },
+        //     withCredentials: true
+        // }
+
+        // return axios.get(
+        //     url + '/logout',
+        //     config
+        // )
+        // .then((res) => {
+        //     alert(res.data);
+        //     console.log(res.data);
+        // })
+        // .catch((error) => {
+        //     alert("Did not logged in");
+        //     console.log(error);
+        // })
     }
 
     return (
@@ -49,8 +50,9 @@ function App() {
                         <AppContext.Consumer>
                             {({ username, setUsername }) => {
                                 if (username) {
-                                    return <input type="button" className="nav-logout" value="Logout" onClick={(evt) => {
-                                        handleClick(evt).then(() => { setUsername(null) })
+                                    return <input type="button" className="nav-logout" value={username} onClick={(evt) => {
+                                        // handleClick(evt).then(() => { setUsername(null) })
+                                        handleClick(evt)
                                     }} />;
                                 }
                                 return <CustomLink to='/login'>Sign in / Sign up</CustomLink>;

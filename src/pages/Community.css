@@ -99,3 +99,15 @@ ul.cards li .info .row .comments {
     font-weight: 200;
 }
 
+.clip-me{
+    position: relative;
+    overflow: hidden;
+    height: 570px;
+}
+
+.test-widgets {
+    position: absolute;
+    bottom: -240px;
+    left: 0;
+    width: 100%;
+}

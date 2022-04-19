@@ -118,7 +118,7 @@ app.post("/add_user", async (req, res) => {
   // Check if the user is already registered.
   const foundUser = await userModel.find({"name": req.body.name});
 
-  if (!foundUser) {
+  if (foundUser.length != 0) {
     res.status(500).send("Already registered");
   }
 
@@ -155,6 +155,7 @@ app.get('/contents', auth, function (req, res) {
   res.send("You can only see this after you've logged in.");
 });
 
+// Get currently logged-in username
 app.get('/user', function(req, res) {
   res.setHeader('Content-Type', 'application/json')
   if (req.session && req.session.user) {
@@ -163,5 +164,60 @@ app.get('/user', function(req, res) {
     res.end(JSON.stringify({user: null}))
   }
 });
+
+// Get the current user's profile
+app.get('/me', auth, async (req, res) => {
+  console.log("Fetching current user's profile:", req.session.user);
+  try {
+    const profile = await userModel.findOne({
+                                            'name': req.session.user
+                                          }).select('-password');
+
+    if (!profile) {
+      res.status(400).json({ msg: 'User not found' });
+      return;
+    }
+
+    res.json(profile);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+// Update the current user's profile
+app.post('/profile_update', auth, async (req, res) => {
+  console.log("Updating current user's profile:", req.session.user);
+
+  if (req.body.name && req.body.name !== req.session.user) {
+    const usernameFound = await userModel.find({'name': req.body.name});
+    if (usernameFound.length !== 0) {
+      res.status(400).json({ msg: 'Username already exists' });
+      return;
+    }
+  }
+
+  try {
+    const profile = await userModel.findOneAndUpdate(
+        { name: req.session.user },
+        { $set: req.body },
+        { new: true }
+    );
+
+    if (!profile) {
+      res.status(400).json({ msg: 'User not found' });
+      return;
+    }
+
+    req.session.user = profile.name;
+    console.log('Session user changed to:', req.session.user);
+
+    res.json(profile);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+})
+
 
 module.exports = app;
