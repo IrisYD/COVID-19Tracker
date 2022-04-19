@@ -19,9 +19,12 @@ function Signup() {
     
         const { fname, lname, email, uname, pass, rpass } = document.forms[0];
 
-        if (pass != rpass) {
+        if (pass.value !== rpass.value) {
+            console.log(pass)
+            console.log(rpass)
             alert("Passwords don't match!");
             document.forms[0].reset();
+            return;
         }
         const requestBody = {
             "name": uname.value,
@@ -41,7 +44,7 @@ function Signup() {
         function Render(res) {
             // Successfully logged in.
             window.location.replace("http://localhost:3000");
-            alert("Logged in as " + uname);
+            alert("Logged in as " + uname.value);
         }
 
         const { data } = axios.post(
