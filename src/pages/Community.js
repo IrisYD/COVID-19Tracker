@@ -6,8 +6,6 @@ import Dialog from '@mui/material/Dialog';
 import TextField from '@mui/material/TextField';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import MenuItem from '@mui/material/MenuItem';
 import Box from '@mui/material/Box';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
@@ -17,8 +15,6 @@ import FormLabel from '@mui/material/FormLabel';
 import Checkbox from '@mui/material/Checkbox';
 import FormGroup from '@mui/material/FormGroup';
 import {Bar} from 'react-chartjs-2';
-import { Chart as ChartJS } from 'chart.js/auto'
-import { Chart }            from 'react-chartjs-2'
 import { AppContext } from '../context';
 
 
@@ -103,6 +99,7 @@ function Community() {
     <ul className='cards'>
       {
         posts.map(post => {
+          console.log('# post', post)
           return <Card post={post} key={post._id} />;
         })
       }
@@ -242,7 +239,7 @@ function SymptomDialog(props) {
           >
             <FormControlLabel value="Pfizer" control={<Radio />} label="Pfizer" />
             <FormControlLabel value="Moderna" control={<Radio />} label="Moderna" />
-            <FormControlLabel value="Johnson Johnsonj" control={<Radio />} label="JohnsonJohnson" />
+            <FormControlLabel value="Johnson Johnson" control={<Radio />} label="JohnsonJohnson" />
             <FormControlLabel value="Other" control={<Radio />} label="other" />
           </RadioGroup>
           <span></span>
@@ -321,13 +318,13 @@ function SymptomDialog(props) {
 
 function Card(props) {
   const { user, post } = props;
-  const { username } = React.useContext(AppContext);
+  // const { username } = React.useContext(AppContext);
 
   return <li>
     <div className='user'>
       <div className='avatar' style={{ backgroundImage: `url(${user?.avatar ? user.avatar : '../images/spiderman.png'})` }} />
-      <div className='user_name'><b>{username}</b></div>
-      <div>Age: 38</div>
+      <div className='user_name'><b>{post.userName || "unknown"}</b></div>
+      <div>Age: {post.userAge}</div>
       {/* <div>No underlying disease</div> */}
     </div>
     <div className='info'>
@@ -340,7 +337,7 @@ function Card(props) {
         <span>Vaccine Taken:   <b>{post.vaccine ? post.vaccine: 'User did not add the vaccination information'}</b></span>
       </div>
       <div className='row'>
-        <span>Vaccine Status:   <b>{post.vaccineStatus ? post.vaccineStatus : 'N/A' }</b></span>
+        <span>Vaccine Status:   <b>{post.vaccineStatus ? post.vaccineStatus : post.userVaccineStatus }</b></span>
       </div>
       <div className='row'>
         <span>Test Result:   <b>{post.testResult? post.testResult: 'No Test Result'}</b></span>
@@ -353,7 +350,7 @@ function Card(props) {
           {post?.comments}
         </p>
         <div className='comments'>
-          {user?.age}
+          {/* {user?.age} */}
         </div>
       </div>
     </div>

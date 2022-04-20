@@ -32,18 +32,40 @@ app.get("/users", async (request, response) => {
 });
 
 app.get("/posts", async (request, response) => {
-const posts = await postsModel.find({});
+  const posts = await postsModel.find({});
+  const users = await userModel.find({});
 
-try {
-    response.send(posts);
-} catch (error) {
-    response.status(500).send(error);
-}
+  const userMap = new Map(users.map(user => {
+    return [user._id.toString(), user];
+  }));
+
+  const postsWithUser = posts.map(post => {
+    const user = userMap.get(post.userId);
+    if(!user) {
+      return post;
+    }
+
+    return {...post._doc, ...{
+      userName: user.name,
+      userAge: user.age,
+      userVaccineStatus: user.vaccineStatus,
+    }};
+  });
+  
+  try {
+      response.send(postsWithUser);
+  } catch (error) {
+      response.status(500).send(error);
+  }
 });
 
 app.post("/add_post", async (request, response) => {
     const post = new postsModel(request.body);
-  
+    const currentUser = request.session && request.session.user;
+    
+    const user = await userModel.findOne({name: currentUser});
+    post.userId = user._id;
+
     try {
       await post.save();
       response.send(post);
