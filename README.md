@@ -1,7 +1,10 @@
 # **COVID-19 Tracker from Team 3**
 
 ## **_Project Summary:_** 
-#### For 2 years, our life has been impacted by COVID 19. Especially for now, COVID-19 cases and hospitalizations in January 2022 were the highest since the beginning of the pandemic, fueled by the rapid spread of the Omicron variant. As of February 10, 2022, Omicron is still the predominant variant across the country.Our objectives for developing the Covid Tracker website are in the following aspects: 1. Provide timely data related to the spread of COVID-19(cases, hospitalized, death) across the world. Share the official guideline, policies, and latest news reported by authoritative agencies. 2. Provide users a platform to post their symptoms of vaccine/positive cases and check others' symptoms accordingly as a reference. 3. Give users a visualized sense of the most reported symptoms for vaccine/positive cases.
+#### For 2 years, our life has been impacted by COVID 19. Especially for now, COVID-19 cases and hospitalizations in January 2022 were the highest since the beginning of the pandemic, fueled by the rapid spread of the Omicron variant. As of February 10, 2022, Omicron is still the predominant variant across the country.Our objectives for developing the Covid Tracker website are in the following aspects: 
+#### 1. Provide timely data related to the spread of COVID-19(cases, hospitalized, death) across the world. Share the official guideline, policies, and latest news reported by authoritative agencies. 
+#### 2. Provide users a platform to post their symptoms of vaccine/positive cases and check others' symptoms accordingly as a reference. 
+#### 3. Give users a visualized sense of the most reported symptoms for vaccine/positive cases.
 
 
 ## **_Jira:_**
