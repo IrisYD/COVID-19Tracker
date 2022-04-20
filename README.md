@@ -62,7 +62,7 @@ Members could easily login to their account from this page.
 ### Profile Page
 <img width="50%" alt="image" src="https://user-images.githubusercontent.com/90656721/164168519-9aff9efa-7da0-4f1d-87f2-94f05919e4b1.png">
 
-Members could easily edit their profile in thia page.
+Members could easily edit their profile in this page.
 
 ## **_Data source_**
 API: \
