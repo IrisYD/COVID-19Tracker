@@ -221,7 +221,7 @@ function Data() {
                 padding: '20px',
                 borderRadius: '12px',
                 flex: 1,
-                width: '98%',
+                width: '97%',
                 height: '600px'
             }}>
                 <CardContent>
