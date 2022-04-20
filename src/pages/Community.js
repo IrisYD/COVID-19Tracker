@@ -337,7 +337,7 @@ function Card(props) {
         <span>Vaccine Taken:   <b>{post.vaccine ? post.vaccine: 'User did not add the vaccination information'}</b></span>
       </div>
       <div className='row'>
-        <span>Vaccine Status:   <b>{post.vaccineStatus ? post.vaccineStatus : post.userVaccineStatus }</b></span>
+        <span>Vaccine Status:   <b>{post.vaccineStatus ? post.vaccineStatus : "N/A"}</b></span>
       </div>
       <div className='row'>
         <span>Test Result:   <b>{post.testResult? post.testResult: 'No Test Result'}</b></span>
