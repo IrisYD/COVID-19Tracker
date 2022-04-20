@@ -47,7 +47,12 @@ app.get("/posts", async (request, response) => {
 
     return {...post._doc, ...{
       userName: user.name,
+<<<<<<< HEAD
       userAge: user.age
+=======
+      userAge: user.age,
+      userVaccineStatus: user.vaccineStatus,
+>>>>>>> 07f46c38b7b8681e5811dbbd222902262ecddb2e
     }};
   });
   

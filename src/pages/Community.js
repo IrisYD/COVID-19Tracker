@@ -6,8 +6,6 @@ import Dialog from '@mui/material/Dialog';
 import TextField from '@mui/material/TextField';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import MenuItem from '@mui/material/MenuItem';
 import Box from '@mui/material/Box';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
@@ -17,8 +15,6 @@ import FormLabel from '@mui/material/FormLabel';
 import Checkbox from '@mui/material/Checkbox';
 import FormGroup from '@mui/material/FormGroup';
 import {Bar} from 'react-chartjs-2';
-import { Chart as ChartJS } from 'chart.js/auto'
-import { Chart }            from 'react-chartjs-2'
 import { AppContext } from '../context';
 
 
@@ -341,7 +337,7 @@ function Card(props) {
         <span>Vaccine Taken:   <b>{post.vaccine ? post.vaccine: 'User did not add the vaccination information'}</b></span>
       </div>
       <div className='row'>
-        <span>Vaccine Status:   <b>{post.vaccineStatus ? post.vaccineStatus : 'N/A' }</b></span>
+        <span>Vaccine Status:   <b>{post.vaccineStatus ? post.vaccineStatus : post.userVaccineStatus }</b></span>
       </div>
       <div className='row'>
         <span>Test Result:   <b>{post.testResult? post.testResult: 'No Test Result'}</b></span>
