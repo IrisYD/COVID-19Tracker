@@ -243,7 +243,7 @@ function SymptomDialog(props) {
           >
             <FormControlLabel value="Pfizer" control={<Radio />} label="Pfizer" />
             <FormControlLabel value="Moderna" control={<Radio />} label="Moderna" />
-            <FormControlLabel value="Johnson Johnsonj" control={<Radio />} label="JohnsonJohnson" />
+            <FormControlLabel value="Johnson Johnson" control={<Radio />} label="JohnsonJohnson" />
             <FormControlLabel value="Other" control={<Radio />} label="other" />
           </RadioGroup>
           <span></span>
