@@ -16,42 +16,10 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import Checkbox from '@mui/material/Checkbox';
 import FormGroup from '@mui/material/FormGroup';
-import {Bar} from 'react-chartjs-2';
-import { Chart as ChartJS } from 'chart.js/auto'
-import { Chart }            from 'react-chartjs-2'
 import { AppContext } from '../context';
-
-
-
-
-function getUsers() {
-  return fetch("/users").then(resp => 
-    {
-    console.log("user")
-    return resp.json()})
-}
-
-function getPosts() {
-  return fetch("/posts").then(resp => {
-    if(resp.status === 401){
-      window.location.href = "/login"
-    }
-    return resp.json()
-  }).catch(err => {
-    console.log('@@@@err', err)
-  })
-}
-
-function insertPost(post) {
-  return fetch("/add_post", {
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(post)
-  })
-}
+import Card from './components/Card';
+import { insertPost, getPosts } from '../services/CommunityService';
+import Polls from './components/Polls';
 
 function Community() {
   const [open, setOpen] = React.useState(false);
@@ -59,6 +27,7 @@ function Community() {
   const { username } = React.useContext(AppContext);
 
   const loadPosts = () => {
+    console.log("### getpostsis ", getPosts())
     getPosts().then((posts) => {
       posts.sort((a, b) => {
         return b._id > a._id ? 1 : -1
@@ -72,6 +41,8 @@ function Community() {
   }, [])
 
   const handleClickOpen = () => {
+
+    console.log(`======= handleClickOpen ${username} ======`)
     if (username) {
       setOpen(true);
     } else {
@@ -84,7 +55,6 @@ function Community() {
   };
 
   const addPost = (newPost) => {
-    console.log("# newPost", newPost);
     insertPost(newPost).then(resp => {
       if (resp.status === 200) {
         loadPosts();
@@ -123,12 +93,12 @@ function Community() {
             <h3>Check the COVID Test Points nearby!</h3>
 
             <div className="clip-me">
-            <iframe  className="test-widgets" src="https://my.castlighthealth.com/corona-virus-testing-sites/?embed=true" witdh="100%"  frameborder="0" height="1740px"></iframe>
+            <iframe  className="test-widgets" src="https://my.castlighthealth.com/corona-virus-testing-sites/?embed=true" witdh="100%"  frameBorder="0" height="1740px"></iframe>
             </div>
             <div>
             <h3>Have no Idea about your symptoms? Self evaluate here!</h3>
 
-            <iframe src="https://my.castlighthealth.com/corona-virus-testing-sites/self-assessment/assessment.html?" witdh="100%" frameborder="0" height="800px" ></iframe>
+            <iframe src="https://my.castlighthealth.com/corona-virus-testing-sites/self-assessment/assessment.html?" witdh="100%" frameBorder="0" height="800px" ></iframe>
             </div>
 
         </div>
@@ -198,7 +168,7 @@ function SymptomDialog(props) {
         <FormControlLabel
         
           value="Fever"
-          control={<Checkbox 
+          control={<Checkbox id="feverCheckbox"
             onChange={handleChange}/>}
           label="Fever"
           labelPlacement="end"
@@ -243,7 +213,7 @@ function SymptomDialog(props) {
           >
             <FormControlLabel value="Pfizer" control={<Radio />} label="Pfizer" />
             <FormControlLabel value="Moderna" control={<Radio />} label="Moderna" />
-            <FormControlLabel value="Johnson Johnson" control={<Radio />} label="JohnsonJohnson" />
+            <FormControlLabel value="Johnson Johnsonj" control={<Radio />} label="JohnsonJohnson" />
             <FormControlLabel value="Other" control={<Radio />} label="other" />
           </RadioGroup>
           <span></span>
@@ -320,148 +290,107 @@ function SymptomDialog(props) {
   </Dialog>
 }
 
-function Card(props) {
-  const { user, post } = props;
-  // const { username } = React.useContext(AppContext);
+// function Polls() {
+//   const state1 = {
+//     labels: ['Fever', 'Quicker Heart Beat',
+//              'Headaches', 'Aches and Pains', 'Others'],
+//     datasets: [
+//       {
+//         label: 'Most Possible Side Effects after Vaccine',
+//         backgroundColor: 'rgba(73, 63, 252, 1)',
+//         borderColor: 'rgba(0,0,0,1)',
+//         borderWidth: 0,
+//         data: [80, 20, 59, 66, 90]
+//       }
+//     ]
+//   };
 
-  return <li>
-    <div className='user'>
-      <div className='avatar' style={{ backgroundImage: `url(${user?.avatar ? user.avatar : '../images/spiderman.png'})` }} />
-      <div className='user_name'><b>{post.userName || "unknown"}</b></div>
-      <div>Age: {post.userAge}</div>
-      {/* <div>No underlying disease</div> */}
-    </div>
-    <div className='info'>
-      <div className='row'>
-      <b><h4>{post.symptoms.map((symptom) => (
-        <span>{symptom}</span>
-      ))}</h4></b>
-      </div>
-      <div className='row'>
-        <span>Vaccine Taken:   <b>{post.vaccine ? post.vaccine: 'User did not add the vaccination information'}</b></span>
-      </div>
-      <div className='row'>
-        <span>Vaccine Status:   <b>{post.vaccineStatus ? post.vaccineStatus : 'N/A' }</b></span>
-      </div>
-      <div className='row'>
-        <span>Test Result:   <b>{post.testResult? post.testResult: 'No Test Result'}</b></span>
-      </div>
-      <div className='row'>
-        <span>Start To Show Symptoms:   <b>{post.startTime ? post.startTime: 'User did not choose the Start Time'}</b></span>
-      </div>
-      <div className='row comments-row'>
-        <p>
-          {post?.comments}
-        </p>
-        <div className='comments'>
-          {/* {user?.age} */}
-        </div>
-      </div>
-    </div>
-  </li>
-}
-
-function Polls() {
-  const state1 = {
-    labels: ['Fever', 'Quicker Heart Beat',
-             'Headaches', 'Aches and Pains', 'Others'],
-    datasets: [
-      {
-        label: 'Most Possible Side Effects after Vaccine',
-        backgroundColor: 'rgba(73, 63, 252, 1)',
-        borderColor: 'rgba(0,0,0,1)',
-        borderWidth: 0,
-        data: [80, 20, 59, 66, 90]
-      }
-    ]
-  };
-
-  const state2 = {
-    labels: ['Cough', 'Fever', 'Shortness of Breath',
-             'Headaches', 'Aches and Pains'],
-    datasets: [
-      {
-        label: 'Most Possible Symtoms For Positive Cases',
-        backgroundColor: 'rgb(0, 153, 204)',
-        borderColor: 'rgba(0,0,0,1)',
-        borderWidth: 0,
-        data: [65, 59, 80, 81, 56]
-      }
-    ]
-  };
+//   const state2 = {
+//     labels: ['Cough', 'Fever', 'Shortness of Breath',
+//              'Headaches', 'Aches and Pains'],
+//     datasets: [
+//       {
+//         label: 'Most Possible Symtoms For Positive Cases',
+//         backgroundColor: 'rgb(0, 153, 204)',
+//         borderColor: 'rgba(0,0,0,1)',
+//         borderWidth: 0,
+//         data: [65, 59, 80, 81, 56]
+//       }
+//     ]
+//   };
 
 
-  const state3 = {
-    labels: ['Cough', 'Fever', 'Shortness of Breath',
-             'Headaches', 'Aches and Pains'],
-    datasets: [
-      {
-        label: 'Mean Age for Most possible Symptoms',
-        backgroundColor: 'rgb(0, 143, 118)',
-        borderColor: 'rgba(0,0,0,1)',
-        borderWidth: 0,
-        data: [45, 30, 24 , 65, 70]
-      }
-    ]
-  };
+//   const state3 = {
+//     labels: ['Cough', 'Fever', 'Shortness of Breath',
+//              'Headaches', 'Aches and Pains'],
+//     datasets: [
+//       {
+//         label: 'Mean Age for Most possible Symptoms',
+//         backgroundColor: 'rgb(0, 143, 118)',
+//         borderColor: 'rgba(0,0,0,1)',
+//         borderWidth: 0,
+//         data: [45, 30, 24 , 65, 70]
+//       }
+//     ]
+//   };
 
   
   
-  return (
-        <div>
-          <div className='polls'>
-          <Bar
+//   return (
+//         <div>
+//           <div className='polls'>
+//           <Bar
           
-            data={state1}
-            options={{
-              title:{
-                display:true,
-                text:'Most Possible Symtoms after Vaccine',
-                fontSize:20
-              },
-              legend:{
-                display:true,
-                position:'right'
-              }
-            }}
-          />
-          </div>
-          <div className='polls'>
-          <Bar
-            data={state2}
-            options={{
-              title:{
-                display:true,
-                text:'Most Possible Symtoms for Positive test',
-                fontSize:20
-              },
-              legend:{
-                display:true,
-                position:'right'
-              }
-            }}
-          />
-          </div>
-          <div className='polls'>
-          <Bar
-            data={state3}
-            options={{
-              title:{
-                display:true,
-                text:'Most Possible Symtoms for Positive test',
-                fontSize:20
-              },
-              legend:{
-                display:true,
-                position:'right'
-              }
-            }}
-          />
-          </div>
+//             data={state1}
+//             options={{
+//               title:{
+//                 display:true,
+//                 text:'Most Possible Symtoms after Vaccine',
+//                 fontSize:20
+//               },
+//               legend:{
+//                 display:true,
+//                 position:'right'
+//               }
+//             }}
+//           />
+//           </div>
+//           <div className='polls'>
+//           <Bar
+//             data={state2}
+//             options={{
+//               title:{
+//                 display:true,
+//                 text:'Most Possible Symtoms for Positive test',
+//                 fontSize:20
+//               },
+//               legend:{
+//                 display:true,
+//                 position:'right'
+//               }
+//             }}
+//           />
+//           </div>
+//           <div className='polls'>
+//           <Bar
+//             data={state3}
+//             options={{
+//               title:{
+//                 display:true,
+//                 text:'Most Possible Symtoms for Positive test',
+//                 fontSize:20
+//               },
+//               legend:{
+//                 display:true,
+//                 position:'right'
+//               }
+//             }}
+//           />
+//           </div>
           
-        </div>
-      );
-    }
+//         </div>
+//       );
+//     }
   
 
 

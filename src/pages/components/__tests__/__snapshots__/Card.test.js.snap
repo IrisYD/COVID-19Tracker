@@ -1,0 +1,177 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Card test should render 1`] = `
+<div>
+  <li>
+    <div
+      class="user"
+    >
+      <div
+        class="avatar"
+        style="background-image: url(../images/spiderman.png);"
+      />
+      <div
+        class="user_name"
+      >
+        <b>
+          unknown
+        </b>
+      </div>
+      <div>
+        Age: 
+      </div>
+    </div>
+    <div
+      class="info"
+    >
+      <div
+        class="row"
+      >
+        <b>
+          <h4>
+            <span>
+              Cough
+            </span>
+          </h4>
+        </b>
+      </div>
+      <div
+        class="row"
+      >
+        <span>
+          Vaccine Taken:   
+          <b>
+            moderna
+          </b>
+        </span>
+      </div>
+      <div
+        class="row"
+      >
+        <span>
+          Vaccine Status:   
+          <b />
+        </span>
+      </div>
+      <div
+        class="row"
+      >
+        <span>
+          Test Result:   
+          <b>
+            positive
+          </b>
+        </span>
+      </div>
+      <div
+        class="row"
+      >
+        <span>
+          Start To Show Symptoms:   
+          <b>
+            02/03/2022
+          </b>
+        </span>
+      </div>
+      <div
+        class="row comments-row"
+      >
+        <p>
+          122sdfasdfds
+        </p>
+        <div
+          class="comments"
+        />
+      </div>
+    </div>
+  </li>
+</div>
+`;
+
+exports[`should render 1`] = `
+<div>
+  <li>
+    <div
+      class="user"
+    >
+      <div
+        class="avatar"
+        style="background-image: url(../images/spiderman.png);"
+      />
+      <div
+        class="user_name"
+      >
+        <b>
+          unknown
+        </b>
+      </div>
+      <div>
+        Age: 
+      </div>
+    </div>
+    <div
+      class="info"
+    >
+      <div
+        class="row"
+      >
+        <b>
+          <h4>
+            <span>
+              Cough
+            </span>
+          </h4>
+        </b>
+      </div>
+      <div
+        class="row"
+      >
+        <span>
+          Vaccine Taken:   
+          <b>
+            moderna
+          </b>
+        </span>
+      </div>
+      <div
+        class="row"
+      >
+        <span>
+          Vaccine Status:   
+          <b />
+        </span>
+      </div>
+      <div
+        class="row"
+      >
+        <span>
+          Test Result:   
+          <b>
+            positive
+          </b>
+        </span>
+      </div>
+      <div
+        class="row"
+      >
+        <span>
+          Start To Show Symptoms:   
+          <b>
+            02/03/2022
+          </b>
+        </span>
+      </div>
+      <div
+        class="row comments-row"
+      >
+        <p>
+          122sdfasdfds
+        </p>
+        <div
+          class="comments"
+        />
+      </div>
+    </div>
+  </li>
+</div>
+`;
