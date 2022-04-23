@@ -27,7 +27,6 @@ function Community() {
   const { username } = React.useContext(AppContext);
 
   const loadPosts = () => {
-    console.log("### getpostsis ", getPosts())
     getPosts().then((posts) => {
       posts.sort((a, b) => {
         return b._id > a._id ? 1 : -1
@@ -44,7 +43,6 @@ function Community() {
 
   const handleClickOpen = () => {
 
-    console.log(`======= handleClickOpen ${username} ======`)
     if (username) {
       setOpen(true);
     } else {

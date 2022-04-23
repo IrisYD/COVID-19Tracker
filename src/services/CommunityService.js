@@ -1,6 +1,5 @@
 function getUsers() {
     return fetch("/users").then(resp => {
-        console.log("user")
         return resp.json()
     })
 }

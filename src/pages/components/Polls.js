@@ -5,9 +5,6 @@ import { Chart as ChartJS } from 'chart.js/auto';
 function Polls(props) {
     const { posts } = props;
 
-    console.log("posts in polls", posts)
-
-
     const coughAfterVaccine = (posts) => {
         let count = 0
 

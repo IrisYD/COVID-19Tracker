@@ -3,7 +3,6 @@ import React from 'react';
 function Card(props) {
     const { user, post } = props;
     // const { username } = React.useContext(AppContext);
-    console.log({user, post})
 
     return <li>
         <div className='user'>
