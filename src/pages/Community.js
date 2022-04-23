@@ -33,6 +33,8 @@ function Community() {
         return b._id > a._id ? 1 : -1
       })
       setPosts(posts);
+      console.log("length of posts", posts.length)
+      console.log("postsarray", posts)
     });
   }
 
@@ -88,7 +90,7 @@ function Community() {
       </div>
       <div>
 
-        <Polls/>
+        <Polls posts={posts}/>
         <div className='widgets'>
             <h3>Check the COVID Test Points nearby!</h3>
 
