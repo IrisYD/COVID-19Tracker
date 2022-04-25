@@ -10,6 +10,7 @@ const News = () => {
         const getArticles = async () => {
             // set query to covid
             const response = await axios.get('https://newsapi.org/v2/everything?q=covid&apiKey=df16a3ddd0b142dfbe54d63f22b3879c');
+            console.log(response.data.articles);
             setArticles(response.data.articles);
         }
         getArticles();
@@ -31,7 +32,6 @@ const News = () => {
                                 author={article.author}
                                 publishedAt={article.publishedAt}
                                 source={article.source.name}
-
                             />
                         </div>
                     )
