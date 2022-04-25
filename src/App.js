@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
-import { Link, Outlet, useMatch, useResolvedPath } from 'react-router-dom';
-import { AppContext } from './context';
+import {BrowserRouter, Link, Outlet, useMatch, useResolvedPath} from 'react-router-dom';
+import {AppContext} from './context';
 
 const url = "http://localhost:3001";
 
@@ -46,19 +46,22 @@ function App() {
             <nav className='NavbarItems'>
                 <h1 className='navbar-logo'>COVID-19 TRACKER</h1>
                 <div>
+
                     <div className='nav-login'>
                         <AppContext.Consumer>
-                            {({ username, setUsername }) => {
+                            {({username, setUsername}) => {
                                 if (username) {
-                                    return <input type="button" className="nav-logout" value={username} onClick={(evt) => {
-                                        // handleClick(evt).then(() => { setUsername(null) })
-                                        handleClick(evt)
-                                    }} />;
+                                    return <input type="button" className="nav-logout" value={username}
+                                                  onClick={(evt) => {
+                                                      // handleClick(evt).then(() => { setUsername(null) })
+                                                      handleClick(evt)
+                                                  }}/>;
                                 }
                                 return <CustomLink to='/login'>Sign in / Sign up</CustomLink>;
                             }}
                         </AppContext.Consumer>
                     </div>
+
                     <div>
                         <ul className='nav-menu'>
                             <li><CustomLink to='/'>Data</CustomLink></li>
@@ -71,7 +74,7 @@ function App() {
                     </div>
                 </div>
             </nav>
-            <Outlet />
+            <Outlet/>
         </div>
     );
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import {Doughnut} from "react-chartjs-2";
 import "./charts.css";
 
+// draw bar chart using data for per one million
 const ChartForPerOneMillion =(props) => {
     console.log('Data passed into ChartForPerOneMillion:', props.data);
     let dataForPerOneMillion;

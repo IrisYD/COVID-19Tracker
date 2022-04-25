@@ -5,6 +5,7 @@ import NewsItem from "../components/NewsItem";
 const News = () => {
     const [articles, setArticles] = useState([]);
 
+    // fetch news related to Covid-19 from API
     useEffect(() => {
         const getArticles = async () => {
             // set query to covid
@@ -16,17 +17,23 @@ const News = () => {
     return (
         <div>
             <div className='all-news'>
-                {articles.map(article => {
+                {articles.map((article, index) => {
                     return (
-                        <NewsItem
-                            title={article.title}
-                            description={article.description}
-                            url={article.url}
-                            urlToImage={article.urlToImage}
-                            author={article.author}
-                            publishedAt={article.publishedAt}
-                            source={article.source.name}
-                        />
+                        <div
+                            data-testid={`news-item-${index}`}
+                            key={index}
+                        >
+                            <NewsItem
+                                title={article.title}
+                                description={article.description}
+                                url={article.url}
+                                urlToImage={article.urlToImage}
+                                author={article.author}
+                                publishedAt={article.publishedAt}
+                                source={article.source.name}
+
+                            />
+                        </div>
                     )
                 })}
             </div>

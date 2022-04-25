@@ -40,6 +40,7 @@ function Data() {
             });
     }, []);
 
+    // get countries data from API
     useEffect(() => {
         const getCountriesData = async () => {
             await fetch("https://disease.sh/v3/covid-19/countries")
@@ -92,6 +93,7 @@ function Data() {
         fetchCountriesFromAPI();
     }, []);
 
+    // fetch covid data from API
     useEffect(() => {
         const getFromAPI = async (location) => {
             setData(await fetchCovidData(location));
@@ -100,6 +102,7 @@ function Data() {
         location === 'Global' ? getFromAPI('') : getFromAPI(location);
     }, [location]);
 
+    // fetch data for per one million from API
     useEffect(() => {
         const getPerOneMillionFromAPI = async () => {
             const data = await fetchCovidDataForMillion();

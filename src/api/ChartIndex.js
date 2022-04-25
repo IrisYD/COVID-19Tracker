@@ -1,5 +1,6 @@
 import axios from "axios";
 
+// fetch various data from API
 const baseUrl = 'https://covid19.mathdro.id/api';
 
 export const fetchCovidData = async (country) => {
