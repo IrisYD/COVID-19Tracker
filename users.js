@@ -9,19 +9,23 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+ age: {
+   type: Number,
+   default: 0,
+ },
   location: {
     type: String,
     default: 'United States'
   },
   vaccineStatus: {
     type: String,
-    enum: ['NOT_VACCINATED', 'FIRST_DOSE', 'FULLY_VACCINATED', 'BOOSTER_TAKEN'],
-    default: 'NOT_VACCINATED',
+    enum: ['Not vaccinated', 'First dose taken', 'Fully vaccinated', 'Booster taken'],
+    default: 'Not vaccinated',
   },
-  age: {
-    type: Number,
-    default: 0,
-  },
+  vaccineBrand: {
+    type: String,
+    default: null
+  }
 });
 
 const User = mongoose.model("User", UserSchema);
