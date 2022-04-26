@@ -2,6 +2,10 @@ import React, {useState, useEffect} from "react";
 import {Line} from "react-chartjs-2";
 import numeral from "numeral";
 
+/**
+ *
+ * @type {{plugins: {legend: boolean}, elements: {point: {radius: number}}, scales: {yAxes: {ticks: {callback: (function(*=, *, *): *)}, grid: {display: boolean}}, xAxes: [{time: {format: string, tooltipFormat: string}, type: string}]}, maintainAspectRatio: boolean, tooltips: {mode: string, intersect: boolean, callbacks: {label: (function(*, *): *)}}}}
+ */
 const options = {
     plugins: {
         legend: false,
@@ -45,6 +49,12 @@ const options = {
     },
 };
 
+/**
+ *
+ * @param data
+ * @param casesType
+ * @returns chartData
+ */
 const buildChartData = (data, casesType = "cases") => {
     let chartData = [];
     let lastDataPoint;
@@ -61,6 +71,12 @@ const buildChartData = (data, casesType = "cases") => {
     return chartData;
 };
 
+/**
+ *
+ * @param casesType
+ * @param props
+ * @returns {JSX.Element}
+ */
 function LineGraph({casesType = "cases", ...props}) {
     const [data, setData] = useState([]);
 

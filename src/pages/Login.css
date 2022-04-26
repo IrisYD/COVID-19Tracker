@@ -1,11 +1,5 @@
-* {
-
-    text-align: center;
-    
-}
-
 .input-container {
-    width: 100%;
+    width: 400px;
     padding: 10px 20px;
     background: rgba(255, 255, 255, 0.2);
     outline: none;
@@ -18,11 +12,21 @@
     letter-spacing: 1px;
     color: #fff;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    margin-top: 5px;
+    text-align: center;
+}
+
+.text-box {
+    width: 300px;
+    height: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    font-size: 16px;
+    text-align: center;
 }
 
 .form {
     position: relative;
-    width: 300px;
+    width: 600px;
     min-height: 400px;
     background: rgba(255, 255, 255, 0.1);
     display: flex;
@@ -34,26 +38,37 @@
     border-right: 1px solid rgba(255, 255, 255, 0.2);
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     margin: 0 auto;
+    padding: 40px 40px;
+    text-align: center;
 }
 
 .button {
     background-color: #2845e9; 
     border: none;
+    width: 400px;
     color: rgba(255, 255, 255, 0.787);
     padding: 10px 25px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 14px;
+    font-size: 17px;
     border-radius: 30px;
-    margin-top: 20px;
+    margin-top: 30px;
     cursor: pointer;
+    text-align: center;
 }
+
+.signup {
+    font-size: 14px;
+    text-align: center;
+} 
+
 
 .title {
     margin-bottom: 30px;
-    font-size: 22px;
-    font-weight: 600;
+    font-size: 26px;
+    font-weight: 400;
+    text-align: center;
 }
 
 .button:hover {
@@ -61,12 +76,5 @@
     /* background-color: #1DAC93; */
     border-radius: 30px;
     transition: all 0.2s ease-out;
+    text-align: center;
   }
-
-.div1 {
-    float:right
-}
-
-.div1 {
-    float:left
-}

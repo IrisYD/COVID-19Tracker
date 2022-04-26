@@ -26,7 +26,7 @@ describe("Community test", () => {
         getPosts.mockImplementation(() => Promise.resolve([defaultPost]));
     });
 
-    xit("should render community", async () => {
+    it("should render community", async () => {
         const { findByText } = render(<Community />);
         const card = await findByText("02/03/2022");
         expect(card).toBeInTheDocument();
@@ -45,7 +45,7 @@ describe("Community test", () => {
     });
 
     it("should add post", async () => {
-        insertPost.mockImplementation(() => Promise.resolve());
+        insertPost.mockImplementation(() => Promise.resolve({status:200}));
         const { findByText, getByText } = render(
             <AppContext.Provider value={{ username: "harry", setUsername: jest.fn() }}>
                 <Community />
