@@ -47,7 +47,9 @@ app.get("/posts", async (request, response) => {
 
     return {...post._doc, ...{
       userName: user.name,
-      userAge: user.age
+      userAge: user.age,
+      userVaccineStatus: user.vaccineStatus,
+      userVaccineBrand: user.vaccineBrand,
     }};
   });
   
