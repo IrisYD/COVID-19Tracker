@@ -11,12 +11,16 @@ const ContextRoot = ({children}) => {
 
     useEffect(() => {
         getSessiontUser().then(res => {
-            console.log(res?.user);
-            setUsername(res.user)
+            console.log('Currently logged in user:', res?.user);
+            setUsername(res.user);
+            sessionStorage.setItem('username', res.user);
         })
     }, [])
 
-    return <AppContext.Provider value={{username, setUsername}}>
+    return <AppContext.Provider value={{
+        username,
+        setUsername,
+    }}>
         {children}
     </AppContext.Provider>
 }
