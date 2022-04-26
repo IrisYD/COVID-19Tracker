@@ -22,6 +22,7 @@ import { Navigate, useNavigate } from 'react-router-dom';
 
 import '../App.css';
 import profileServices from '../services/profileServices';
+import AvatarUpload from './components/AvatarUpload';
 
 const url = "http://localhost:3001";
 
@@ -155,17 +156,20 @@ function ProfileRender({ usernameLoggedIn, setCurrentUser }) {
                     <CloseIcon fontSize="inherit" />
                   </IconButton>
                 }
-                // sx={{ mb: 2 }}
+                sx={{ mb: 2 }}
             >
               {alertMsg}
             </Alert>
           </Collapse>
         </Box>
         <Paper elevation={2} sx={{ mb: 4, px: 4, py: 4 }}>
-          <Typography component="h1" variant="h4" align="center" gutterBottom marginBottom={3}>
+          <Typography component="h1" variant="h4" align="center" gutterBottom marginBottom={5}>
             Edit your profile
           </Typography>
           <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <AvatarUpload />
+            </Grid>
             <Grid item xs={12}>
               <TextField
                   id="username"
@@ -257,7 +261,7 @@ function ProfileRender({ usernameLoggedIn, setCurrentUser }) {
               </FormControl>
             </Grid>
           </Grid>
-          <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <Box mt={4} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
             <Button
                 sx={{ mt: 3, ml: 1 }}
                 onClick={() => navigate('/')}
@@ -266,7 +270,7 @@ function ProfileRender({ usernameLoggedIn, setCurrentUser }) {
             </Button>
             <Button
                 variant="contained"
-                sx={{ mt: 3, ml: 1 }}
+                sx={{ mt: 3, ml: 1, minWidth: 120 }}
                 onClick={handleSubmit}
             >
               Submit
