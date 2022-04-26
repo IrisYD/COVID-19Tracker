@@ -2,6 +2,11 @@ import React, {useState, useEffect} from "react";
 import axios from "axios";
 import NewsItem from "../components/NewsItem";
 
+/**
+ *
+ * @returns the news page
+ *
+ */
 const News = () => {
     const [articles, setArticles] = useState([]);
 
@@ -15,6 +20,7 @@ const News = () => {
         }
         getArticles();
     }, [])
+
     return (
         <div>
             <div className='all-news'>

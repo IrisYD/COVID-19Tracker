@@ -4,7 +4,15 @@ import {fetchDailyCovidData} from "../../api/ChartIndex";
 import "./charts.css";
 import numeral from "numeral";
 
-// draw different charts of covid data
+/**
+ * draw different charts of covid data
+ * @param chartType
+ * @param country
+ * @param confirmed
+ * @param deaths
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const Chart = ({
                    chartType,
                    country,

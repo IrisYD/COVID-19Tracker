@@ -14,6 +14,11 @@ import {fetchCovidData, fetchCountriesData, fetchCovidDataForMillion} from "../a
 import ChartForPerOneMillion from "../components/charts/ChartForPerOneMillion";
 // import CovidCards from "../components/cards/allCards/Cards";
 
+/**
+ *
+ * @returns the Data page
+ *
+ */
 function Data() {
     const [countries, setCountries] = useState([]);
     const [country, setCountry] = useState("worldwide");
@@ -30,7 +35,6 @@ function Data() {
     const [countryList, setCountryList] = useState([]);
     const [location, LocationDropDown] = useDropDown("Select a Country: ", "US", countryList);
     const [chartType, ChartTypeDropDown] = useDropDown("Select a Chart: ", "Bar", chartsList);
-
 
     useEffect(() => {
         fetch('https://disease.sh/v3/covid-19/all')
@@ -61,6 +65,11 @@ function Data() {
         getCountriesData();
     }, []);
 
+    /**
+     *
+     * @param event
+     * @returns {Promise<void>}
+     */
     const onCountryChange = async (event) => {
         const countryCode = event.target.value;
         console.log('Country Code:', countryCode);
