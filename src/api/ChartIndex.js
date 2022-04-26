@@ -2,6 +2,11 @@ import axios from "axios";
 
 const baseUrl = 'https://covid19.mathdro.id/api';
 
+/**
+ *
+ * @param country
+ * @returns {Promise<{recovered, lastUpdate, confirmed, deaths}|*>}
+ */
 export const fetchCovidData = async (country) => {
     let url = baseUrl;
     if (country) url = `${baseUrl}/countries/${country}`;
@@ -24,6 +29,10 @@ export const fetchCovidData = async (country) => {
     }
 };
 
+/**
+ *
+ * @returns {Promise<*>}
+ */
 export const fetchCountriesData = async () => {
     try {
         const {data: {countries}} = await axios.get(`${baseUrl}/countries`)
@@ -33,6 +42,11 @@ export const fetchCountriesData = async () => {
     }
 }
 
+/**
+ *
+ * @param country
+ * @returns {Promise<*>}
+ */
 export const fetchDailyCovidData = async (country) => {
     try {
         const {data} = await axios.get(`${baseUrl}/daily`);
@@ -49,6 +63,10 @@ export const fetchDailyCovidData = async (country) => {
     }
 }
 
+/**
+ *
+ * @returns {Promise<{recoveredPerOneMillion, deathsPerOneMillion, casesPerOneMillion}|*>}
+ */
 export const fetchCovidDataForMillion= async () => {
     let urlForMillion = 'https://disease.sh/v3/covid-19/all';
 

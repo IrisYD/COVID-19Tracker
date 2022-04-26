@@ -28,28 +28,28 @@ This source code is available to everyone in this team.
 
 ## **_Main Functionalities_** 
 ### Data Page
-<img width="50%" alt="image" src="https://user-images.githubusercontent.com/90656721/164166261-f2b66e35-e76d-4613-9d0e-fae457a92f9f.png">
-<img width="50%" alt="image" src="https://user-images.githubusercontent.com/90656721/164166567-affcea0f-617c-4808-ba18-2eb930335f6f.png">
+<img width="70%" alt="image" src="https://user-images.githubusercontent.com/90656721/164166261-f2b66e35-e76d-4613-9d0e-fae457a92f9f.png">
+<img width="70%" alt="image" src="https://user-images.githubusercontent.com/90656721/164166567-affcea0f-617c-4808-ba18-2eb930335f6f.png">
 
 1) The infobox in the data page provides a basic functionality of displaying the covid-19 cases/recoverd/deaths of worldwide in total and specific countries.
 2) The map in the data page provides a visual image of these data. 
 3) The charts in the data page includes visual imageg of constrast among data in different countries/worldwide, contrast of mortality rate between Covid-19 and flu, countries with highest people vaccinated per 100K population, and recovery rate of different regions.
 
 ### Community Page
-<img width="50%" alt="image" src="https://user-images.githubusercontent.com/90656721/164167277-45499fbd-cb56-42b0-9fc8-67e285976bd7.png">
-<img width="50%" alt="image" src="https://user-images.githubusercontent.com/90656721/164168019-6b85c527-add8-47d3-92ed-4f3126b77fbf.png">
+<img width="70%" alt="image" src="https://user-images.githubusercontent.com/90656721/164167277-45499fbd-cb56-42b0-9fc8-67e285976bd7.png">
+<img width="70%" alt="image" src="https://user-images.githubusercontent.com/90656721/164168019-6b85c527-add8-47d3-92ed-4f3126b77fbf.png">
 
 1) Community Page is a place for the community to share their symptoms, vaccine status, vaccine brands, test result.
 2) Users can check the COVID test points nearby simply by entering their zip code in community page and do COVID-19 self assessment to see if any of their symptom matches COVID-19.
 3) Charts in community page shows some visual images of the information we gathered from users.
 
 ### Health Page
-<img width="50%" alt="image" src="https://user-images.githubusercontent.com/90656721/164168290-b0b03a8f-764b-4f6a-9cb2-2bdcd491773b.png">
+<img width="70%" alt="image" src="https://user-images.githubusercontent.com/90656721/164168290-b0b03a8f-764b-4f6a-9cb2-2bdcd491773b.png">
 
 Health page shared information for identifying the symptoms of COVID-19. 
 
 ### News Page
-<img width="50%" alt="image" src="https://user-images.githubusercontent.com/90656721/164168394-44bd6772-1ee2-4825-99ce-3ba747fe514b.png">
+<img width="70%" alt="image" src="https://user-images.githubusercontent.com/90656721/164168394-44bd6772-1ee2-4825-99ce-3ba747fe514b.png">
 
 News page provides a wide range of news related to COVID-19 fetched from media.
 
@@ -60,7 +60,7 @@ Users can register here if they are interested in our website and sharing their 
 Members could easily login to their account from this page. 
 
 ### Profile Page
-<img width="50%" alt="image" src="https://user-images.githubusercontent.com/90656721/164168519-9aff9efa-7da0-4f1d-87f2-94f05919e4b1.png">
+<img width="70%" alt="image" src="https://user-images.githubusercontent.com/90656721/164168519-9aff9efa-7da0-4f1d-87f2-94f05919e4b1.png">
 
 Members could easily edit their profile in this page.
 

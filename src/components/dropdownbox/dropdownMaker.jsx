@@ -2,6 +2,13 @@ import React, {useState} from "react";
 import {NativeSelect, FormControl} from "@mui/material";
 import './dropdown.css';
 
+/**
+ *
+ * @param label
+ * @param defaultState
+ * @param options
+ * @returns {[unknown, (function()), ((value: unknown) => void)]}
+ */
 const useDropDown = (label, defaultState, options) => {
     const [state, setState] = useState(defaultState);
 

@@ -4,6 +4,15 @@ import {Card, CardContent, Typography, Grid} from "@mui/material";
 import cx from "classnames";
 import styles from "./Card.css";
 
+/**
+ *
+ * @param className
+ * @param cardTitle
+ * @param value
+ * @param lastUpdate
+ * @param cardSubtitle
+ * @returns {JSX.Element}
+ */
 const CovidCard = ({className, cardTitle, value, lastUpdate, cardSubtitle}) => (
     <Grid item xs={12} mid={3} component={Card} className={cx(styles.card, className)}>
         <CardContent>

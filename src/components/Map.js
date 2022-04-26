@@ -5,6 +5,7 @@ import Leaflet from 'leaflet';
 import {showDataOnMap} from "../util";
 
 function Map({countries, casesType, center, zoom}) {
+    // set the bounds of the map
     const southWest = Leaflet.latLng(-90, -260)
     const northEast = Leaflet.latLng(90, 260)
     const bounds = Leaflet.latLngBounds(southWest, northEast)
@@ -22,6 +23,7 @@ function Map({countries, casesType, center, zoom}) {
   );
 }
 
+// set the bounds when choosing different nations
 function ChangeMapView({ center, zoom }) {
     const map = useMap();
     map.setView(center, zoom);

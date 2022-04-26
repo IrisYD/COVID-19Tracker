@@ -3,7 +3,14 @@ import {Grid} from "@mui/material"
 import CovidCard from "../card/Card";
 import './Cards.css'
 
-
+/**
+ *
+ * @param confirmed
+ * @param recovered
+ * @param deaths
+ * @param lastUpdate
+ * @returns {JSX.Element|string}
+ */
 const CovidCards = ({ data : {confirmed, recovered, deaths, lastUpdate}}) => {
     if (!confirmed) return "Loading...";
 

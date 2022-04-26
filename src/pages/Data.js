@@ -14,6 +14,11 @@ import {fetchCovidData, fetchCountriesData, fetchCovidDataForMillion} from "../a
 import ChartForPerOneMillion from "../components/charts/ChartForPerOneMillion";
 // import CovidCards from "../components/cards/allCards/Cards";
 
+/**
+ *
+ * @returns the Data page
+ *
+ */
 function Data() {
     const [countries, setCountries] = useState([]);
     const [country, setCountry] = useState("worldwide");
@@ -31,7 +36,6 @@ function Data() {
     const [location, LocationDropDown] = useDropDown("Select a Country: ", "US", countryList);
     const [chartType, ChartTypeDropDown] = useDropDown("Select a Chart: ", "Bar", chartsList);
 
-
     useEffect(() => {
         fetch('https://disease.sh/v3/covid-19/all')
             .then(response => response.json())
@@ -40,6 +44,7 @@ function Data() {
             });
     }, []);
 
+    // get countries data from API
     useEffect(() => {
         const getCountriesData = async () => {
             await fetch("https://disease.sh/v3/covid-19/countries")
@@ -60,6 +65,11 @@ function Data() {
         getCountriesData();
     }, []);
 
+    /**
+     *
+     * @param event
+     * @returns {Promise<void>}
+     */
     const onCountryChange = async (event) => {
         const countryCode = event.target.value;
         console.log('Country Code:', countryCode);
@@ -92,6 +102,7 @@ function Data() {
         fetchCountriesFromAPI();
     }, []);
 
+    // fetch covid data from API
     useEffect(() => {
         const getFromAPI = async (location) => {
             setData(await fetchCovidData(location));
@@ -100,6 +111,7 @@ function Data() {
         location === 'Global' ? getFromAPI('') : getFromAPI(location);
     }, [location]);
 
+    // fetch data for per one million from API
     useEffect(() => {
         const getPerOneMillionFromAPI = async () => {
             const data = await fetchCovidDataForMillion();
@@ -185,7 +197,7 @@ function Data() {
                         <CardContent>
                             <h3>Live Cases By Country</h3>
                             <Table countries={tableData}/>
-                            <h3 className="app-data__graphTitle">World Wide New {casesType}</h3>
+                            <h3 className="app-data__graphTitle">Worldwide New {casesType}</h3>
                             <LineGraph className="app-data__graph" casesType={casesType}/>
                         </CardContent>
                     </Card>
@@ -199,7 +211,7 @@ function Data() {
                         height: {xs: '600px', s: '650px', md: '670px', lg: '670px', xl: '600px'}
                     }}>
                         <CardContent>
-                            <h3>Worldwide COVID Cases/Recovered/Deaths Per Million</h3>
+                            <h3>Worldwide COVID Cases/Recovered/Deaths Per One Million</h3>
                             <Box display={'flex'} justifyContent={'center'} alignItems={'stretch'}>
                                 <ChartForPerOneMillion data={dataForPerOneMillion}/>
                             </Box>
@@ -221,7 +233,7 @@ function Data() {
                 padding: '20px',
                 borderRadius: '12px',
                 flex: 1,
-                width: '98%',
+                width: '97%',
                 height: '600px'
             }}>
                 <CardContent>

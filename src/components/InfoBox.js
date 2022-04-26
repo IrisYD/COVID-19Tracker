@@ -2,6 +2,16 @@ import { Card, CardContent, Typography } from '@mui/material';
 import React from 'react';
 import "./InfoBox.css";
 
+/**
+ *
+ * @param title
+ * @param cases
+ * @param total
+ * @param isRed
+ * @param active
+ * @param props
+ * @returns {JSX.Element}
+ */
 function InfoBox({ title, cases, total, isRed, active, ...props }) {
   return (
     <Card
