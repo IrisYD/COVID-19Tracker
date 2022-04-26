@@ -25,8 +25,6 @@ function Community() {
   const [open, setOpen] = React.useState(false);
   const [posts, setPosts] = React.useState([]);
   const { username } = React.useContext(AppContext);
-  const [users, setUsers] = React.useState([]);
-
 
   const loadPosts = () => {
     getPosts().then((posts) => {
@@ -34,18 +32,8 @@ function Community() {
         return b._id > a._id ? 1 : -1
       })
       setPosts(posts);
-      // console.log("length of posts", posts.length)
-      // console.log("postsarray", posts)
     });
-
-    getUsers().then((users) =>
-      setUsers(users)
-    )
   }
-
-  // users = getUsers();
-  // setUsers(users);
-  // console.log(users)
 
   React.useEffect(() => {
     loadPosts();
@@ -64,8 +52,6 @@ function Community() {
     setOpen(false);
   };
 
-
-
   const addPost = (newPost) => {
     insertPost(newPost).then(resp => {
       if (resp.status === 200) {
@@ -83,7 +69,7 @@ function Community() {
       {
         posts.map(post => {
           console.log('# post', post)
-          return <Card post={post} key={post._id} users={users} />;
+          return <Card post={post} key={post._id} />;
         })
       }
     </ul>
@@ -411,4 +397,4 @@ function SymptomDialog(props) {
   
 
 
-export default Community
+export default Community;
