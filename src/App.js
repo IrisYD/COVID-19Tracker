@@ -19,26 +19,6 @@ function App() {
         event.preventDefault();
 
         window.location.replace("http://localhost:3000/profile");
-
-        // const config = {
-        //     headers: {
-        //       'Content-Type': 'application/json',
-        //     },
-        //     withCredentials: true
-        // }
-
-        // return axios.get(
-        //     url + '/logout',
-        //     config
-        // )
-        // .then((res) => {
-        //     alert(res.data);
-        //     console.log(res.data);
-        // })
-        // .catch((error) => {
-        //     alert("Did not logged in");
-        //     console.log(error);
-        // })
     }
 
     return (
@@ -51,7 +31,6 @@ function App() {
                             {({ username, setUsername }) => {
                                 if (username) {
                                     return <input type="button" className="nav-logout" value={username} onClick={(evt) => {
-                                        // handleClick(evt).then(() => { setUsername(null) })
                                         handleClick(evt)
                                     }} />;
                                 }

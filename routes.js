@@ -151,7 +151,7 @@ app.post("/add_user", async (req, res) => {
 
     await user.save();
     // Set session to login
-    req.session.user = req.body.name;
+    // req.session.user = req.body.name;
     res.send("Sign up successfully " + req.body.name);
 
   } catch (error) {

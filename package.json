@@ -28,6 +28,7 @@
     "express": "^4.17.3",
     "express-session": "^1.17.2",
     "leaflet": "^1.7.1",
+    "material-ui-password-field": "^2.1.2",
     "moment": "^2.29.1",
     "mongoose": "^6.2.9",
     "numeral": "^2.0.6",

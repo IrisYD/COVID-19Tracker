@@ -5,7 +5,7 @@
 }
 
 .input-container {
-    width: 100%;
+    width: 400px;
     padding: 10px 20px;
     background: rgba(255, 255, 255, 0.2);
     outline: none;
@@ -18,11 +18,19 @@
     letter-spacing: 1px;
     color: #fff;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    margin-top: 5px;
+}
+
+.text-box {
+    width: 300px;
+    height: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    font-size: 16px;
 }
 
 .form {
     position: relative;
-    width: 300px;
+    width: 600px;
     min-height: 400px;
     background: rgba(255, 255, 255, 0.1);
     display: flex;
@@ -39,21 +47,24 @@
 .button {
     background-color: #2845e9; 
     border: none;
+    width: 200px;
     color: rgba(255, 255, 255, 0.787);
     padding: 10px 25px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 14px;
+    font-size: 17px;
     border-radius: 30px;
-    margin-top: 20px;
+    margin-top: 30px;
+    margin-bottom: 30px;
     cursor: pointer;
 }
 
 .title {
     margin-bottom: 30px;
-    font-size: 22px;
+    font-size: 26px;
     font-weight: 600;
+    margin-top: 30px;
 }
 
 .button:hover {

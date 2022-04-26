@@ -35,7 +35,7 @@ const LoginForm = props => {
             // Successfully Signed in.
             console.log('Username from login response', res.data);
             localStorage.setItem('username', res.data);
-            window.location.replace("http://localhost:3000");
+            window.location.replace("http://localhost:3000/community");
             alert("Logged in as " + uname.value);
             props.setUsername(res.data);
         }
@@ -57,11 +57,11 @@ const LoginForm = props => {
             <form onSubmit={handleSubmit}>
                 <div className="title">Sign In</div>
                 <div className="input-container">
-                    <input type="text" name="uname" placeholder="Username" required />
+                    <input className="text-box" type="text" name="uname" placeholder="Username" required />
                     {renderErrorMessage("uname")}
                 </div>
                 <div className="input-container">
-                    <input type="password" name="pass" placeholder="Password" required />
+                    <input className="text-box" type="password" name="pass" placeholder="Password" required />
                     {renderErrorMessage("pass")}
                 </div>
                 <div>

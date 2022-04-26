@@ -43,8 +43,8 @@ function Signup() {
 
         function Render(res) {
             // Successfully logged in.
-            window.location.replace("http://localhost:3000");
-            alert("Logged in as " + uname.value);
+            window.location.replace("http://localhost:3000/login");
+            alert("Sign up successfully as " + uname.value);
         }
 
         const { data } = axios.post(
@@ -64,24 +64,24 @@ function Signup() {
             <form onSubmit={handleSubmit}>
                 <div className="title">Create Your Account</div>
                 <div className="input-container">
-                    <input type="text" name="fname" placeholder="Firstname" />\
+                    <input className="text-box" type="text" name="fname" placeholder="Firstname" />\
                 </div>
                 <div className="input-container">
-                    <input type="text" name="lname" placeholder="Lastname"  />
+                    <input className="text-box" type="text" name="lname" placeholder="Lastname"  />
                 </div>
                 <div className="input-container">
-                    <input type="text" name="email" placeholder="Email"  />
+                    <input className="text-box" type="text" name="email" placeholder="Email"  />
                 </div>
                 <div className="input-container">
-                    <input type="text" name="uname" placeholder="Username" required />
+                    <input className="text-box" type="text" name="uname" placeholder="Username" required />
                     {renderErrorMessage("uname")}
                 </div>
                 <div className="input-container">
-                    <input type="password" name="pass" placeholder="Password" required />
+                    <input className="text-box" type="password" name="pass" placeholder="Password" required />
                     {renderErrorMessage("pass")}
                 </div>
                 <div className="input-container">
-                    <input type="password" name="rpass" placeholder="Retype Password" required />
+                    <input className="text-box" type="password" name="rpass" placeholder="Retype Password" required />
                     {renderErrorMessage("pass")}
                 </div>
                 <div>
