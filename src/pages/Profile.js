@@ -2,19 +2,21 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios'
 
 import {
+  Alert,
   Box,
-  Button,
+  Button, Collapse,
   Container,
   FormControl,
   FormControlLabel,
   FormLabel,
-  Grid,
+  Grid, IconButton,
   Paper,
   Radio,
   RadioGroup,
   TextField,
   Typography
 } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import { AppContext } from '../context';
 import { Navigate, useNavigate } from 'react-router-dom';
 
@@ -28,12 +30,17 @@ function ProfileRender({ usernameLoggedIn, setCurrentUser }) {
   const [location, setLocation] = useState('');
   const [age, setAge] = useState(0);
   const [vaccinationStatus, setVaccinationStatus] = useState('');
+  const [vaccineBrand, setVaccineBrand] = useState('');
   const [userProfile, setUserProfile] = useState({
                                                    name: '',
                                                    location: '',
                                                    age: 0,
                                                    vaccineStatus: '',
+                                                   vaccineBrand: '',
                                                  });
+  const [open, setOpen] = useState(false);
+  const [alertSeverity, setAlertSeverity] = useState('success');
+  const [alertMsg, setAlertMsg] = useState('Profile updated successfully!');
 
   const navigate = useNavigate();
 
@@ -45,18 +52,20 @@ function ProfileRender({ usernameLoggedIn, setCurrentUser }) {
           setLocation(user.location);
           setAge(user.age);
           setVaccinationStatus(user.vaccineStatus);
+          setVaccineBrand(user.vaccineBrand);
           setUserProfile({
                            name: user.name,
                            location: user.location,
                            age: user.age,
                            vaccineStatus: user.vaccineStatus,
+                           vaccineBrand: user.vaccineBrand,
                          });
         });
   }, []);
 
-  if (!usernameLoggedIn) {
-    return <Navigate to={'/login'} replace/>;
-  }
+  // if (usernameLoggedIn == 'null') {
+  //   return <Navigate to={'/login'} replace/>;
+  // }
 
   console.log('Entering profile for username:', usernameLoggedIn);
 
@@ -74,13 +83,25 @@ function ProfileRender({ usernameLoggedIn, setCurrentUser }) {
     if (vaccinationStatus !== userProfile.vaccineStatus) {
       newProfile.vaccineStatus = vaccinationStatus;
     }
+    if (vaccineBrand !== userProfile.vaccineBrand) {
+      newProfile.vaccineBrand = vaccineBrand;
+    }
     console.log('New profile:', newProfile);
 
     profileServices.updateCurrentUserProfile(newProfile).then(updatedProfile => {
-      console.log('Updated profile:', updatedProfile);
-      if (updatedProfile.name) {
-        localStorage.setItem('username', updatedProfile.name);
-        setCurrentUser(updatedProfile.name);
+      if (!updatedProfile.msg) {
+        setAlertMsg('Profile updated successfully!');
+        setAlertSeverity('success');
+        setOpen(true);
+        console.log('Updated profile:', updatedProfile);
+        if (updatedProfile.name) {
+          sessionStorage.setItem('username', updatedProfile.name);
+          setCurrentUser(updatedProfile.name);
+        }
+      } else {
+        setAlertMsg(updatedProfile.msg);
+        setAlertSeverity('error');
+        setOpen(true);
       }
     });
   };
@@ -102,6 +123,7 @@ function ProfileRender({ usernameLoggedIn, setCurrentUser }) {
     .then((res) => {
         alert(res.data);
         console.log(res.data);
+        sessionStorage.clear();
         window.location.replace("http://localhost:3000");
     })
     .catch((error) => {
@@ -117,6 +139,28 @@ function ProfileRender({ usernameLoggedIn, setCurrentUser }) {
           }}
           maxWidth={'md'}
       >
+        <Box sx={{ width: '100%' }}>
+          <Collapse in={open}>
+            <Alert
+                severity={alertSeverity}
+                action={
+                  <IconButton
+                      aria-label="close"
+                      color="inherit"
+                      size="small"
+                      onClick={() => {
+                        setOpen(false);
+                      }}
+                  >
+                    <CloseIcon fontSize="inherit" />
+                  </IconButton>
+                }
+                // sx={{ mb: 2 }}
+            >
+              {alertMsg}
+            </Alert>
+          </Collapse>
+        </Box>
         <Paper elevation={2} sx={{ mb: 4, px: 4, py: 4 }}>
           <Typography component="h1" variant="h4" align="center" gutterBottom marginBottom={3}>
             Edit your profile
@@ -189,10 +233,26 @@ function ProfileRender({ usernameLoggedIn, setCurrentUser }) {
                     value={vaccinationStatus}
                     onChange={event => setVaccinationStatus(event.target.value)}
                 >
-                  <FormControlLabel value="NOT_VACCINATED" control={<Radio/>} label="Not vaccinated"/>
-                  <FormControlLabel value="FIRST_DOSE" control={<Radio/>} label="First dose taken"/>
-                  <FormControlLabel value="FULLY_VACCINATED" control={<Radio/>} label="Fully vaccinated"/>
-                  <FormControlLabel value="BOOSTER_TAKEN" control={<Radio/>} label="Booster taken"/>
+                  <FormControlLabel value="Not vaccinated" control={<Radio/>} label="Not vaccinated"/>
+                  <FormControlLabel value="First dose taken" control={<Radio/>} label="First dose taken"/>
+                  <FormControlLabel value="Fully vaccinated" control={<Radio/>} label="Fully vaccinated"/>
+                  <FormControlLabel value="Booster taken" control={<Radio/>} label="Booster taken"/>
+                </RadioGroup>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12}>
+              <FormControl>
+                <FormLabel>Vaccine brand</FormLabel>
+                <RadioGroup
+                    row
+                    name="row-radio-buttons-group"
+                    value={vaccineBrand}
+                    onChange={event => setVaccineBrand(event.target.value)}
+                >
+                  <FormControlLabel value="Pfizer" control={<Radio/>} label="Pfizer"/>
+                  <FormControlLabel value="Moderna" control={<Radio/>} label="Moderna"/>
+                  <FormControlLabel value="Johnson & Johnson" control={<Radio/>} label="Johnson & Johnson"/>
+                  <FormControlLabel value="Other" control={<Radio/>} label="Other"/>
                 </RadioGroup>
               </FormControl>
             </Grid>
@@ -202,7 +262,7 @@ function ProfileRender({ usernameLoggedIn, setCurrentUser }) {
                 sx={{ mt: 3, ml: 1 }}
                 onClick={() => navigate('/')}
             >
-              Cancel
+              Go to Data Page
             </Button>
             <Button
                 variant="contained"
@@ -232,8 +292,9 @@ export default function Profile() {
       <AppContext.Consumer>
         {({ username, setUsername }) => {
           return (
-              // username ? <ProfileRender/> : <Navigate to={'/login'} replace/>
-              <ProfileRender usernameLoggedIn={localStorage.getItem('username')} setCurrentUser={setUsername}/>
+              username ? <ProfileRender usernameLoggedIn={username} setCurrentUser={setUsername} />
+                       : <Navigate to={'/login'} replace/>
+              // <ProfileRender usernameLoggedIn={sessionStorage.getItem('username')} setCurrentUser={setUsername}/>
           );
         }}
       </AppContext.Consumer>
