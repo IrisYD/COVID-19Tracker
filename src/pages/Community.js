@@ -54,7 +54,7 @@ function Community() {
 
   const addPost = (newPost) => {
     insertPost(newPost).then(resp => {
-      if (resp.status === 200) {
+      if (resp?.status === 200) {
         loadPosts();
       } else {
         alert("Add Post Error");
