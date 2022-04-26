@@ -86,13 +86,13 @@ body {
     position: absolute;
     top: 0;
     right: 0;
-    width: 200px;
+    width: 250px;
     bottom: 0;
     background-size: auto 150%;
-    background-image: url(nav-bar-pic.png);
+    background-image: url(../public/logo512.png);
     background-position: 0 -10px;
     background-repeat: no-repeat;
-    opacity: .2
+    opacity: .35
 }
 
 .navbar-logo {
