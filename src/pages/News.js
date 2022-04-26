@@ -29,6 +29,7 @@ const News = () => {
                         <div
                             data-testid={`news-item-${index}`}
                             key={index}
+                            className='all-news'
                         >
                             <NewsItem
                                 title={article.title}
