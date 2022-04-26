@@ -26,6 +26,9 @@ And we also publish our [project requirement](https://6510sp22team3.atlassian.ne
 
 This source code is available to everyone in this team.
 
+## **_The Milestones_** 
+<img width="70%" alt="image" src="https://user-images.githubusercontent.com/90656721/165400208-a6d9fe78-0aca-4df4-be3a-6c225c98c9b2.png">
+
 ## **_Main Functionalities_** 
 ### Data Page
 <img width="70%" alt="image" src="https://user-images.githubusercontent.com/90656721/164166261-f2b66e35-e76d-4613-9d0e-fae457a92f9f.png">
