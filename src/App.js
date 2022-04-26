@@ -30,9 +30,10 @@ function App() {
                         <AppContext.Consumer>
                             {({ username, setUsername }) => {
                                 if (username) {
-                                    return <input type="button" className="nav-logout" value={username} onClick={(evt) => {
-                                        handleClick(evt)
-                                    }} />;
+                                    // return <input type="button" className="nav-logout" value={username} onClick={(evt) => {
+                                    //     handleClick(evt)
+                                    // }} />;
+                                    return <CustomLink to='/profile'>{username}</CustomLink>
                                 }
                                 return <CustomLink to='/login'>Sign in / Sign up</CustomLink>;
                             }}
@@ -44,8 +45,7 @@ function App() {
                             <li><CustomLink to='/community'>Community</CustomLink></li>
                             <li><CustomLink to='/health'>Health</CustomLink></li>
                             <li><CustomLink to='/news'>News</CustomLink></li>
-                            <li><CustomLink to='/profile'>Profile</CustomLink></li>
-
+                            {/* <li><CustomLink to='/profile'>Profile</CustomLink></li> */}
                         </ul>
                     </div>
                 </div>
