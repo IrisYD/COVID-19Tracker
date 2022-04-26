@@ -55,7 +55,7 @@ const LoginForm = props => {
     const renderForm = (
         <div className="form">
             <form onSubmit={handleSubmit}>
-                <div className="title">Sign In</div>
+                <div className="title">Sign in</div>
                 <div className="input-container">
                     <input className="text-box" type="text" name="uname" placeholder="Username" required />
                     {renderErrorMessage("uname")}
@@ -69,9 +69,9 @@ const LoginForm = props => {
                         <input type="submit" className="button" value="Login"/>
                     </div>
                     <div className="div2">
-                    <Link to="/signup">
-                        <input type="submit" className="button" value="Sign up"/>
-                    </Link>
+                        <p className="signup">
+                            Do not have an account? &nbsp;<Link to="/signup">Sign up</Link>&nbsp;here.
+                        </p>
                     </div>
                 </div>
             </form>
