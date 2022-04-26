@@ -19,26 +19,6 @@ function App() {
         event.preventDefault();
 
         window.location.replace("http://localhost:3000/profile");
-
-        // const config = {
-        //     headers: {
-        //       'Content-Type': 'application/json',
-        //     },
-        //     withCredentials: true
-        // }
-
-        // return axios.get(
-        //     url + '/logout',
-        //     config
-        // )
-        // .then((res) => {
-        //     alert(res.data);
-        //     console.log(res.data);
-        // })
-        // .catch((error) => {
-        //     alert("Did not logged in");
-        //     console.log(error);
-        // })
     }
 
     return (
@@ -51,11 +31,10 @@ function App() {
                         <AppContext.Consumer>
                             {({username, setUsername}) => {
                                 if (username) {
-                                    return <input type="button" className="nav-logout" value={username}
-                                                  onClick={(evt) => {
-                                                      // handleClick(evt).then(() => { setUsername(null) })
-                                                      handleClick(evt)
-                                                  }}/>;
+                                    // return <input type="button" className="nav-logout" value={username} onClick={(evt) => {
+                                    //     handleClick(evt)
+                                    // }} />;
+                                    return <CustomLink to='/profile'>{username}</CustomLink>
                                 }
                                 return <CustomLink to='/login'>Sign in / Sign up</CustomLink>;
                             }}
@@ -68,8 +47,7 @@ function App() {
                             <li><CustomLink to='/community'>Community</CustomLink></li>
                             <li><CustomLink to='/health'>Health</CustomLink></li>
                             <li><CustomLink to='/news'>News</CustomLink></li>
-                            <li><CustomLink to='/profile'>Profile</CustomLink></li>
-
+                            {/* <li><CustomLink to='/profile'>Profile</CustomLink></li> */}
                         </ul>
                     </div>
                 </div>

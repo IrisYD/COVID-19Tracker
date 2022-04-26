@@ -18,7 +18,7 @@ import Checkbox from '@mui/material/Checkbox';
 import FormGroup from '@mui/material/FormGroup';
 import { AppContext } from '../context';
 import Card from './components/Card';
-import { insertPost, getPosts } from '../services/CommunityService';
+import { insertPost, getPosts, getUsers } from '../services/CommunityService';
 import Polls from './components/Polls';
 
 function Community() {
@@ -32,8 +32,6 @@ function Community() {
         return b._id > a._id ? 1 : -1
       })
       setPosts(posts);
-      console.log("length of posts", posts.length)
-      console.log("postsarray", posts)
     });
   }
 
@@ -65,9 +63,6 @@ function Community() {
 
     setOpen(false);
   };
-
-  const [value, setValue] = React.useState(null);
-  const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
   return <div className='community-container'>
     <ul className='cards'>
@@ -197,6 +192,12 @@ function SymptomDialog(props) {
           label="Aches and Pains"
           labelPlacement="end"
         />
+        <FormControlLabel
+          value="Quicker Heart Beat"
+          control={<Checkbox onChange={handleChange}/>}
+          label="Quicker Heart Beat"
+          labelPlacement="end"
+        />
 
       </FormGroup>
     
@@ -213,7 +214,7 @@ function SymptomDialog(props) {
           >
             <FormControlLabel value="Pfizer" control={<Radio />} label="Pfizer" />
             <FormControlLabel value="Moderna" control={<Radio />} label="Moderna" />
-            <FormControlLabel value="Johnson Johnsonj" control={<Radio />} label="JohnsonJohnson" />
+            <FormControlLabel value="Johnson Johnson" control={<Radio />} label="JohnsonJohnson" />
             <FormControlLabel value="Other" control={<Radio />} label="other" />
           </RadioGroup>
           <span></span>
@@ -227,11 +228,13 @@ function SymptomDialog(props) {
               setVaccineStatus(value)
             }}
           >
-            <FormControlLabel value="Fully Vaccined" control={<Radio />} label="Fully Vaccined" />
+            <FormControlLabel value="Fully vaccinated" control={<Radio />} label="Fully vaccined" />
             {/* <FormHelperText>2 does for Pfizer and moderna, 1 for JohnsonJohnson</FormHelperText> */}
-            <FormControlLabel value="Only 1 Does" control={<Radio />} label="Only 1 does" />
+            <FormControlLabel value="First does taken" control={<Radio />} label="First does taken" />
             {/* <FormHelperText>Don't choose it if you took JohnsonJohnson</FormHelperText> */}
-            <FormControlLabel value="None" control={<Radio />} label="None" />
+            <FormControlLabel value="Not vaccinated" control={<Radio />} label="Not vaccinated" />
+            <FormControlLabel value="Booster taken" control={<Radio />} label="Booster taken" />
+
           </RadioGroup>
 
           <span></span>
@@ -394,4 +397,4 @@ function SymptomDialog(props) {
   
 
 
-export default Community
+export default Community;

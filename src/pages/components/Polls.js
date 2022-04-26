@@ -5,16 +5,16 @@ import { Chart as ChartJS } from 'chart.js/auto';
 function Polls(props) {
     const { posts } = props;
 
-    const coughAfterVaccine = (posts) => {
+    const heartBAfterVaccine = (posts) => {
         let count = 0
 
         for (let i = 0; i < posts.length; i++) {
           let vaccineStatus = posts[i].vaccineStatus;
           let testResult = posts[i].testResult;
-          if (vaccineStatus !== "NOT_VACCINATED" && testResult !== "Positive" ) {
+          if (vaccineStatus !== "Not vaccinated" && testResult !== "Positive" ) {
             let symptomOfPost = posts[i].symptoms
             for (let j = 0; j < symptomOfPost.length; j++) {
-              if (symptomOfPost[j] == "Cough") {
+              if (symptomOfPost[j] == "Quicker Heart Beat") {
                 count++;
               }
             }
@@ -32,7 +32,7 @@ function Polls(props) {
         for (let i = 0; i < posts.length; i++) {
           let vaccineStatus = posts[i].vaccineStatus;
           let testResult = posts[i].testResult;
-          if (vaccineStatus !== "NOT_VACCINATED" && testResult !== "Positive" ) {
+          if (vaccineStatus !== "Not vaccinated" && testResult !== "Positive" ) {
             let symptomOfPost = posts[i].symptoms
             for (let j = 0; j < symptomOfPost.length; j++) {
               if (symptomOfPost[j] == "Fever") {
@@ -54,7 +54,7 @@ function Polls(props) {
           let vaccineStatus = posts[i].vaccineStatus;
           let testResult = posts[i].testResult;
 
-          if (vaccineStatus !== "NOT_VACCINATED"&& testResult !== "Positive" ) {
+          if (vaccineStatus !== "Not vaccinated"&& testResult !== "Positive" ) {
             let symptomOfPost = posts[i].symptoms
             for (let j = 0; j < symptomOfPost.length; j++) {
               if (symptomOfPost[j] == "Headache") {
@@ -74,7 +74,7 @@ function Polls(props) {
           let vaccineStatus = posts[i].vaccineStatus;
           let testResult = posts[i].testResult;
 
-          if (vaccineStatus !== "NOT_VACCINATED"&& testResult !== "Positive" ) {
+          if (vaccineStatus !== "Not vaccinated"&& testResult !== "Positive" ) {
             let symptomOfPost = posts[i].symptoms
             for (let j = 0; j < symptomOfPost.length; j++) {
               if (symptomOfPost[j] == "Aches and Pains") {
@@ -87,14 +87,14 @@ function Polls(props) {
 
       }
     
-      const breathAfterVaccine = (posts) => {
+      const otherAfterVaccine = (posts) => {
         let count = 0
 
         for (let i = 0; i < posts.length; i++) {
           let vaccineStatus = posts[i].vaccineStatus;
           let testResult = posts[i].testResult;
 
-          if (vaccineStatus !== "NOT_VACCINATED"&& testResult !== "Positive" ) {
+          if (vaccineStatus !== "Not vaccinated"&& testResult !== "Positive" ) {
             let symptomOfPost = posts[i].symptoms
             for (let j = 0; j < symptomOfPost.length; j++) {
               if (symptomOfPost[j] == "Shortness of Breath") {
@@ -203,6 +203,112 @@ function Polls(props) {
         return count;
       }
 
+      const coughAveAge = (posts) => {
+        let count = 0
+        let allAge = 0
+
+        for (let i = 0; i < posts.length; i++) {
+          let symptoms = posts[i].symptoms;
+          let userAge = posts[i].userAge;
+  
+
+            for (let j = 0; j < symptoms.length; j++) {
+              if (symptoms[j] == "Cough") {
+                count++;
+                allAge += userAge;
+              }
+            }
+          }
+        
+        
+        return Math.round(allAge/count);
+      }
+
+      const feverAveAge = (posts) => {
+        let count = 0
+        let allAge = 0
+
+        for (let i = 0; i < posts.length; i++) {
+          let symptoms = posts[i].symptoms;
+          let userAge = posts[i].userAge;
+  
+
+            for (let j = 0; j < symptoms.length; j++) {
+              if (symptoms[j] == "Fever") {
+                count++;
+                allAge += userAge;
+              }
+            }
+          }
+        
+        
+        return Math.round(allAge/count);
+      }
+
+      const breathAveAge = (posts) => {
+        let count = 0
+        let allAge = 0
+
+        for (let i = 0; i < posts.length; i++) {
+          let symptoms = posts[i].symptoms;
+          let userAge = posts[i].userAge;
+  
+
+            for (let j = 0; j < symptoms.length; j++) {
+              if (symptoms[j] == "Shortness of Breath") {
+                count++;
+                allAge += userAge;
+              }
+            }
+          }
+        
+        
+        return Math.round(allAge/count);
+      }
+
+      const headacheAveAge = (posts) => {
+        let count = 0
+        let allAge = 0
+
+        for (let i = 0; i < posts.length; i++) {
+          let symptoms = posts[i].symptoms;
+          let userAge = posts[i].userAge;
+  
+
+            for (let j = 0; j < symptoms.length; j++) {
+              if (symptoms[j] == "Headaches") {
+                count++;
+                allAge += userAge;
+              }
+            }
+          }
+        
+        
+        return Math.round(allAge/count);
+      }
+
+      const painAveAge = (posts) => {
+        let count = 0
+        let allAge = 0
+
+        for (let i = 0; i < posts.length; i++) {
+          let symptoms = posts[i].symptoms;
+          let userAge = posts[i].userAge;
+  
+
+            for (let j = 0; j < symptoms.length; j++) {
+              if (symptoms[j] == "Aches and Pains") {
+                count++;
+                allAge += userAge;
+              }
+            }
+          }
+        
+        
+        return Math.round(allAge/count);
+      }
+
+
     const state1 = {
         labels: ['Fever', 'Quicker Heart Beat',
             'Headaches', 'Aches and Pains', 'Others'],
@@ -212,7 +318,7 @@ function Polls(props) {
                 backgroundColor: 'rgba(73, 63, 252, 1)',
                 borderColor: 'rgba(0,0,0,1)',
                 borderWidth: 0,
-                data: [feverAfterVaccine(posts), coughAfterVaccine(posts), headacheAfterVaccine(posts), painAfterVaccine(posts), breathAfterVaccine(posts)]
+                data: [feverAfterVaccine(posts), heartBAfterVaccine(posts), headacheAfterVaccine(posts), painAfterVaccine(posts), otherAfterVaccine(posts)]
             }
         ]
     };
@@ -241,7 +347,7 @@ function Polls(props) {
                 backgroundColor: 'rgb(0, 143, 118)',
                 borderColor: 'rgba(0,0,0,1)',
                 borderWidth: 0,
-                data: [45, 30, 24, 65, 70]
+                data: [coughAveAge(posts), feverAveAge(posts), breathAveAge(posts), headacheAveAge(posts), painAveAge(posts)]
             }
         ]
     };

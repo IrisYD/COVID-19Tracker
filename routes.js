@@ -47,7 +47,9 @@ app.get("/posts", async (request, response) => {
 
     return {...post._doc, ...{
       userName: user.name,
-      userAge: user.age
+      userAge: user.age,
+      userVaccineStatus: user.vaccineStatus,
+      userVaccineBrand: user.vaccineBrand,
     }};
   });
   
@@ -149,7 +151,7 @@ app.post("/add_user", async (req, res) => {
 
     await user.save();
     // Set session to login
-    req.session.user = req.body.name;
+    // req.session.user = req.body.name;
     res.send("Sign up successfully " + req.body.name);
 
   } catch (error) {
@@ -223,7 +225,7 @@ app.post('/profile_update', auth, async (req, res) => {
         { name: req.session.user },
         { $set: req.body },
         { new: true }
-    );
+    ).select('-password');
 
     if (!profile) {
       res.status(400).json({ msg: 'User not found' });
@@ -236,7 +238,7 @@ app.post('/profile_update', auth, async (req, res) => {
     res.json(profile);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error');
+    res.status(500).send({ msg: 'Server Error' });
   }
 })
 
