@@ -1,6 +1,5 @@
 import React, { createRef, useEffect, useState } from 'react';
 import axios from 'axios'
-import { decode } from 'base64-arraybuffer';
 
 import {
   Alert,
