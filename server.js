@@ -5,10 +5,11 @@ const session = require("express-session");
 const cors = require('cors');
 require('dotenv').config();
 const bodyParser = require('body-parser');
+const path = require('path');
 
 const app = express();
 const corsOptions ={
-  origin: '*',
+  origin: 'http://localhost:3000',
   credentials: true,            //access-control-allow-credentials:true
   optionSuccessStatus: 200
 }
@@ -28,11 +29,11 @@ const dbname = "myFirstDatabase";
 
 mongoose.connect(
   `mongodb+srv://${username}:${password}@${cluster}.mongodb.net/${dbname}?retryWrites=true&w=majority`, 
-//   {
-//     useNewUrlParser: true,
-//     useFindAndModify: false,
-//     useUnifiedTopology: true
-//   }
+  {
+    useNewUrlParser: true,
+    // useFindAndModify: false,
+    useUnifiedTopology: true
+  }
 );
 
 const db = mongoose.connection;
@@ -42,6 +43,9 @@ db.once("open", function () {
 });
 
 app.use(Router);
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
+app.use('public/uploads', express.static(path.join(__dirname, 'public/uploads')));
 
 app.listen(process.env.PORT || 3001, () => {
   console.log("Server is running at port 3001");

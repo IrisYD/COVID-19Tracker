@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { createRef, useEffect, useState } from 'react';
 import axios from 'axios'
+import { decode } from 'base64-arraybuffer';
 
 import {
   Alert,
@@ -21,10 +22,17 @@ import { AppContext } from '../context';
 import { Navigate, useNavigate } from 'react-router-dom';
 
 import '../App.css';
-import profileServices from '../services/profileServices';
+import profileServices from '../services/ProfileServices';
 import AvatarUpload from './components/AvatarUpload';
 
 const url = "http://localhost:3001";
+
+function arrayBufferToBase64(buffer) {
+  let binary = '';
+  const bytes = [].slice.call(new Uint8Array(buffer));
+  bytes.forEach((b) => binary += String.fromCharCode(b));
+  return window.btoa(binary);
+}
 
 function ProfileRender({ usernameLoggedIn, setCurrentUser }) {
   const [username, setUsername] = useState('');
@@ -39,21 +47,30 @@ function ProfileRender({ usernameLoggedIn, setCurrentUser }) {
                                                    vaccineStatus: '',
                                                    vaccineBrand: '',
                                                  });
+  const [avatar, _setAvatar] = useState(null);
+
   const [open, setOpen] = useState(false);
   const [alertSeverity, setAlertSeverity] = useState('success');
   const [alertMsg, setAlertMsg] = useState('Profile updated successfully!');
+  const inputFileRef = createRef(null);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     profileServices.getCurrentUserProfile()
-        .then(user => {
-          // console.log(user);
+        .then(async (user) => {
+          console.log('User profile from DB:', user);
           setUsername(user.name);
           setLocation(user.location);
           setAge(user.age);
           setVaccinationStatus(user.vaccineStatus);
           setVaccineBrand(user.vaccineBrand);
+  
+          // const imageArrayBuffer = decode(user.avatar.data);
+          // console.log('The type of imageArrayBuffer:', imageArrayBuffer);
+          const base64Flag = 'data:image/jpeg;base64,';
+          await _setAvatar(base64Flag + arrayBufferToBase64(user.avatar.data));
+          
           setUserProfile({
                            name: user.name,
                            location: user.location,
@@ -87,10 +104,14 @@ function ProfileRender({ usernameLoggedIn, setCurrentUser }) {
     if (vaccineBrand !== userProfile.vaccineBrand) {
       newProfile.vaccineBrand = vaccineBrand;
     }
+    if (inputFileRef.current.value != null) {
+      console.log('Selected file:', inputFileRef.current.files[0]);
+      newProfile.avatarImage = inputFileRef.current.files[0];
+    }
     console.log('New profile:', newProfile);
 
     profileServices.updateCurrentUserProfile(newProfile).then(updatedProfile => {
-      if (!updatedProfile.msg) {
+      if (!updatedProfile.errMsg) {
         setAlertMsg('Profile updated successfully!');
         setAlertSeverity('success');
         setOpen(true);
@@ -100,7 +121,7 @@ function ProfileRender({ usernameLoggedIn, setCurrentUser }) {
           setCurrentUser(updatedProfile.name);
         }
       } else {
-        setAlertMsg(updatedProfile.msg);
+        setAlertMsg(updatedProfile.errMsg);
         setAlertSeverity('error');
         setOpen(true);
       }
@@ -168,7 +189,7 @@ function ProfileRender({ usernameLoggedIn, setCurrentUser }) {
           </Typography>
           <Grid container spacing={3}>
             <Grid item xs={12}>
-              <AvatarUpload />
+              <AvatarUpload avatar={avatar} _setAvatar={_setAvatar} inputFileRef={inputFileRef} />
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -296,7 +317,7 @@ export default function Profile() {
       <AppContext.Consumer>
         {({ username, setUsername }) => {
           return (
-              username ? <ProfileRender usernameLoggedIn={username} setCurrentUser={setUsername} />
+              sessionStorage.getItem('username') != 'null' ? <ProfileRender usernameLoggedIn={sessionStorage.getItem('username')} setCurrentUser={setUsername} />
                        : <Navigate to={'/login'} replace/>
               // <ProfileRender usernameLoggedIn={sessionStorage.getItem('username')} setCurrentUser={setUsername}/>
           );

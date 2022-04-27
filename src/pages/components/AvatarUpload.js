@@ -35,9 +35,8 @@ const BigAvatar = styled(Avatar)`
      box-shadow: 0 0 1px 0 ${grey[500]} inset, 0 0 1px 0 ${grey[500]};`}
 `;
 
-const AvatarUpload = () => {
-  const [avatar, _setAvatar] = useState(null);
-  const inputFileRef = createRef(null);
+const AvatarUpload = ({ avatar, _setAvatar, inputFileRef }) => {
+  // const [avatar, _setAvatar] = useState(null);
 
   const cleanup = () => {
     URL.revokeObjectURL(avatar);
@@ -60,6 +59,7 @@ const AvatarUpload = () => {
     const newAvatar = event.target?.files?.[0];
 
     if (newAvatar) {
+      console.log(newAvatar);
       setAvatar(URL.createObjectURL(newAvatar));
     }
   };
@@ -82,7 +82,7 @@ const AvatarUpload = () => {
           <BigAvatar
               $withBorder
               alt="Avatar"
-              src={avatar || "/static/img/avatars/default-profile.svg"}
+              src={avatar}
               imgProps={{
                 style: {
                   maxHeight: "100%",
@@ -96,6 +96,7 @@ const AvatarUpload = () => {
               accept="image/*"
               hidden
               id="avatar-image-upload"
+              name={'avatarImage'}
               type="file"
               onChange={handleOnChange}
           />

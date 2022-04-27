@@ -6,24 +6,24 @@ const cors = require('cors');
 const app = express();
 
 app.use(session({
-  secret: 'abc123',
-  resave: true,
-  saveUninitialized: true,
-  cookie: { 
-    secure: false,
-    domain: '127.0.0.1',
-    maxAge: 8*60*60*1000,
-    sameSite: 'none'
-  }
-}));
+                  secret: 'abc123',
+                  resave: true,
+                  saveUninitialized: true,
+                  cookie: {
+                    secure: false,
+                    domain: '127.0.0.1',
+                    maxAge: 8 * 60 * 60 * 1000,
+                    sameSite: 'none'
+                  }
+                }));
 
-app.use(cors({ credentials: true, origin: true }))
+app.use(cors({ credentials: true, origin: true }));
 
 app.set('trust proxy', 1);
 
 app.get("/users", async (request, response) => {
   const users = await userModel.find({});
-
+  
   try {
     response.send(users);
   } catch (error) {
@@ -34,52 +34,55 @@ app.get("/users", async (request, response) => {
 app.get("/posts", async (request, response) => {
   const posts = await postsModel.find({});
   const users = await userModel.find({});
-
+  
   const userMap = new Map(users.map(user => {
     return [user._id.toString(), user];
   }));
-
+  
   const postsWithUser = posts.map(post => {
     const user = userMap.get(post.userId);
-    if(!user) {
+    if (!user) {
       return post;
     }
-
-    return {...post._doc, ...{
-      userName: user.name,
-      userAge: user.age,
-      userVaccineStatus: user.vaccineStatus,
-      userVaccineBrand: user.vaccineBrand,
-    }};
+    
+    return {
+      ...post._doc, ...{
+        userName: user.name,
+        userAge: user.age,
+        userVaccineStatus: user.vaccineStatus,
+        userVaccineBrand: user.vaccineBrand,
+      }
+    };
   });
   
   try {
-      response.send(postsWithUser);
+    response.send(postsWithUser);
   } catch (error) {
-      response.status(500).send(error);
+    response.status(500).send(error);
   }
 });
 
 app.post("/add_post", async (request, response) => {
-    const post = new postsModel(request.body);
-    const currentUser = request.session && request.session.user;
-    
-    const user = await userModel.findOne({name: currentUser});
-    post.userId = user._id;
-
-    try {
-      await post.save();
-      response.send(post);
-    } catch (error) {
-      response.status(500).send(error);
-    }
-  });
+  const post = new postsModel(request.body);
+  const currentUser = request.session && request.session.user;
+  
+  const user = await userModel.findOne({ name: currentUser });
+  post.userId = user._id;
+  
+  try {
+    await post.save();
+    response.send(post);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
 
 // Authentication and Authorization Middleware
-const auth = function(req, res, next) {
-  if (req.session && req.session.user)
+const auth = function (req, res, next) {
+  if (req.session && req.session.user) {
     return next();
-  else {
+  } else {
+    console.log(req.session.user);
     return res.sendStatus(401);
   }
 };
@@ -87,86 +90,86 @@ const auth = function(req, res, next) {
 // Login endpoint
 app.post('/login', async (req, res) => {
   console.log("SessionID: " + req.sessionID);
-
+  
   if (!req.body.name || !req.body.password) {
-
-    res.status(500).send('login failed');    
-
+    
+    res.status(500).send('login failed');
+    
   } else if (req.session.user) {
     
     console.log("Session exists");
     res.status(500).send("Already logged in as " + req.session.user);
-
+    
   } else {
     
-    const user = await userModel.find({"name": req.body.name});
+    const user = await userModel.find({ "name": req.body.name });
     console.log(user);
-
+    
     if (user.length == 0) {
-
+      
       res.status(500).send("Cannot find user " + req.body.name);
-
-    } else if (!user[0].password || user[0].password != req.body.password){
-
+      
+    } else if (!user[0].password || user[0].password != req.body.password) {
+      
       res.status(500).send("Password incorrect!");
-
+      
     } else {
-
+      
       // Set session.
       req.session.user = req.body.name;
       console.log(req.session.user);
       console.log("Saved to session.");
       res.send(req.body.name);
-
+      
     }
   }
 });
 
 app.post("/add_user", async (req, res) => {
   console.log("SessionID: " + req.sessionID);
-
+  
   // Check if the request body is complete.
   if (!req.body.name || !req.body.password) {
-
+    
     res.status(500).send('Sign up failed');
     
-  // Check already logged in.
+    // Check already logged in.
   } else if (req.session.user) {
-
+    
     console.log("Session exists");
     res.status(500).send("Already logged in as " + req.session.user);
-
+    
   }
-
+  
   // Check if the user is already registered.
-  const foundUser = await userModel.find({"name": req.body.name});
-
+  const foundUser = await userModel.find({ "name": req.body.name });
+  
   if (foundUser.length != 0) {
     res.status(500).send("Already registered");
   }
-
+  
   const user = new userModel(req.body);
-
+  
   try {
-
+    
     await user.save();
     // Set session to login
     // req.session.user = req.body.name;
     res.send("Sign up successfully " + req.body.name);
-
+    
   } catch (error) {
-
+    
     res.status(500).send("Saving to db failed");
-
+    
   }
 });
 
 // Logout endpoint
 app.get('/logout', function (req, res) {
   console.log("SessionID: " + req.sessionID);
-
+  
   if (!req.session.user) {
-    res.status(500).send("Not logged in!")
+    res.status(500).send("Not logged in!");
   } else {
     req.session.destroy();
     res.send("logout success!");
@@ -179,12 +182,12 @@ app.get('/contents', auth, function (req, res) {
 });
 
 // Get currently logged-in username
-app.get('/user', function(req, res) {
-  res.setHeader('Content-Type', 'application/json')
+app.get('/user', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
   if (req.session && req.session.user) {
-    res.end(JSON.stringify({user: req.session.user}))
+    res.end(JSON.stringify({ user: req.session.user }));
   } else {
-    res.end(JSON.stringify({user: null}))
+    res.end(JSON.stringify({ user: null }));
   }
 });
 
@@ -193,14 +196,14 @@ app.get('/me', auth, async (req, res) => {
   console.log("Fetching current user's profile:", req.session.user);
   try {
     const profile = await userModel.findOne({
-                                            'name': req.session.user
-                                          }).select('-password');
-
+                                              'name': req.session.user
+                                            }).select('-password');
+    
     if (!profile) {
       res.status(400).json({ msg: 'User not found' });
       return;
     }
-
+    
     res.json(profile);
   } catch (err) {
     console.error(err.message);
@@ -208,39 +211,63 @@ app.get('/me', auth, async (req, res) => {
   }
 });
 
-// Update the current user's profile
-app.post('/profile_update', auth, async (req, res) => {
-  console.log("Updating current user's profile:", req.session.user);
+const uploadFileMiddleware = require('./src/middleware/UploadMiddleware');
+const fs = require('fs');
+const path = require('path');
 
+// Update the current user's profile
+app.post('/profile_update', auth, uploadFileMiddleware.single('avatarImage'), async (req, res) => {
+  console.log("Updating current user's profile:", req.body);
+  
+  const file = req.file;
+  console.log('The type of multer req.file:', typeof file);
+  
   if (req.body.name && req.body.name !== req.session.user) {
-    const usernameFound = await userModel.find({'name': req.body.name});
+    const usernameFound = await userModel.find({ 'name': req.body.name });
     if (usernameFound.length !== 0) {
       res.status(400).json({ msg: 'Username already exists' });
       return;
     }
   }
-
+  
+  let newProfile = {
+    ...req.body,
+  };
+  if (file) {
+    newProfile.avatar = {
+      data: fs.readFileSync(path.join(__dirname + '/' + file.path)),
+      contentType: file.mimetype
+    };
+  }
+  console.log(newProfile);
+  
   try {
-    const profile = await userModel.findOneAndUpdate(
+    const updatedProfile = await userModel.findOneAndUpdate(
         { name: req.session.user },
-        { $set: req.body },
+        { $set: newProfile },
         { new: true }
     ).select('-password');
-
-    if (!profile) {
-      res.status(400).json({ msg: 'User not found' });
+    
+    if (!updatedProfile) {
+      res.status(400).json({ errMsg: 'User not found' });
       return;
     }
-
-    req.session.user = profile.name;
+    
+    req.session.user = updatedProfile.name;
     console.log('Session user changed to:', req.session.user);
-
-    res.json(profile);
+    
+    res.json(updatedProfile);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send({ msg: 'Server Error' });
+    if (err.code === "LIMIT_FILE_SIZE") {
+      return res.status(500).send({
+                                    errMsg: "File size cannot be larger than 2MB!",
+                                  });
+    }
+    res.status(500).send({
+                           errMsg: `Could not upload the file: ${req.file.originalname}. ${err}`,
+                         });
   }
-})
-
+});
 
 module.exports = app;
