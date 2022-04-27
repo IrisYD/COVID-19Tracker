@@ -3,12 +3,14 @@ const mongoose = require("mongoose");
 const Router = require("./routes");
 const session = require("express-session");
 const cors = require('cors');
+require('dotenv').config();
+const bodyParser = require('body-parser');
 
 const app = express();
 const corsOptions ={
-  origin:'http://localhost:3000', 
-  credentials:true,            //access-control-allow-credentials:true
-  optionSuccessStatus:200
+  origin: '*',
+  credentials: true,            //access-control-allow-credentials:true
+  optionSuccessStatus: 200
 }
 
 app.use(express.json());
@@ -41,6 +43,6 @@ db.once("open", function () {
 
 app.use(Router);
 
-app.listen(3001, () => {
+app.listen(process.env.PORT || 3001, () => {
   console.log("Server is running at port 3001");
 });
