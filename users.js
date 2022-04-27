@@ -25,6 +25,10 @@ const UserSchema = new mongoose.Schema({
   vaccineBrand: {
     type: String,
     default: null
+  },
+  avatar: {
+    data: Buffer,
+    contentType: String
   }
 });
 
