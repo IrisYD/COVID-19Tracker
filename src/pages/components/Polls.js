@@ -57,7 +57,7 @@ function Polls(props) {
           if (vaccineStatus !== "Not vaccinated"&& testResult !== "Positive" ) {
             let symptomOfPost = posts[i].symptoms
             for (let j = 0; j < symptomOfPost.length; j++) {
-              if (symptomOfPost[j] == "Headache") {
+              if (symptomOfPost[j] == "Headaches") {
                 count++;
               }
             }
@@ -347,7 +347,7 @@ function Polls(props) {
                 backgroundColor: 'rgb(0, 143, 118)',
                 borderColor: 'rgba(0,0,0,1)',
                 borderWidth: 0,
-                data: [coughAveAge(posts), feverAveAge(posts), breathAveAge(posts), headacheAveAge(posts), painAveAge(posts)]
+                data: [coughAveAge(posts), feverAveAge(posts), breathAveAge(posts), headacheAveAge(posts), painAveAge]
             }
         ]
     };
