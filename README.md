@@ -84,11 +84,34 @@ Back-end: [NodeJs](https://nodejs.org/en/), [ExpressJs](https://expressjs.com/)\
 Database: [MongoDB](https://www.mongodb.com/)\
 [Charts.js](https://www.chartjs.org/) is used to help draw the charts in data and community page.
 
+## **_Set up_**
+To setup the app for development on your local machine, please follow the instructions below:
+
+**1. Clone the repo to your machine**<br/>
+
+<code><i>git clone https://github.com/IrisYD/COVID-19Tracker.git</i></code><br/>
+<code><i>cd COVID-19Tracker</i></code>
+
+**2. Install packages**<br/>
+
+<code><i>npm install</i></code>
+
+**3. Run the backend server**<br/>
+
+<code><i>node server.js</i></code>
+
+**4. Run the development server**<br/>
+
+<code><i>npm start</i></code>
+
+**5. Visit http://localhost:3000**
+
 ## **_Test Plan_**
-Web functionality is mainly tested by unit test and manual test.
+Web functionality is mainly tested by unit test and manual test. 
+For the full testing plan, please check the document: [Testing Plan For COVID-19 Tracker](https://docs.google.com/document/d/1e5-DGqISbZ-3NqOsRLDzgHDhpbJ9K7iMfbb2wJ3h4hY/edit#)
 
 ## **_Deployed Version_**
-Feel free to visit: 
+Feel free to visit: [COVID-19 Tracker](https://covid19tracker6510.herokuapp.com/)(The News page may not display because in developer plan, [News API](https://newsapi.org/) CORS is only enabled for localhost). To check the functionalities of News page, please visit [localhost](http://localhost:3000).
 
 ## **_Presentation Docs_**
-Feel free to check: 
+Feel free to check: [COVID-19 Tracker Presentation](https://docs.google.com/presentation/d/1ETB22PCufWbIhAMXILYrGLKOP-EBcNmv-a7PDSA2u6I/edit#slide=id.g1264c78a63a_0_0)
