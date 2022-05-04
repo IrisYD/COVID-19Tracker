@@ -8,19 +8,17 @@ body{
 }
 
 .all-news {
-    margin-left: 50px;
-    margin-right: 50px;
-    margin-top: 50px;
+    margin: 50px;
     display: grid;
     alignment: center;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 20px;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 5px;
     text-align: center;
 }
 
 .news{
     max-width: 500px;
-    padding: 30px;
+    padding: 20px;
     border: 1px solid lightgray;
     border-radius: 5px;
 }
