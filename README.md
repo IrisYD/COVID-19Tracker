@@ -111,7 +111,7 @@ Web functionality is mainly tested by unit test and manual test.
 For the full testing plan, please check the document: [Testing Plan For COVID-19 Tracker](https://docs.google.com/document/d/1e5-DGqISbZ-3NqOsRLDzgHDhpbJ9K7iMfbb2wJ3h4hY/edit#)
 
 ## **_Deployed Version_**
-Feel free to visit: [COVID-19 Tracker](https://covidtracker6510.herokuapp.com/) (The News page may not display because in developer plan, [News API](https://newsapi.org/) CORS is only enabled for localhost). To check the functionalities of News page, please visit [localhost](http://localhost:3000).
+Feel free to visit: [COVID-19 Tracker](https://covidtracker6510.herokuapp.com/) (The News page may not display because in developer(free) plan, [News API](https://newsapi.org/) CORS is only enabled for localhost). To check the full functionalities of News page, please visit [localhost](http://localhost:3000).
 
 ## **_Presentation Docs_**
 Feel free to check: [COVID-19 Tracker Presentation](https://docs.google.com/presentation/d/1ETB22PCufWbIhAMXILYrGLKOP-EBcNmv-a7PDSA2u6I/edit#slide=id.g1264c78a63a_0_0)
